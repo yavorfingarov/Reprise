@@ -27,7 +27,7 @@ jobs:
         with:
           languages: csharp
       - name: Set up .NET
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Restore dependencies
