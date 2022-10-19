@@ -1,0 +1,15 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      firstName: Cornell,
+      id: 2,
+      lastName: Ratke
+    }
+  },
+  Request: http://localhost/users/2
+}

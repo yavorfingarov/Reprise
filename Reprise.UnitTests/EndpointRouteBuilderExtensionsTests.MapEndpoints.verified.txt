@@ -1,0 +1,114 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          RawText: /
+        },
+        DisplayName: HTTP: GET / => Handle,
+        Metadata: [
+          HelloEndpoint.Handle(),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            TypeId: GetAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Tags: [
+              /
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.3,
+          OutboundPrecedence: 5.3,
+          RawText: /echo/{input},
+          Parameters: [
+            {
+              EncodeSlashes: true,
+              IsCatchAll: false,
+              IsOptional: false,
+              Name: input,
+              PartKind: Parameter,
+              IsLiteral: false,
+              IsParameter: true,
+              IsSeparator: false
+            }
+          ],
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: echo,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            },
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  EncodeSlashes: true,
+                  IsCatchAll: false,
+                  IsOptional: false,
+                  Name: input,
+                  PartKind: Parameter,
+                  IsLiteral: false,
+                  IsParameter: true,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: GET /echo/{input} => Handle,
+        Metadata: [
+          EchoEndpoint.Handle(string input),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            TypeId: GetAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Tags: [
+              Echo
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

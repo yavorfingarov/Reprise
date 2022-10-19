@@ -1,0 +1,7 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.ServiceC has no public parameterless contructor.,
+  StackTrace:
+at Reprise.WebApplicationBuilderExtensions.CreateConfigurator(Type type)
+at Reprise.UnitTests.WebApplicationBuilderExtensionsTests.<>c.<CreateConfigurator>b__4_0()
+}

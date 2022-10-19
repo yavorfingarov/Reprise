@@ -1,0 +1,12 @@
+﻿[
+  {
+    Lifetime: Transient,
+    ServiceType: ServiceA,
+    ImplementationType: ServiceA
+  },
+  {
+    Lifetime: Scoped,
+    ServiceType: ServiceB,
+    ImplementationType: ServiceB
+  }
+]

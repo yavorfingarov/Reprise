@@ -1,0 +1,7 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: GET / is handled by both Reprise.UnitTests.EchoEndpoint and Reprise.UnitTests.HelloEndpoint.,
+  StackTrace:
+at Reprise.EndpointRouteBuilderExtensions.CheckRoutes(Dictionary`2 mappedRoutes, String route, String[] methods, Type endpointType)
+at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.CheckDuplicateRoutes()
+}

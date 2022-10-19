@@ -1,0 +1,3 @@
+stryker-config:
+  test-projects: [ 'Reprise.UnitTests/Reprise.UnitTests.csproj' ]
+  reporters: [ 'html', 'dots' ]

@@ -1,0 +1,6 @@
+﻿{
+  Methods: [
+    PUT
+  ],
+  Route: /users
+}

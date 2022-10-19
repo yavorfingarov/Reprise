@@ -1,0 +1,6 @@
+﻿{
+  Methods: [
+    POST
+  ],
+  Route: /users
+}

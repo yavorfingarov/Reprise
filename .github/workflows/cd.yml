@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+    paths: [ 'Reprise/**' ]
+
+env:
+  DOTNET_VERSION: 6.0.x
+  CSPROJ_PATH: Reprise/Reprise.csproj
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Restore dependencies
+        run: dotnet restore ${{ env.CSPROJ_PATH }}
+      - name: Build
+        run: dotnet build --no-restore --configuration Release ${{ env.CSPROJ_PATH }}
+      - name: Create package
+        run: dotnet pack --no-build --configuration Release ${{ env.CSPROJ_PATH }}
+      - name: Publish to NuGet gallery
+        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

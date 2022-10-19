@@ -1,0 +1,6 @@
+﻿{
+  Methods: [
+    PATCH
+  ],
+  Route: /users
+}
