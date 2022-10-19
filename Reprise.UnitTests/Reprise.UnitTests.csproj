@@ -26,13 +26,4 @@
     <ProjectReference Include="..\Reprise\Reprise.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="WebApplicationBuilderExtensionsTests.CreateConfigurator.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensionsTests.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensionsTests.AddServices_WithAssembly.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensionsTests.cs</DependentUpon>
-    </None>
-  </ItemGroup>
-
 </Project>
