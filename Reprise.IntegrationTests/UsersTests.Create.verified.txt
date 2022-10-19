@@ -1,0 +1,28 @@
+﻿{
+  Version: 1.1,
+  Status: 201 Created,
+  Headers: {
+    Location: /users/0
+  },
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      firstName: Leanna,
+      id: 0,
+      lastName: Schmeler
+    }
+  },
+  Request: {
+    Method: POST,
+    Uri: http://localhost/users,
+    Content: {
+      Headers: {
+        Content-Length: 44,
+        Content-Type: application/json; charset=utf-8
+      },
+      Value: 
+    }
+  }
+}

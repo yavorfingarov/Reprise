@@ -1,0 +1,6 @@
+﻿{
+  Methods: [
+    DELETE
+  ],
+  Route: /users
+}

@@ -1,0 +1,209 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      components: {
+        schemas: {
+          User: {
+            additionalProperties: false,
+            properties: {
+              firstName: {
+                nullable: true,
+                type: string
+              },
+              id: {
+                format: int32,
+                type: integer
+              },
+              lastName: {
+                nullable: true,
+                type: string
+              }
+            },
+            type: object
+          },
+          UserDto: {
+            additionalProperties: false,
+            properties: {
+              firstName: {
+                nullable: true,
+                type: string
+              },
+              lastName: {
+                nullable: true,
+                type: string
+              }
+            },
+            type: object
+          },
+          WeatherForecast: {
+            additionalProperties: false,
+            properties: {
+              date: {
+                format: date-time,
+                type: string
+              },
+              summary: {
+                nullable: true,
+                type: string
+              },
+              temperatureC: {
+                format: int32,
+                type: integer
+              },
+              temperatureF: {
+                format: int32,
+                readOnly: true,
+                type: integer
+              }
+            },
+            type: object
+          }
+        }
+      },
+      info: {
+        title: testhost,
+        version: 1.0
+      },
+      openapi: 3.0.1,
+      paths: {
+        /users: {
+          get: {
+            responses: {
+              200: {
+                content: {
+                  application/json: {
+                    schema: {
+                      items: null,
+                      type: array
+                    }
+                  }
+                },
+                description: Success
+              }
+            },
+            tags: [
+              Users
+            ]
+          },
+          post: {
+            requestBody: {
+              content: {
+                application/json: {
+                  schema: null
+                }
+              },
+              required: true
+            },
+            responses: {
+              200: {
+                description: Success
+              }
+            },
+            tags: [
+              Users
+            ]
+          }
+        },
+        /users/{id}: {
+          delete: {
+            parameters: [
+              {
+                in: path,
+                name: id,
+                required: true,
+                schema: {
+                  format: int32,
+                  type: integer
+                }
+              }
+            ],
+            responses: {
+              200: {
+                description: Success
+              }
+            },
+            tags: [
+              Users
+            ]
+          },
+          get: {
+            parameters: [
+              {
+                in: path,
+                name: id,
+                required: true,
+                schema: {
+                  format: int32,
+                  type: integer
+                }
+              }
+            ],
+            responses: {
+              200: {
+                description: Success
+              }
+            },
+            tags: [
+              Users
+            ]
+          },
+          put: {
+            parameters: [
+              {
+                in: path,
+                name: id,
+                required: true,
+                schema: {
+                  format: int32,
+                  type: integer
+                }
+              }
+            ],
+            requestBody: {
+              content: {
+                application/json: {
+                  schema: null
+                }
+              },
+              required: true
+            },
+            responses: {
+              200: {
+                description: Success
+              }
+            },
+            tags: [
+              Users
+            ]
+          }
+        },
+        /weather: {
+          get: {
+            responses: {
+              200: {
+                content: {
+                  application/json: {
+                    schema: {
+                      items: null,
+                      type: array
+                    }
+                  }
+                },
+                description: Success
+              }
+            },
+            tags: [
+              Weather
+            ]
+          }
+        }
+      }
+    }
+  },
+  Request: http://localhost/swagger/v1/swagger.json
+}

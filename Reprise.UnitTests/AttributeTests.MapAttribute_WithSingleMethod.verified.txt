@@ -1,0 +1,6 @@
+﻿{
+  Methods: [
+    HEAD
+  ],
+  Route: /users
+}

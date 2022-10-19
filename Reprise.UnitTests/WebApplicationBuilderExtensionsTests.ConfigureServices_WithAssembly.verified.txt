@@ -1,0 +1,11 @@
+﻿[
+  {
+    Lifetime: Scoped,
+    ServiceType: IWeatherService,
+    ImplementationType: WeatherService
+  },
+  {
+    ServiceType: DataContext,
+    ImplementationType: DataContext
+  }
+]

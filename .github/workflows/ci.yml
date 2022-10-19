@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+env:
+  DOTNET_VERSION: 6.0.x
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Analyze code
+        run: dotnet format --no-restore --verify-no-changes --severity info
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      - name: Generate test coverage report
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.10
+        with:
+          reports: '**/coverage.cobertura.xml'
+          targetdir: TestCoverageReport
+          reporttypes: 'Html'
+      - name: Set up Stryker
+        run: dotnet tool install dotnet-stryker --tool-path ./tools
+      - name: Run mutation tests
+        run: ./tools/dotnet-stryker --config-file stryker-config.yaml
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CoverageReport      
+          path: |
+            TestCoverageReport/
+            StrykerOutput/*/reports/

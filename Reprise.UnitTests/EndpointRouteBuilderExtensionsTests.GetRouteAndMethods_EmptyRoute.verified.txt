@@ -1,0 +1,7 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.BrokenEndpointC.Handle has an empty route.,
+  StackTrace:
+at Reprise.EndpointRouteBuilderExtensions.GetRouteAndMethods(MethodInfo handlerInfo)
+at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<>c.<GetRouteAndMethods_EmptyRoute>b__6_0()
+}
