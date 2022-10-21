@@ -38,7 +38,7 @@ namespace Reprise
             ArgumentNullException.ThrowIfNull(assembly);
             var mappedRoutes = new Dictionary<(string Method, string Route), Type>();
             var endpointTypes = assembly.GetExportedTypes()
-                .Where(t => !t.IsAbstract && t.GetCustomAttribute<EndpointAttribute>() != null);
+                .Where(t => t.IsClass && !t.IsAbstract && t.GetCustomAttribute<EndpointAttribute>() != null);
             foreach (var endpointType in endpointTypes)
             {
                 var handlerInfo = GetHandlerInfo(endpointType);

@@ -27,6 +27,13 @@
         }
     }
 
+    public struct StructService : IServiceConfigurator
+    {
+        public void ConfigureServices(WebApplicationBuilder builder)
+        {
+        }
+    }
+
     [Endpoint]
     public class HelloEndpoint
     {
