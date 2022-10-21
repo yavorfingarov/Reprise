@@ -70,7 +70,7 @@ namespace Reprise
             return handlerInfo;
         }
 
-        internal static (string Route, string[] Methods) GetRouteAndMethods(MethodInfo handlerInfo, 
+        internal static (string Route, string[] Methods) GetRouteAndMethods(MethodInfo handlerInfo,
             Dictionary<(string Method, string Route), Type> mappedRoutes)
         {
             var mapAttributes = handlerInfo.GetCustomAttributes<MapAttribute>().ToList();

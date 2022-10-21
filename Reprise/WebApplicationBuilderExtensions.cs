@@ -13,7 +13,7 @@
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
             ArgumentNullException.ThrowIfNull(builder);
-            
+
             return builder.ConfigureServices(Assembly.GetCallingAssembly());
         }
 
