@@ -1,11 +1,11 @@
 # Reprise
 
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response) 
-pattern and vertical slice architecture into ASP.NET Core Minimal APIs. 
+pattern and vertical slice architecture into ASP.NET Core 6 Minimal APIs. 
 
 ## Getting Started
 
-1. Create a new ASP.NET Core empty project.
+1. Create a new ASP.NET Core 6 empty project.
 
 2. Install the [Reprise NuGet package](https://www.nuget.org/packages/Reprise).
 
@@ -70,10 +70,11 @@ perform an assebly scan and map all endpoints. Reprise will throw
 an `InvalidOperationExcaption` when:
 * An endpoint has no `Handle` method
 * An endpoint has multiple `Handle` methods
-* The `Handle` method has no HTTP method and route attribute
-* The `Handle` method has an empty route
-* The `Handle` method has an empty HTTP method
-* A HTTP method and route combination is handled by more than one endpoint
+* A `Handle` method has no HTTP method and route attribute
+* A `Handle` method has multiple HTTP method and route attributes
+* A `Handle` method has an empty route
+* A `Handle` method has an empty HTTP method
+* An HTTP method and route combination is handled by more than one endpoint
 
 ## Services
 

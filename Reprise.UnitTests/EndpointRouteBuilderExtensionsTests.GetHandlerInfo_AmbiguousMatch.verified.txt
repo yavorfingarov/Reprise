@@ -3,5 +3,5 @@
   Message: Reprise.UnitTests.BrokenEndpointA has more than one public static Handle method.,
   StackTrace:
 at Reprise.EndpointRouteBuilderExtensions.GetHandlerInfo(Type endpointType)
-at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<>c.<GetHandlerInfo_AmbiguousMatch>b__2_0()
+at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<>c.<GetHandlerInfo_AmbiguousMatch>b__6_0()
 }

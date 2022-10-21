@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2] - 2022-10-21
+### Added
+- Argument null checks for all public methods
+### Fixed
+- Mistakes in readme
+- Minor refactoring
+
 ## [1.0.1] - 2022-10-20
 ### Changed
 - Extended the readme

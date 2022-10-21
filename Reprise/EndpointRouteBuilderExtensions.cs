@@ -15,9 +15,12 @@ namespace Reprise
         /// <remarks>
         /// An API endpoint is a type decorated with the <see cref="EndpointAttribute"/>.
         /// </remarks>
+        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InvalidOperationException"/>
         public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app)
         {
+            ArgumentNullException.ThrowIfNull(app);
+
             return app.MapEndpoints(Assembly.GetCallingAssembly());
         }
 
@@ -27,17 +30,19 @@ namespace Reprise
         /// <remarks>
         /// An API endpoint is a type decorated with the <see cref="EndpointAttribute"/>.
         /// </remarks>
+        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InvalidOperationException"/>
         public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app, Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(app);
+            ArgumentNullException.ThrowIfNull(assembly);
             var mappedRoutes = new Dictionary<(string Method, string Route), Type>();
             var endpointTypes = assembly.GetExportedTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.GetCustomAttribute<EndpointAttribute>() != null);
             foreach (var endpointType in endpointTypes)
             {
                 var handlerInfo = GetHandlerInfo(endpointType);
-                var (route, methods) = GetRouteAndMethods(handlerInfo);
-                CheckRoutes(mappedRoutes, route, methods, endpointType);
+                var (route, methods) = GetRouteAndMethods(handlerInfo, mappedRoutes);
                 var handler = CreateHandler(handlerInfo);
                 var tag = GetTag(route);
                 app.MapMethods(route, methods, handler).WithTags(tag);
@@ -65,37 +70,39 @@ namespace Reprise
             return handlerInfo;
         }
 
-        internal static (string Route, string[] Methods) GetRouteAndMethods(MethodInfo handlerInfo)
+        internal static (string Route, string[] Methods) GetRouteAndMethods(MethodInfo handlerInfo,
+            Dictionary<(string Method, string Route), Type> mappedRoutes)
         {
-            var mapAttribute = handlerInfo.GetCustomAttribute<MapAttribute>();
-            if (mapAttribute == null)
+            var mapAttributes = handlerInfo.GetCustomAttributes<MapAttribute>().ToList();
+            if (mapAttributes.Count == 0)
             {
                 throw new InvalidOperationException($"{handlerInfo.DeclaringType}.Handle has no HTTP method and route attribute.");
             }
-            if (string.IsNullOrWhiteSpace(mapAttribute.Route))
+            if (mapAttributes.Count > 1)
+            {
+                throw new InvalidOperationException($"{handlerInfo.DeclaringType}.Handle has multiple HTTP method and route attributes.");
+            }
+            var (route, methods) = (mapAttributes[0].Route, mapAttributes[0].Methods);
+            if (string.IsNullOrWhiteSpace(route))
             {
                 throw new InvalidOperationException($"{handlerInfo.DeclaringType}.Handle has an empty route.");
             }
-            if (mapAttribute.Methods.Any(m => string.IsNullOrWhiteSpace(m)))
+            if (methods.Any(m => string.IsNullOrWhiteSpace(m)))
             {
                 throw new InvalidOperationException($"{handlerInfo.DeclaringType}.Handle has an empty HTTP method.");
             }
-
-            return (mapAttribute.Route, mapAttribute.Methods);
-        }
-
-        internal static void CheckRoutes(Dictionary<(string Method, string Route), Type> mappedRoutes,
-            string route, string[] methods, Type endpointType)
-        {
             foreach (var method in methods)
             {
                 var key = (method, route);
                 if (mappedRoutes.TryGetValue(key, out var existingEndpointType))
                 {
-                    throw new InvalidOperationException($"{method} {route} is handled by both {endpointType} and {existingEndpointType}.");
+                    throw new InvalidOperationException(
+                        $"{method} {route} is handled by both {handlerInfo.DeclaringType} and {existingEndpointType}.");
                 }
-                mappedRoutes[key] = endpointType;
+                mappedRoutes[key] = handlerInfo.DeclaringType!;
             }
+
+            return (route, methods);
         }
 
         internal static Delegate CreateHandler(MethodInfo handlerInfo)
