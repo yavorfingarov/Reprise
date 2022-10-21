@@ -2,6 +2,6 @@
   Type: InvalidOperationException,
   Message: Reprise.UnitTests.BrokenEndpointC.Handle has an empty HTTP method.,
   StackTrace:
-at Reprise.EndpointRouteBuilderExtensions.GetRouteAndMethods(MethodInfo handlerInfo)
-at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<>c.<GetRouteAndMethods_EmptyHttpMethod>b__5_0()
+at Reprise.EndpointRouteBuilderExtensions.GetRouteAndMethods(MethodInfo handlerInfo, Dictionary`2 mappedRoutes)
+at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<GetRouteAndMethods_EmptyHttpMethod>b__10_0()
 }

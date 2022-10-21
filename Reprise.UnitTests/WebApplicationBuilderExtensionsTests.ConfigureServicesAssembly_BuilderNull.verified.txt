@@ -1,0 +1,10 @@
+﻿{
+  Type: ArgumentNullException,
+  Message: Value cannot be null.,
+  ParamName: builder,
+  StackTrace:
+at System.ArgumentNullException.Throw(String paramName)
+at System.ArgumentNullException.ThrowIfNull(Object argument, String paramName)
+at Reprise.WebApplicationBuilderExtensions.ConfigureServices(WebApplicationBuilder builder, Assembly assembly)
+at Reprise.UnitTests.WebApplicationBuilderExtensionsTests.<>c.<ConfigureServicesAssembly_BuilderNull>b__5_0()
+}

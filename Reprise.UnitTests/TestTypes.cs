@@ -62,7 +62,11 @@
     {
         public static string NoAttribute() => "Hello, world!";
 
-        [Map("", "/")]
+        [Get("/")]
+        [Post("/")]
+        public static string MultipleAttributes() => "Hello, world!";
+
+        [Map(new[] { "GET", "" }, "/")]
         public static string EmptyHttpMethod() => "Hello, world!";
 
         [Get("")]

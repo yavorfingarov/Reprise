@@ -8,18 +8,24 @@
         /// <summary>
         /// Calls all <see cref="IServiceConfigurator.ConfigureServices(WebApplicationBuilder)"/> implementations in the current assembly.
         /// </summary>
+        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InvalidOperationException"/>
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
+            ArgumentNullException.ThrowIfNull(builder);
+            
             return builder.ConfigureServices(Assembly.GetCallingAssembly());
         }
 
         /// <summary>
         /// Calls all <see cref="IServiceConfigurator.ConfigureServices(WebApplicationBuilder)"/> implementations in the specified assembly.
         /// </summary>
+        /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InvalidOperationException"/>
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder, Assembly assembly)
         {
+            ArgumentNullException.ThrowIfNull(builder);
+            ArgumentNullException.ThrowIfNull(assembly);
             var types = assembly.GetExportedTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.IsAssignableTo(typeof(IServiceConfigurator)));
             foreach (var type in types)

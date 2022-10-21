@@ -2,6 +2,6 @@
   Type: InvalidOperationException,
   Message: Reprise.UnitTests.BrokenEndpointC.Handle has no HTTP method and route attribute.,
   StackTrace:
-at Reprise.EndpointRouteBuilderExtensions.GetRouteAndMethods(MethodInfo handlerInfo)
-at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<>c.<GetRouteAndMethods_NoAttribute>b__4_0()
+at Reprise.EndpointRouteBuilderExtensions.GetRouteAndMethods(MethodInfo handlerInfo, Dictionary`2 mappedRoutes)
+at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<GetRouteAndMethods_NoAttribute>b__8_0()
 }
