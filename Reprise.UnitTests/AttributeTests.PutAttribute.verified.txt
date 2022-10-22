@@ -2,5 +2,6 @@
   Methods: [
     PUT
   ],
-  Route: /users
+  Route: /users,
+  TypeId: PutAttribute
 }

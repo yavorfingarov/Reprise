@@ -13,6 +13,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              GET
+            ],
+            Route: /,
             TypeId: GetAttribute
           },
           {
@@ -88,6 +92,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              GET
+            ],
+            Route: /echo/{input},
             TypeId: GetAttribute
           },
           {

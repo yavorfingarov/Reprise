@@ -35,6 +35,10 @@
             TypeId: DebuggerStepThroughAttribute
           },
           {
+            Methods: [
+              GET
+            ],
+            Route: /weather,
             TypeId: GetAttribute
           },
           {
@@ -90,6 +94,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              POST
+            ],
+            Route: /users,
             TypeId: PostAttribute
           },
           {
@@ -165,6 +173,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              DELETE
+            ],
+            Route: /users/{id},
             TypeId: DeleteAttribute
           },
           {
@@ -213,6 +225,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              GET
+            ],
+            Route: /users,
             TypeId: GetAttribute
           },
           {
@@ -288,6 +304,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              GET
+            ],
+            Route: /users/{id},
             TypeId: GetAttribute
           },
           {
@@ -370,6 +390,10 @@
             TypeId: NullableContextAttribute
           },
           {
+            Methods: [
+              PUT
+            ],
+            Route: /users/{id},
             TypeId: PutAttribute
           },
           {

@@ -3,5 +3,6 @@
     HEAD,
     OPTIONS
   ],
-  Route: /users
+  Route: /users,
+  TypeId: MapAttribute
 }

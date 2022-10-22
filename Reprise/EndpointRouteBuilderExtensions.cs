@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Globalization;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
@@ -117,7 +118,14 @@ namespace Reprise
         internal static string GetTag(string route) =>
             route.Split('/', StringSplitOptions.RemoveEmptyEntries)
                 .SkipWhile(t => t.Equals("api", StringComparison.OrdinalIgnoreCase) || t.StartsWith('{') || string.IsNullOrWhiteSpace(t))
-                .Select(t => new string(t.Select((c, i) => (i == 0) ? char.ToUpper(c) : c).ToArray()))
+                .Select(t => Capitalize(t))
                 .FirstOrDefault("/");
+
+        private static string Capitalize(string input)
+        {
+            var characters = input.Select((c, i) => (i == 0) ? char.ToUpper(c, CultureInfo.InvariantCulture) : c);
+
+            return new string(characters.ToArray());
+        }
     }
 }

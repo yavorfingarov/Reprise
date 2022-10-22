@@ -4,59 +4,24 @@ namespace Reprise.UnitTests
     public class AttributeTests
     {
         [Fact]
-        public Task MapAttribute_WithSingleMethod()
-        {
-            var attribute = new MapAttribute("HEAD", "/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task MapAttribute_WithSingleMethod() => Verify(new MapAttribute("HEAD", "/users"));
 
         [Fact]
-        public Task MapAttribute_WithMultipleMethods()
-        {
-            var attribute = new MapAttribute(new[] { "HEAD", "OPTIONS" }, "/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task MapAttribute_WithMultipleMethods() => Verify(new MapAttribute(new[] { "HEAD", "OPTIONS" }, "/users"));
 
         [Fact]
-        public Task GetAttribute()
-        {
-            var attribute = new GetAttribute("/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task GetAttribute() => Verify(new GetAttribute("/users"));
 
         [Fact]
-        public Task PostAttribute()
-        {
-            var attribute = new PostAttribute("/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task PostAttribute() => Verify(new PostAttribute("/users"));
 
         [Fact]
-        public Task PutAttribute()
-        {
-            var attribute = new PutAttribute("/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task PutAttribute() => Verify(new PutAttribute("/users"));
 
         [Fact]
-        public Task PatchAttribute()
-        {
-            var attribute = new PatchAttribute("/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task PatchAttribute() => Verify(new PatchAttribute("/users"));
 
         [Fact]
-        public Task DeleteAttribute()
-        {
-            var attribute = new DeleteAttribute("/users");
-
-            return Verify(new { attribute.Methods, attribute.Route });
-        }
+        public Task DeleteAttribute() => Verify(new DeleteAttribute("/users"));
     }
 }

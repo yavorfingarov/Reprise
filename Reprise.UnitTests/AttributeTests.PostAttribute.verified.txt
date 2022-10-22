@@ -2,5 +2,6 @@
   Methods: [
     POST
   ],
-  Route: /users
+  Route: /users,
+  TypeId: PostAttribute
 }
