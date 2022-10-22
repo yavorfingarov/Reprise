@@ -2,5 +2,6 @@
   Methods: [
     PATCH
   ],
-  Route: /users
+  Route: /users,
+  TypeId: PatchAttribute
 }

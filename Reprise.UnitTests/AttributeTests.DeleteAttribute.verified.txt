@@ -2,5 +2,6 @@
   Methods: [
     DELETE
   ],
-  Route: /users
+  Route: /users,
+  TypeId: DeleteAttribute
 }

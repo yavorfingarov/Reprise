@@ -4,16 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <WarningsAsErrors>Nullable</WarningsAsErrors>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisLevel>6.0</AnalysisLevel>
+    <AnalysisLevel>6.0-recommended</AnalysisLevel>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Authors>Yavor Fingarov</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/yavorfingarov/Reprise</PackageProjectUrl>
     <PackageTags>aspnetcore; minimal-api; repr-pattern; vertical-slice-architecture; rest</PackageTags>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>A micro-framework that brings the REPR pattern into ASP.NET Core Minimal APIs.</Description>
   </PropertyGroup>
