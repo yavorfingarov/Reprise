@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.StubEndpointBroken.Handle has multiple HTTP method and route attributes.
+}

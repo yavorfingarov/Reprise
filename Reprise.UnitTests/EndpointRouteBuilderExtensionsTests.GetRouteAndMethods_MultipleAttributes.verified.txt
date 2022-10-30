@@ -1,7 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: Reprise.UnitTests.BrokenEndpointC.Handle has multiple HTTP method and route attributes.,
-  StackTrace:
-at Reprise.EndpointRouteBuilderExtensions.GetRouteAndMethods(MethodInfo handlerInfo, Dictionary`2 mappedRoutes)
-at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<GetRouteAndMethods_MultipleAttributes>b__9_0()
-}

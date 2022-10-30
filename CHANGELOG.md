@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.0] - 2022-10-30
+### Added
+- Binding a strongly-typed hierarchical configuration
+
 ## [1.0.3] - 2022-10-22
 ### Changed
 - Enabled stricter code analysis

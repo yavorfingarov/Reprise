@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: System.Nullable`1[System.Int32] could not be instantiated.
+}

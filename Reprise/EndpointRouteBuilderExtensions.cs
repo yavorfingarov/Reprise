@@ -18,21 +18,10 @@ namespace Reprise
         /// </remarks>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InvalidOperationException"/>
-        public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app)
-        {
-            ArgumentNullException.ThrowIfNull(app);
+        public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app) =>
+            app.MapEndpoints(Assembly.GetCallingAssembly());
 
-            return app.MapEndpoints(Assembly.GetCallingAssembly());
-        }
-
-        /// <summary>
-        /// Maps all API endpoints from the specified assembly.
-        /// </summary>
-        /// <remarks>
-        /// An API endpoint is a type decorated with the <see cref="EndpointAttribute"/>.
-        /// </remarks>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="InvalidOperationException"/>
+        /// <inheritdoc cref="MapEndpoints(IEndpointRouteBuilder)"/>
         public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app, Assembly assembly)
         {
             ArgumentNullException.ThrowIfNull(app);
@@ -117,9 +106,12 @@ namespace Reprise
 
         internal static string GetTag(string route) =>
             route.Split('/', StringSplitOptions.RemoveEmptyEntries)
-                .SkipWhile(t => t.Equals("api", StringComparison.OrdinalIgnoreCase) || t.StartsWith('{') || string.IsNullOrWhiteSpace(t))
+                .SkipWhile(t => IsNotMeaningful(t))
                 .Select(t => Capitalize(t))
                 .FirstOrDefault("/");
+
+        private static bool IsNotMeaningful(string token) =>
+            token.Equals("api", StringComparison.OrdinalIgnoreCase) || token.StartsWith('{') || string.IsNullOrWhiteSpace(token);
 
         private static string Capitalize(string input)
         {

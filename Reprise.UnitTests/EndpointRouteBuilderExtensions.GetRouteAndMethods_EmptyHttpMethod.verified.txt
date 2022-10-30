@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.StubEndpointBroken.Handle has an empty HTTP method.
+}

@@ -1,0 +1,69 @@
+﻿{
+  Environment: {
+    EnvironmentName: Production,
+    ApplicationName: testhost,
+    WebRootFileProvider: {},
+    ContentRootPath: {CurrentDirectory},
+    ContentRootFileProvider: {
+      UsePollingFileWatcher: false,
+      UseActivePolling: false,
+      Root: {CurrentDirectory}
+    }
+  },
+  Services: [
+    {
+      ServiceType: TestConfiguration,
+      ImplementationInstance: {
+        Number: 123,
+        SubSection: {
+          Message: Hello,world!
+        }
+      }
+    }
+  ],
+  Configuration: {},
+  Logging: {
+    Services: [
+      {
+        ServiceType: TestConfiguration,
+        ImplementationInstance: {
+          Number: 123,
+          SubSection: {
+            Message: Hello,world!
+          }
+        }
+      }
+    ]
+  },
+  WebHost: {},
+  Host: {
+    Properties: {
+      Microsoft.AspNetCore.Hosting.WebHostBuilderContext, Microsoft.AspNetCore.Hosting.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60: {
+        HostingEnvironment: {
+          EnvironmentName: Production,
+          ApplicationName: testhost,
+          WebRootFileProvider: {},
+          ContentRootPath: {CurrentDirectory},
+          ContentRootFileProvider: {
+            UsePollingFileWatcher: false,
+            UseActivePolling: false,
+            Root: {CurrentDirectory}
+          }
+        },
+        Configuration: {}
+      },
+      Microsoft.AspNetCore.Hosting.WebHostOptions, Microsoft.AspNetCore.Hosting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60: {
+        ApplicationName: testhost,
+        PreventHostingStartup: false,
+        SuppressStatusMessages: false,
+        HostingStartupAssemblies: [
+          testhost
+        ],
+        DetailedErrors: false,
+        CaptureStartupErrors: false,
+        ContentRootPath: {CurrentDirectory},
+        ShutdownTimeout: 00:00:05
+      }
+    }
+  }
+}
