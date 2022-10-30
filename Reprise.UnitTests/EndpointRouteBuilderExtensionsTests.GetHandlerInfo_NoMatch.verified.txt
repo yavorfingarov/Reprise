@@ -1,7 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: Reprise.UnitTests.BrokenEndpointB has no public static Handle method.,
-  StackTrace:
-at Reprise.EndpointRouteBuilderExtensions.GetHandlerInfo(Type endpointType)
-at Reprise.UnitTests.EndpointRouteBuilderExtensionsTests.<>c.<GetHandlerInfo_NoMatch>b__7_0()
-}

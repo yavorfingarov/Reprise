@@ -6,91 +6,39 @@
       Content-Type: application/json; charset=utf-8
     },
     Value: {
-      components: {
-        schemas: {
-          User: {
-            additionalProperties: false,
-            properties: {
-              firstName: {
-                nullable: true,
-                type: string
-              },
-              id: {
-                format: int32,
-                type: integer
-              },
-              lastName: {
-                nullable: true,
-                type: string
-              }
-            },
-            type: object
-          },
-          UserDto: {
-            additionalProperties: false,
-            properties: {
-              firstName: {
-                nullable: true,
-                type: string
-              },
-              lastName: {
-                nullable: true,
-                type: string
-              }
-            },
-            type: object
-          },
-          WeatherForecast: {
-            additionalProperties: false,
-            properties: {
-              date: {
-                format: date-time,
-                type: string
-              },
-              summary: {
-                nullable: true,
-                type: string
-              },
-              temperatureC: {
-                format: int32,
-                type: integer
-              },
-              temperatureF: {
-                format: int32,
-                readOnly: true,
-                type: integer
-              }
-            },
-            type: object
-          }
-        }
-      },
+      openapi: 3.0.1,
       info: {
         title: testhost,
         version: 1.0
       },
-      openapi: 3.0.1,
       paths: {
-        /users: {
+        /greetings: {
           get: {
+            tags: [
+              Greetings
+            ],
             responses: {
               200: {
+                description: Success,
                 content: {
                   application/json: {
                     schema: {
-                      items: null,
-                      type: array
+                      type: array,
+                      items: {
+                        type: string
+                      }
                     }
                   }
-                },
-                description: Success
+                }
               }
-            },
+            }
+          }
+        },
+        /users: {
+          post: {
             tags: [
               Users
-            ]
-          },
-          post: {
+            ],
             requestBody: {
               content: {
                 application/json: {
@@ -103,22 +51,40 @@
               200: {
                 description: Success
               }
-            },
+            }
+          },
+          get: {
             tags: [
               Users
-            ]
+            ],
+            responses: {
+              200: {
+                description: Success,
+                content: {
+                  application/json: {
+                    schema: {
+                      type: array,
+                      items: null
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         /users/{id}: {
           delete: {
+            tags: [
+              Users
+            ],
             parameters: [
               {
-                in: path,
                 name: id,
+                in: path,
                 required: true,
                 schema: {
-                  format: int32,
-                  type: integer
+                  type: integer,
+                  format: int32
                 }
               }
             ],
@@ -126,20 +92,20 @@
               200: {
                 description: Success
               }
-            },
-            tags: [
-              Users
-            ]
+            }
           },
           get: {
+            tags: [
+              Users
+            ],
             parameters: [
               {
-                in: path,
                 name: id,
+                in: path,
                 required: true,
                 schema: {
-                  format: int32,
-                  type: integer
+                  type: integer,
+                  format: int32
                 }
               }
             ],
@@ -147,20 +113,20 @@
               200: {
                 description: Success
               }
-            },
-            tags: [
-              Users
-            ]
+            }
           },
           put: {
+            tags: [
+              Users
+            ],
             parameters: [
               {
-                in: path,
                 name: id,
+                in: path,
                 required: true,
                 schema: {
-                  format: int32,
-                  type: integer
+                  type: integer,
+                  format: int32
                 }
               }
             ],
@@ -176,30 +142,86 @@
               200: {
                 description: Success
               }
-            },
-            tags: [
-              Users
-            ]
+            }
           }
         },
         /weather: {
           get: {
+            tags: [
+              Weather
+            ],
             responses: {
               200: {
+                description: Success,
                 content: {
                   application/json: {
                     schema: {
-                      items: null,
-                      type: array
+                      type: array,
+                      items: null
                     }
                   }
-                },
-                description: Success
+                }
+              }
+            }
+          }
+        }
+      },
+      components: {
+        schemas: {
+          User: {
+            type: object,
+            properties: {
+              id: {
+                type: integer,
+                format: int32
+              },
+              firstName: {
+                type: string,
+                nullable: true
+              },
+              lastName: {
+                type: string,
+                nullable: true
               }
             },
-            tags: [
-              Weather
-            ]
+            additionalProperties: false
+          },
+          UserDto: {
+            type: object,
+            properties: {
+              firstName: {
+                type: string,
+                nullable: true
+              },
+              lastName: {
+                type: string,
+                nullable: true
+              }
+            },
+            additionalProperties: false
+          },
+          WeatherForecast: {
+            type: object,
+            properties: {
+              date: {
+                type: string,
+                format: date-time
+              },
+              temperatureC: {
+                type: integer,
+                format: int32
+              },
+              summary: {
+                type: string,
+                nullable: true
+              },
+              temperatureF: {
+                type: integer,
+                format: int32,
+                readOnly: true
+              }
+            },
+            additionalProperties: false
           }
         }
       }

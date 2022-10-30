@@ -1,0 +1,4 @@
+﻿[
+  Reprise.ConfigurationTypeProcessor,
+  Reprise.ServiceConfiguratorTypeProcessor
+]

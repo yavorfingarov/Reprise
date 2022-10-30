@@ -2,6 +2,8 @@
 
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response) 
 pattern and vertical slice architecture into ASP.NET Core 6 Minimal APIs. 
+It aims to be unopioniated towards the API behavior and to provide a thin layer 
+of abstractions that encourages the creation of convention-based and modular codebases.
 
 ## Getting Started
 
@@ -12,7 +14,7 @@ pattern and vertical slice architecture into ASP.NET Core 6 Minimal APIs.
 3. Modify your `Program.cs` to use Reprise. 
 
 ```csharp
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder();
 builder.ConfigureServices();
 var app = builder.Build();
 app.MapEndpoints();
@@ -66,7 +68,7 @@ In the example `id` comes from the route, `userDto` - from the body, and
 for more information on the topic.
 
 On application startup, `app.MapEndpoints()` and `app.MapEndpoints(assembly)` 
-perform an assebly scan and map all endpoints. Reprise will throw 
+perform an assembly scan and map all endpoints. Reprise will throw 
 an `InvalidOperationExcaption` when:
 * An endpoint has no `Handle` method
 * An endpoint has multiple `Handle` methods
@@ -78,8 +80,8 @@ an `InvalidOperationExcaption` when:
 
 ## Services
 
-Any class that has a public parameterless constructor and implements 
-`IServiceConfgurator` can configure services. 
+Any class (including an endpoint) that has a public parameterless constructor 
+and implements `IServiceConfgurator` can configure services. 
 
 ```csharp
 [Endpoint]
@@ -99,10 +101,55 @@ public class GetWeather : IServiceConfigurator
 ```
 
 On application startup, `builder.ConfigureServices()` and 
-`builder.ConfigureServices(assembly)` perform an assebly scan and 
+`builder.ConfigureServices(assembly)` perform an assembly scan and 
 invoke all `ConfigureServices(WebApplicationBuilder builder)` implementations. 
 Reprise will throw an `InvalidOperationException` if a service configurator 
 has no public paramereterless constructor.
+
+## Configuration
+
+Reprise makes it possible to bind a strongly typed hierarchical configuration. 
+A simple example would look like this:
+
+```csharp
+[Endpoint]
+public class GetGreetings
+{
+    [Get("/greetings")]
+    public static IEnumerable<string> Handle(GreetingConfiguration configuration)
+    {
+        return configuration.Names.Select(name => string.Format(configuration.Message, name));
+    }
+}
+
+[Configuration("Greeting")]
+public class GreetingConfiguration
+{
+    public string Message { get; set; } = null!;
+
+    public List<string> Names { get; set; } = null!;
+}
+```
+
+The `GreetingConfiguration` is added to the DI container with a singleton lifetime and 
+is bound to the following section in `appsettings.json`:
+
+```json
+{
+    "Greeting": {
+        "Message": "Hello, {0}!",
+        "Names": [ "Alice", "John", "Skylar" ]
+    }
+}
+```
+
+Deeper nested sub-sections could as well be bound using a key like `"Foo:Bar"`.
+
+On application startup, `builder.ConfigureServices()` and 
+`builder.ConfigureServices(assembly)` perform an assembly scan and 
+add all configurations with a singleton lifetime. Reprise will 
+throw an `InvalidOperationException` if a configuration model 
+could not be bound or when a sub-section is bound to multiple types.
 
 ## OpenAPI
 
@@ -112,7 +159,7 @@ or a parameter is capitalized and set as a tag. "/" is used when no match is fou
 
 ## Performance
 
-Besides the assembly scans at application startup when configuring services 
+Besides the assembly scans at application startup when configuring the DI container 
 and mapping endpoints, Reprise doesn't add any performance overhead when handling requests.
 
 ## Support

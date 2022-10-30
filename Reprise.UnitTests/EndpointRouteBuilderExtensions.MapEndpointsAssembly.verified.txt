@@ -1,0 +1,472 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.0,
+          OutboundPrecedence: 5.0,
+          RawText: /greetings,
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: greetings,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: GET /greetings => Handle,
+        Metadata: [
+          GetGreetings.Handle(GreetingConfiguration configuration),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            Methods: [
+              GET
+            ],
+            Route: /greetings,
+            TypeId: GetAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Tags: [
+              Greetings
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.0,
+          OutboundPrecedence: 5.0,
+          RawText: /weather,
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: weather,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: GET /weather => Handle,
+        Metadata: [
+          GetWeather.Handle(IWeatherService weatherService),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            StateMachineType: GetWeather.<Handle>d__1,
+            TypeId: AsyncStateMachineAttribute
+          },
+          {
+            TypeId: DebuggerStepThroughAttribute
+          },
+          {
+            Methods: [
+              GET
+            ],
+            Route: /weather,
+            TypeId: GetAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Tags: [
+              Weather
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.0,
+          OutboundPrecedence: 5.0,
+          RawText: /users,
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: users,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: POST /users => Handle,
+        Metadata: [
+          CreateUserEndpoint.Handle(UserDto userDto, DataContext context),
+          {
+            ContentTypes: [
+              application/json
+            ],
+            RequestType: UserDto,
+            IsOptional: false
+          },
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            Methods: [
+              POST
+            ],
+            Route: /users,
+            TypeId: PostAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              POST
+            ]
+          },
+          {
+            Tags: [
+              Users
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.3,
+          OutboundPrecedence: 5.3,
+          RawText: /users/{id},
+          Parameters: [
+            {
+              EncodeSlashes: true,
+              IsCatchAll: false,
+              IsOptional: false,
+              Name: id,
+              PartKind: Parameter,
+              IsLiteral: false,
+              IsParameter: true,
+              IsSeparator: false
+            }
+          ],
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: users,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            },
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  EncodeSlashes: true,
+                  IsCatchAll: false,
+                  IsOptional: false,
+                  Name: id,
+                  PartKind: Parameter,
+                  IsLiteral: false,
+                  IsParameter: true,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: DELETE /users/{id} => Handle,
+        Metadata: [
+          DeleteUserEndpoint.Handle(int id, DataContext context),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            Methods: [
+              DELETE
+            ],
+            Route: /users/{id},
+            TypeId: DeleteAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              DELETE
+            ]
+          },
+          {
+            Tags: [
+              Users
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.0,
+          OutboundPrecedence: 5.0,
+          RawText: /users,
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: users,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: GET /users => Handle,
+        Metadata: [
+          GetAllUsersEndpoint.Handle(DataContext context),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            Methods: [
+              GET
+            ],
+            Route: /users,
+            TypeId: GetAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Tags: [
+              Users
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.3,
+          OutboundPrecedence: 5.3,
+          RawText: /users/{id},
+          Parameters: [
+            {
+              EncodeSlashes: true,
+              IsCatchAll: false,
+              IsOptional: false,
+              Name: id,
+              PartKind: Parameter,
+              IsLiteral: false,
+              IsParameter: true,
+              IsSeparator: false
+            }
+          ],
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: users,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            },
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  EncodeSlashes: true,
+                  IsCatchAll: false,
+                  IsOptional: false,
+                  Name: id,
+                  PartKind: Parameter,
+                  IsLiteral: false,
+                  IsParameter: true,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: GET /users/{id} => Handle,
+        Metadata: [
+          GetUserEndpoint.Handle(int id, DataContext context),
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            Methods: [
+              GET
+            ],
+            Route: /users/{id},
+            TypeId: GetAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Tags: [
+              Users
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      },
+      {
+        RoutePattern: {
+          InboundPrecedence: 1.3,
+          OutboundPrecedence: 5.3,
+          RawText: /users/{id},
+          Parameters: [
+            {
+              EncodeSlashes: true,
+              IsCatchAll: false,
+              IsOptional: false,
+              Name: id,
+              PartKind: Parameter,
+              IsLiteral: false,
+              IsParameter: true,
+              IsSeparator: false
+            }
+          ],
+          PathSegments: [
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  Content: users,
+                  IsLiteral: true,
+                  IsParameter: false,
+                  IsSeparator: false
+                }
+              ]
+            },
+            {
+              IsSimple: true,
+              Parts: [
+                {
+                  EncodeSlashes: true,
+                  IsCatchAll: false,
+                  IsOptional: false,
+                  Name: id,
+                  PartKind: Parameter,
+                  IsLiteral: false,
+                  IsParameter: true,
+                  IsSeparator: false
+                }
+              ]
+            }
+          ]
+        },
+        DisplayName: HTTP: PUT /users/{id} => Handle,
+        Metadata: [
+          UpdateUserEndpoint.Handle(int id, UserDto userDto, DataContext context),
+          {
+            ContentTypes: [
+              application/json
+            ],
+            RequestType: UserDto,
+            IsOptional: false
+          },
+          {
+            Flag: 1,
+            TypeId: NullableContextAttribute
+          },
+          {
+            Methods: [
+              PUT
+            ],
+            Route: /users/{id},
+            TypeId: PutAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              PUT
+            ]
+          },
+          {
+            Tags: [
+              Users
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

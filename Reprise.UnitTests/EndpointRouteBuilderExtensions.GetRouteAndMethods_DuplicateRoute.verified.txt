@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: GET / is handled by both Reprise.UnitTests.HelloEndpoint and Reprise.UnitTests.EchoEndpoint.
+}

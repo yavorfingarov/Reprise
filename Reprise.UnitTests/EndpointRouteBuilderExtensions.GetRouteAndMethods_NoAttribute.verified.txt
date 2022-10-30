@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.StubEndpointBroken.Handle has no HTTP method and route attribute.
+}

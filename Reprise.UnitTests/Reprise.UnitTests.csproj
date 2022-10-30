@@ -10,12 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="3.1.2">
+    <PackageReference Include="coverlet.collector" Version="3.2.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="Verify.Xunit" Version="17.10.2" />
+    <PackageReference Include="Verify.Xunit" Version="18.1.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,6 +26,132 @@
   <ItemGroup>
     <ProjectReference Include="..\Reprise.SampleApi\Reprise.SampleApi.csproj" />
     <ProjectReference Include="..\Reprise\Reprise.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EndpointAttributes.DeleteAttribute.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointAttributes.GetAttribute.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointAttributes.MapAttribute_WithMultipleMethods.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointAttributes.MapAttribute_WithSingleMethod.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointAttributes.PatchAttribute.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointAttributes.PostAttribute.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointAttributes.PutAttribute.verified.txt">
+      <DependentUpon>EndpointAttributes.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.CreateHandler.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo_AmbiguousMatch.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo_AmbiguousMatch.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo_NoMatch.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo_NoMatch.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_DuplicateRoute.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_DuplicateRoute.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_EmptyHttpMethod.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_EmptyHttpMethod.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_EmptyRoute.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_EmptyRoute.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_MultipleAttributes.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_MultipleAttributes.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_NoAttribute.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_NoAttribute.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpoints.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpoints_AppNull.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpoints_AppNull.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly_AppNull.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly_AppNull.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly_AssemblyNull.received.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly_AssemblyNull.verified.txt">
+      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="Reflection.PublicTypes.verified.txt">
+      <DependentUpon>Reflection.cs</DependentUpon>
+    </None>
+    <None Update="Shared\TypeExtensions.CreateInstance_NoCtor.verified.txt">
+      <DependentUpon>TypeExtensions.cs</DependentUpon>
+    </None>
+    <None Update="Shared\TypeExtensions.CreateInstance_Nullable.verified.txt">
+      <DependentUpon>TypeExtensions.cs</DependentUpon>
+    </None>
+    <None Update="WebApplicationBuilderExtensions.ConfigureServices.verified.txt">
+      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="WebApplicationBuilderExtensions.ConfigureServices_BuilderNull.verified.txt">
+      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="WebApplicationBuilderExtensions.ConfigureServicesAssembly.verified.txt">
+      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="WebApplicationBuilderExtensions.ConfigureServicesAssembly_AssemblyNull.verified.txt">
+      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="WebApplicationBuilderExtensions.ConfigureServicesAssembly_BuilderNull.verified.txt">
+      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
+    </None>
+    <None Update="WebApplicationBuilderExtensions.Processors.verified.txt">
+      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>
