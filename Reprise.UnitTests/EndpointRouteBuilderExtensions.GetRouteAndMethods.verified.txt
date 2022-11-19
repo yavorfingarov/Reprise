@@ -1,6 +1,0 @@
-﻿{
-  Item1: /echo/{input},
-  Item2: [
-    GET
-  ]
-}

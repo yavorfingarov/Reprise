@@ -17,6 +17,9 @@
   Request: {
     Method: POST,
     Uri: http://localhost/users,
+    Headers: {
+      Authorization: {Scrubbed}
+    },
     Content: {
       Headers: {
         Content-Length: 44,

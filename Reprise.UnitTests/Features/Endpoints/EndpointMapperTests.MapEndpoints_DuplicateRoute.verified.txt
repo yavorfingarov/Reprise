@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: GET / is handled by both Reprise.UnitTests.Features.Endpoints.StubDuplicateGetEndpoint and Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.
+}

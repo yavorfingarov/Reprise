@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Endpoints.StubEndpointEmptyRoute.Handle has an empty route.
+}

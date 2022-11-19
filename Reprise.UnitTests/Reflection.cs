@@ -1,11 +1,16 @@
-﻿using System.Reflection;
-
-namespace Reprise.UnitTests
+﻿namespace Reprise.UnitTests
 {
     [UsesVerify]
     public class Reflection
     {
         [Fact]
-        public Task PublicTypes() => Verify(typeof(EndpointAttribute).Assembly.GetExportedTypes().Select(t => t.FullName));
+        public Task PublicTypes()
+        {
+            var publicTypes = typeof(EndpointAttribute).Assembly
+                .GetExportedTypes()
+                .Select(t => t.FullName);
+
+            return Verify(publicTypes);
+        }
     }
 }

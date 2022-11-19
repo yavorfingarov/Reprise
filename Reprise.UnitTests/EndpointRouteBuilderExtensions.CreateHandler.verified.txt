@@ -1,5 +1,0 @@
-﻿{
-  Type: Func<string, string>,
-  Target: EchoEndpoint,
-  Method: System.String Handle(System.String)
-}

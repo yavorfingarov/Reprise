@@ -1,4 +1,6 @@
 ﻿[
+  Reprise.EndpointRouteBuilderExtensions,
+  Reprise.ConfigurationAttribute,
   Reprise.EndpointAttribute,
   Reprise.MapAttribute,
   Reprise.GetAttribute,
@@ -6,8 +8,8 @@
   Reprise.PutAttribute,
   Reprise.PatchAttribute,
   Reprise.DeleteAttribute,
-  Reprise.EndpointRouteBuilderExtensions,
-  Reprise.ConfigurationAttribute,
+  Reprise.EndpointOptions,
+  Reprise.TagsAttribute,
   Reprise.IServiceConfigurator,
   Reprise.WebApplicationBuilderExtensions
 ]

@@ -4,6 +4,9 @@
   RequestMessage: {
     Method: PUT,
     Uri: http://localhost/users/2,
+    Headers: {
+      Authorization: {Scrubbed}
+    },
     Content: {
       Headers: {
         Content-Length: 45,

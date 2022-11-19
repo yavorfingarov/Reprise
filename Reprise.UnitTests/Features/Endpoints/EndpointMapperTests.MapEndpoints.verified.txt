@@ -1,0 +1,76 @@
+﻿{
+  DataSources: [
+    {
+      Endpoints: [
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: GET / => Handle,
+          Metadata: [
+            StubGetEndpoint.Handle(),
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              Methods: [
+                GET
+              ],
+              Route: /,
+              TypeId: GetAttribute
+            },
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                GET
+              ]
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
+        },
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: POST / => Handle,
+          Metadata: [
+            StubPostEndpoint.Handle(),
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              Methods: [
+                POST
+              ],
+              Route: /,
+              TypeId: PostAttribute
+            },
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                POST
+              ]
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
+        }
+      ]
+    }
+  ],
+  Invocations: [
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /)
+  ]
+}

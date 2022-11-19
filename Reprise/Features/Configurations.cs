@@ -37,9 +37,9 @@
             }
         }
 
-        internal void AddConfiguration(WebApplicationBuilder builder, string subSectionKey, Type type)
+        private void AddConfiguration(WebApplicationBuilder builder, string subSectionKey, Type type)
         {
-            if (string.IsNullOrWhiteSpace(subSectionKey))
+            if (subSectionKey.IsEmpty())
             {
                 throw new InvalidOperationException($"{type} has an empty sub-section key.");
             }
@@ -48,7 +48,7 @@
                 throw new InvalidOperationException($"Sub-section key '{subSectionKey}' is bound to both {type} and {existingType}.");
             }
             var configurationSection = builder.Configuration.GetSection(subSectionKey);
-            if (!configurationSection.GetChildren().Any())
+            if (!configurationSection.Exists())
             {
                 throw new InvalidOperationException($"{type} has a sub-section key that doesn't match any configuration data.");
             }

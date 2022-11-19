@@ -11,5 +11,10 @@
       lastName: Ratke
     }
   },
-  Request: http://localhost/users/2
+  Request: {
+    Uri: http://localhost/users/2,
+    Headers: {
+      Authorization: {Scrubbed}
+    }
+  }
 }

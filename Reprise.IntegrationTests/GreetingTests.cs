@@ -3,6 +3,9 @@
     public class GreetingTests : TestBase
     {
         [Fact]
-        public async Task Get() => await Verify(await Client.GetAsync("/greetings"));
+        public async Task Get()
+        {
+            await Verify(await Client.GetAsync("/greetings"));
+        }
     }
 }

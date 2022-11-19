@@ -1,4 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: Reprise.UnitTests.StubEndpointNoHandle has no public static Handle method.
-}

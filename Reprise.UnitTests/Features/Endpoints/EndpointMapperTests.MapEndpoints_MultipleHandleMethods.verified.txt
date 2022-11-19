@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Endpoints.StubEndpointMultipleHandleMethod has more than one public static Handle method.
+}

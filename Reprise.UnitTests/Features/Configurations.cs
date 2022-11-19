@@ -3,84 +3,125 @@
     [UsesVerify]
     public class Configurations
     {
-        private readonly WebApplicationBuilder _Builder;
-
         private readonly ConfigurationTypeProcessor _Processor = new();
 
         public Configurations()
         {
-            _Builder = WebApplication.CreateBuilder(new[]
+            var builder = WebApplication.CreateBuilder(new[]
             {
                 "TestConfiguration:Number=123",
                 "TestConfiguration:SubSection:Message=Hello,world!"
             });
-            _Builder.Services.Clear();
+            builder.Services.Clear();
         }
 
         [Fact]
-        public Task ConfigurationAttribute() => Verify(new ConfigurationAttribute("TestSubSection"));
+        public Task ConfigurationAttribute()
+        {
+            return Verify(new ConfigurationAttribute("TestSubSection"));
+        }
 
         [Fact]
         public Task Process()
         {
-            _Processor.Process(_Builder, typeof(TestConfiguration));
+            var builder = WebApplication.CreateBuilder(new[]
+            {
+                "TestConfiguration:Number=123",
+                "TestConfiguration:Message=Hello,world!"
+            });
+            builder.Services.Clear();
 
-            return Verify(_Builder);
+            _Processor.Process(builder, typeof(StubConfiguration));
+
+            return Verify(builder);
+        }
+
+        [Fact]
+        public Task Process_Complex()
+        {
+            var builder = WebApplication.CreateBuilder(new[]
+            {
+                "TestConfiguration:Number=123",
+                "TestConfiguration:SubSection:Message=Hello,world!"
+            });
+            builder.Services.Clear();
+
+            _Processor.Process(builder, typeof(StubConfigurationComplex));
+
+            return Verify(builder);
         }
 
         [Fact]
         public Task Process_NoAttribute()
         {
-            _Processor.Process(_Builder, GetType());
+            var builder = WebApplication.CreateBuilder();
+            builder.Services.Clear();
 
-            return Verify(_Builder);
+            _Processor.Process(builder, typeof(StubConfigurationSection));
+
+            return Verify(builder);
         }
 
         [Fact]
-        public Task PostProcess()
+        public Task Process_EmptySubSectionKey()
         {
-            _Processor.PostProcess(_Builder);
+            var builder = WebApplication.CreateBuilder();
 
-            return Verify(_Builder);
+            return Throws(() => _Processor.Process(builder, typeof(StubConfigurationEmptySubSectionKey)))
+                .IgnoreStackTrace();
         }
 
         [Fact]
-        public Task AddConfiguration()
+        public Task Process_DuplicateConfiguration()
         {
-            _Processor.AddConfiguration(_Builder, "TestConfiguration", typeof(TestConfiguration));
-
-            return Verify(new
+            var builder = WebApplication.CreateBuilder(new[]
             {
-                _Builder,
-                TestConfiguration = _Builder.Services.BuildServiceProvider().GetRequiredService<TestConfiguration>()
+                "TestConfiguration:Number=123",
+                "TestConfiguration:Message=Hello,world!"
             });
+            _Processor.Process(builder, typeof(StubConfiguration));
+
+            return Throws(() => _Processor.Process(builder, typeof(StubConfigurationDuplicate)))
+                .IgnoreStackTrace();
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("   ")]
-        public Task AddConfiguration_EmptySubSectionKey(string subSectionKey) =>
-            Throws(() => _Processor.AddConfiguration(_Builder, subSectionKey, typeof(TestConfiguration)))
-                .UseParameters(subSectionKey)
-                .IgnoreStackTrace();
-
         [Fact]
-        public Task AddConfiguration_DuplicateConfiguration()
+        public Task Process_InvalidSubSectionKey()
         {
-            _Processor.Process(_Builder, typeof(TestConfiguration));
+            var builder = WebApplication.CreateBuilder();
 
-            return Throws(() => _Processor.AddConfiguration(_Builder, "TestConfiguration", GetType()))
+            return Throws(() => _Processor.Process(builder, typeof(StubConfigurationInvalidSubSection)))
                 .IgnoreStackTrace();
         }
 
         [Fact]
-        public Task AddConfiguration_InvalidSubSectionKey() =>
-            Throws(() => _Processor.AddConfiguration(_Builder, "InvalidSubSection", typeof(TestConfiguration)))
+        public Task Process_NoParameterlessCtor()
+        {
+            var builder = WebApplication.CreateBuilder(new[]
+            {
+                "TestConfiguration:Number=123",
+                "TestConfiguration:SubSection:Message=Hello,world!"
+            });
+
+            return Throws(() => _Processor.Process(builder, typeof(StubConfigurationNoParameterlessCtor)))
                 .IgnoreStackTrace();
+        }
 
         [Fact]
-        public Task AddConfiguration_InvalidValue()
+        public Task Process_InvalidValue()
+        {
+            var builder = WebApplication.CreateBuilder(new[]
+            {
+                "TestConfiguration:Number=True",
+                "TestConfiguration:Message=Hello,world!"
+            });
+
+            return Throws(() => _Processor.Process(builder, typeof(StubConfiguration)))
+                .IgnoreStackTrace();
+        }
+
+        [Fact]
+        public Task Process_ComplexInvalidValue()
         {
             var builder = WebApplication.CreateBuilder(new[]
             {
@@ -88,12 +129,26 @@
                 "TestConfiguration:SubSection:Message=Hello,world!"
             });
 
-            return Throws(() => _Processor.AddConfiguration(builder, "TestConfiguration", typeof(TestConfiguration)))
+            return Throws(() => _Processor.Process(builder, typeof(StubConfigurationComplex)))
                 .IgnoreStackTrace();
         }
 
         [Fact]
-        public Task AddConfiguration_MissingProperty()
+        public Task Process_MissingProperty()
+        {
+            var builder = WebApplication.CreateBuilder(new[]
+            {
+                "TestConfiguration:Number=123",
+                "TestConfiguration:Message=Hello,world!",
+                "TestConfiguration:AnotherNumber=456"
+            });
+
+            return Throws(() => _Processor.Process(builder, typeof(StubConfiguration)))
+                .IgnoreStackTrace();
+        }
+
+        [Fact]
+        public Task Process_ComplexMissingProperty()
         {
             var builder = WebApplication.CreateBuilder(new[]
             {
@@ -102,21 +157,58 @@
                 "TestConfiguration:SubSection:Number=456"
             });
 
-            return Throws(() => _Processor.AddConfiguration(builder, "TestConfiguration", typeof(TestConfiguration)))
+            return Throws(() => _Processor.Process(builder, typeof(StubConfigurationComplex)))
                 .IgnoreStackTrace();
+        }
+
+        [Fact]
+        public Task PostProcess()
+        {
+            var builder = WebApplication.CreateBuilder();
+            builder.Services.Clear();
+
+            _Processor.PostProcess(builder);
+
+            return Verify(builder);
         }
     }
 
     [Configuration("TestConfiguration")]
-    public class TestConfiguration
+    internal class StubConfiguration
     {
         public int Number { get; set; }
 
-        public TestConfigurationSection SubSection { get; set; } = null!;
+        public string Message { get; set; } = null!;
     }
 
-    public class TestConfigurationSection
+    [Configuration("TestConfiguration")]
+    internal class StubConfigurationComplex
+    {
+        public int Number { get; set; }
+
+        public StubConfigurationSection SubSection { get; set; } = null!;
+    }
+
+    internal class StubConfigurationSection
     {
         public string Message { get; set; } = null!;
     }
+
+    [Configuration("   ")]
+    internal class StubConfigurationEmptySubSectionKey
+    {
+    }
+
+    [Configuration("TestConfiguration")]
+    internal class StubConfigurationDuplicate
+    {
+    }
+
+    [Configuration("InvalidKey")]
+    internal class StubConfigurationInvalidSubSection
+    {
+    }
+
+    [Configuration("TestConfiguration")]
+    internal record StubConfigurationNoParameterlessCtor(int Number, string Message);
 }

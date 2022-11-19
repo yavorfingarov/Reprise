@@ -7,46 +7,70 @@ namespace Reprise.UnitTests
     {
         private readonly WebApplicationBuilder _Builder = WebApplication.CreateBuilder();
 
+        public WebApplicationBuilderExtensions()
+        {
+            MockTypeProcessor.Builder = _Builder;
+        }
+
         [Fact]
-        public Task Processors() => Verify(Extensions._TypeProcessorFactory.CreateAll().Select(p => p.GetType().FullName));
+        public Task Processors()
+        {
+            var processors = Extensions._TypeProcessorFactory.CreateAll()
+                .Select(p => p.GetType().FullName);
+
+            return Verify(processors);
+        }
 
         [Fact]
         public Task ConfigureServices()
         {
-            var mockProcessorA = new MockTypeProcessor(_Builder, "A");
-            var mockProcessorB = new MockTypeProcessor(_Builder, "B");
+            var mockProcessorA = new MockTypeProcessor("A");
+            var mockProcessorB = new MockTypeProcessor("B");
             Extensions._TypeProcessorFactory = new StubTypeProcessorFactory(mockProcessorA, mockProcessorB);
             _Builder.ConfigureServices();
 
-            return Verify(MockTypeProcessor._Invocations);
+            return Verify(MockTypeProcessor.Invocations);
         }
 
         [Fact]
-        public Task ConfigureServices_BuilderNull() => Throws(() => Extensions.ConfigureServices(null!)).IgnoreStackTrace();
+        public Task ConfigureServices_BuilderNull()
+        {
+            return Throws(() => Extensions.ConfigureServices(null!))
+                .IgnoreStackTrace();
+        }
 
         [Fact]
         public Task ConfigureServicesAssembly()
         {
-            var mockProcessorA = new MockTypeProcessor(_Builder, "A");
-            var mockProcessorB = new MockTypeProcessor(_Builder, "B");
+            var mockProcessorA = new MockTypeProcessor("A");
+            var mockProcessorB = new MockTypeProcessor("B");
             Extensions._TypeProcessorFactory = new StubTypeProcessorFactory(mockProcessorA, mockProcessorB);
             _Builder.ConfigureServices(typeof(Program).Assembly);
 
-            return Verify(MockTypeProcessor._Invocations);
+            return Verify(MockTypeProcessor.Invocations);
         }
 
         [Fact]
-        public Task ConfigureServicesAssembly_BuilderNull() =>
-            Throws(() => Extensions.ConfigureServices(null!, typeof(Program).Assembly))
+        public Task ConfigureServicesAssembly_BuilderNull()
+        {
+            return Throws(() => Extensions.ConfigureServices(null!, typeof(Program).Assembly))
                 .IgnoreStackTrace();
+        }
 
         [Fact]
-        public Task ConfigureServicesAssembly_AssemblyNull() => Throws(() => _Builder.ConfigureServices(null!)).IgnoreStackTrace();
+        public Task ConfigureServicesAssembly_AssemblyNull()
+        {
+            return Throws(() => _Builder.ConfigureServices(null!))
+                .IgnoreStackTrace();
+        }
 
-        public void Dispose() => Extensions._TypeProcessorFactory = new TypeProcessorFactory();
+        public void Dispose()
+        {
+            Extensions._TypeProcessorFactory = new TypeProcessorFactory();
+        }
     }
 
-    internal sealed class StubTypeProcessorFactory : TypeProcessorFactory
+    internal class StubTypeProcessorFactory : TypeProcessorFactory
     {
         private readonly List<AbstractTypeProcessor> _Processors;
 
@@ -60,37 +84,32 @@ namespace Reprise.UnitTests
 
     internal class MockTypeProcessor : AbstractTypeProcessor
     {
-        internal static List<string> _Invocations = new();
+        public static List<string> Invocations = new();
 
-        private static WebApplicationBuilder? _Builder;
+        public static WebApplicationBuilder? Builder;
 
         private readonly string _Name;
 
-        internal MockTypeProcessor(WebApplicationBuilder builder, string id)
+        internal MockTypeProcessor(string id)
         {
-            _Builder = builder;
             _Name = $"{nameof(MockTypeProcessor)}{id}";
-            _Invocations = new();
+            Invocations = new();
         }
 
         internal override void Process(WebApplicationBuilder builder, Type type)
         {
-            EnsureSameBuilder(builder);
-            _Invocations.Add($"{_Name}.Process({type.FullName})");
+            Assert.Same(Builder, builder);
+            Invocations.Add($"{_Name}.Process({type.FullName})");
         }
 
         internal override void PostProcess(WebApplicationBuilder builder)
         {
-            EnsureSameBuilder(builder);
-            _Invocations.Add($"{_Name}.PostProcess()");
+            Assert.Same(Builder, builder);
+            Invocations.Add($"{_Name}.PostProcess()");
         }
+    }
 
-        private static void EnsureSameBuilder(WebApplicationBuilder builder)
-        {
-            if (_Builder != builder)
-            {
-                throw new InvalidOperationException();
-            }
-        }
+    public abstract class StubTypeToSkipInAssemblyScan
+    {
     }
 }
