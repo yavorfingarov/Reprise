@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.OpenApi.StubTagType.WithEmptyTag has an empty tag.
+}

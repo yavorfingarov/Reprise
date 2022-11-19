@@ -1,0 +1,9 @@
+﻿{
+  EndpointOptions: {
+    _RequireAuthorization: true
+  },
+  Processors: [
+    Reprise.AuthorizationProcessor,
+    Reprise.TagsProcessor
+  ]
+}

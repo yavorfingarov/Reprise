@@ -3,6 +3,9 @@
   Status: 404 Not Found,
   RequestMessage: {
     Method: DELETE,
-    Uri: http://localhost/users/7
+    Uri: http://localhost/users/7,
+    Headers: {
+      Authorization: {Scrubbed}
+    }
   }
 }

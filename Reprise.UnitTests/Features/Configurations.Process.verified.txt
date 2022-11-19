@@ -12,12 +12,10 @@
   },
   Services: [
     {
-      ServiceType: TestConfiguration,
+      ServiceType: StubConfiguration,
       ImplementationInstance: {
         Number: 123,
-        SubSection: {
-          Message: Hello,world!
-        }
+        Message: Hello,world!
       }
     }
   ],
@@ -25,12 +23,10 @@
   Logging: {
     Services: [
       {
-        ServiceType: TestConfiguration,
+        ServiceType: StubConfiguration,
         ImplementationInstance: {
           Number: 123,
-          SubSection: {
-            Message: Hello,world!
-          }
+          Message: Hello,world!
         }
       }
     ]

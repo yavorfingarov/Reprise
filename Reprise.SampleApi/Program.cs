@@ -6,11 +6,11 @@ namespace Reprise.SampleApi
         {
             var builder = WebApplication.CreateBuilder();
 
+            builder.ConfigureServices();
+
             builder.Services.AddEndpointsApiExplorer();
 
             builder.Services.AddSwaggerGen();
-
-            builder.ConfigureServices();
 
             var app = builder.Build();
 
@@ -20,7 +20,11 @@ namespace Reprise.SampleApi
 
             app.UseSwaggerUI();
 
-            app.MapEndpoints();
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+            app.MapEndpoints(options => options.RequireAuthorization());
 
             app.Run();
         }

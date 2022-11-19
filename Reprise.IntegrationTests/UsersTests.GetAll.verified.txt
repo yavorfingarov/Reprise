@@ -33,5 +33,10 @@
       }
     ]
   },
-  Request: http://localhost/users
+  Request: {
+    Uri: http://localhost/users,
+    Headers: {
+      Authorization: {Scrubbed}
+    }
+  }
 }

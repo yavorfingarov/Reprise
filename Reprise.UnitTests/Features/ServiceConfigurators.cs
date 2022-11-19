@@ -22,9 +22,9 @@
         }
 
         [Fact]
-        public Task Process_NotImplementation()
+        public Task Process_NoImplementation()
         {
-            _Processor.Process(_Builder, GetType());
+            _Processor.Process(_Builder, typeof(StubService));
 
             return Verify(_Builder);
         }
@@ -38,12 +38,15 @@
         }
     }
 
-    public class StubServiceConfigurator : IServiceConfigurator
+    internal class StubServiceConfigurator : IServiceConfigurator
     {
-        public void ConfigureServices(WebApplicationBuilder builder) => builder.Services.AddTransient<StubService>();
+        public void ConfigureServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddTransient<StubService>();
+        }
     }
 
-    public class StubService
+    internal class StubService
     {
     }
 }

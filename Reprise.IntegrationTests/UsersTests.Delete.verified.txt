@@ -3,6 +3,9 @@
   Status: 204 No Content,
   RequestMessage: {
     Method: DELETE,
-    Uri: http://localhost/users/2
+    Uri: http://localhost/users/2,
+    Headers: {
+      Authorization: {Scrubbed}
+    }
   }
 }

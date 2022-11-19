@@ -1,0 +1,4 @@
+﻿[
+  Reprise.UnitTests.Features.Endpoints.StubGetEndpoint,
+  Reprise.UnitTests.Features.Endpoints.StubPostEndpoint
+]

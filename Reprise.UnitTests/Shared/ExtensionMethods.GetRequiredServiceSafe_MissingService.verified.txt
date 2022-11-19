@@ -1,0 +1,9 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise could not resolve an internal dependency. Have you called 'builder.ConfigureServices()'?,
+  InnerException: {
+    $type: InvalidOperationException,
+    Type: InvalidOperationException,
+    Message: No service for type 'Reprise.UnitTests.Shared.StubType' has been registered.
+  }
+}

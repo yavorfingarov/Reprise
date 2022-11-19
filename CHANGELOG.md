@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.0] - 2022-11-06
+### Added
+- Option to require authorization for all endpoints
+- Custom OpenAPI tags
+### Changed
+- `MapEndpoints(assembly)` is removed (BREAKING)
+- Endpoint discovery now happens while configuring services
+
 ## [1.1.0] - 2022-10-30
 ### Added
 - Binding a strongly-typed hierarchical configuration

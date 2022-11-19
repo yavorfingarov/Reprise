@@ -1,0 +1,6 @@
+﻿{
+  Tags: [
+    Test
+  ],
+  TypeId: TagsAttribute
+}
