@@ -1,0 +1,8 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.StubValidatedType is validated by both Reprise.UnitTests.Features.StubDuplicateValidator and Reprise.UnitTests.Features.StubValidator.,
+  StackTrace:
+at Reprise.ValidatorTypeProcessor.AddValidator(IServiceCollection services, Type interfaceType, Type implementationType)
+at Reprise.ValidatorTypeProcessor.Process(WebApplicationBuilder builder, Type type)
+at Reprise.UnitTests.Features.Validation.<Process_DuplicateValidator>b__5_0()
+}

@@ -2,6 +2,7 @@
 
 ## [2.1.0] - 2022-11-20
 ### Added
+- Validation
 - Target framework .NET 7
 
 ## [2.0.0] - 2022-11-19

@@ -25,6 +25,16 @@ namespace Reprise.IntegrationTests
         }
 
         [Fact]
+        public async Task Create_BadRequest()
+        {
+            await GetToken();
+            await CreateUsers();
+
+            await Verify(await Client.PostAsJsonAsync("/users", new UserDto("", null!)))
+                .ScrubMember("Authorization");
+        }
+
+        [Fact]
         public async Task Get()
         {
             await GetToken();
@@ -71,6 +81,16 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.PutAsJsonAsync("/users/7", _Users.Generate()))
+                .ScrubMember("Authorization");
+        }
+
+        [Fact]
+        public async Task Update_BadRequest()
+        {
+            await GetToken();
+            await CreateUsers();
+
+            await Verify(await Client.PutAsJsonAsync("/users/7", new UserDto("", null!)))
                 .ScrubMember("Authorization");
         }
 

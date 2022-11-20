@@ -62,8 +62,8 @@ public class UpdateUserEndpoint
 ```
 
 In the example `id` comes from the route, `userDto` - from the body, and 
-`context` - from the DI container. Check the 
-[Minimal APIs documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis) 
+`context` - from the DI container. Check 
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#parameter-binding-1) 
 for more information on the topic.
 
 ## Services
@@ -127,6 +127,40 @@ is bound to the following section in `appsettings.json`:
 
 Deeper nested sub-sections could as well be bound using a key like `"Foo:Bar"`.
 
+## Validation
+
+Reprise relies on FluentValidation. On application startup, all `IValidator<T>` implementations are
+added with a singleton lifetime. You can then inject the validator in your `Handle` method.
+
+```csharp
+[Endpoint]
+public class CreateUserEndpoint
+{
+    [Post("/users")]
+    public static IResult Handle(UserDto userDto, IValidator<UserDto> validator, DataContext context)
+    {
+        if (!validator.Validate(userDto).IsValid)
+        {
+            return Results.BadRequest();
+        }
+        // ...
+    }
+}
+
+public class UserDtoValidator : AbstractValidator<UserDto>
+{
+    public UserDtoValidator()
+    {
+        RuleFor(u => u.FirstName).NotEmpty();
+        RuleFor(u => u.LastName).NotEmpty();
+    }
+}
+```
+
+Check 
+[the documentation](https://docs.fluentvalidation.net/en/latest/start.html) 
+for more information.
+
 ## Authorization
 
 There are two ways to secure your API. You can require authorization only for specific 
@@ -137,6 +171,10 @@ for all endpoints and opt-out for specific ones using the `AllowAnonymousAttribu
 ```csharp
 app.MapEndpoints(options => options.RequireAuthorization());
 ```
+
+Check 
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-7.0) 
+for more information.
 
 ## OpenAPI
 
@@ -159,6 +197,7 @@ Reprise will throw an `InvalidOperationExcaption` on application startup when:
 * A service configurator has no public paramereterless constructor
 * A configuration model could not be bound (e.g. missing property for a configuration key)
 * A configuration sub-section is bound to multiple types
+* A model is validated by multiple validators
 * An OpenAPI tag is empty
 
 ## Performance

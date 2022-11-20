@@ -13,6 +13,8 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Configurations),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.ServiceConfigurators),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.ServiceConfigurators),
+  MockTypeProcessorA.Process(Reprise.UnitTests.Features.Validation),
+  MockTypeProcessorB.Process(Reprise.UnitTests.Features.Validation),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.OpenApi.Tags),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.OpenApi.Tags),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.OpenApi.StubTagType),
