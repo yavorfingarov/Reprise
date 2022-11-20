@@ -33,7 +33,8 @@
 
             _Processor.Process(builder, typeof(StubConfiguration));
 
-            return Verify(builder);
+            return Verify(builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -48,7 +49,8 @@
 
             _Processor.Process(builder, typeof(StubConfigurationComplex));
 
-            return Verify(builder);
+            return Verify(builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -59,7 +61,8 @@
 
             _Processor.Process(builder, typeof(StubConfigurationSection));
 
-            return Verify(builder);
+            return Verify(builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -117,7 +120,8 @@
             });
 
             return Throws(() => _Processor.Process(builder, typeof(StubConfiguration)))
-                .IgnoreStackTrace();
+                .IgnoreStackTrace()
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -130,7 +134,8 @@
             });
 
             return Throws(() => _Processor.Process(builder, typeof(StubConfigurationComplex)))
-                .IgnoreStackTrace();
+                .IgnoreStackTrace()
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -169,7 +174,8 @@
 
             _Processor.PostProcess(builder);
 
-            return Verify(builder);
+            return Verify(builder)
+                .UniqueForRuntimeAndVersion();
         }
     }
 

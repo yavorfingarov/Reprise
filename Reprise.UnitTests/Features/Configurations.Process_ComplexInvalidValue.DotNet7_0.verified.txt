@@ -1,0 +1,15 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Failed to convert configuration value at 'TestConfiguration:Number' to type 'System.Int32'.,
+  InnerException: {
+    $type: ArgumentException,
+    Type: ArgumentException,
+    Message: True is not a valid value for Int32.,
+    ParamName: value,
+    InnerException: {
+      $type: FormatException,
+      Type: FormatException,
+      Message: The input string 'True' was not in a correct format.
+    }
+  }
+}

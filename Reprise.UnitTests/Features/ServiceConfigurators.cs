@@ -18,7 +18,8 @@
         {
             _Processor.Process(_Builder, typeof(StubServiceConfigurator));
 
-            return Verify(_Builder);
+            return Verify(_Builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -26,7 +27,8 @@
         {
             _Processor.Process(_Builder, typeof(StubService));
 
-            return Verify(_Builder);
+            return Verify(_Builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -34,7 +36,8 @@
         {
             _Processor.PostProcess(_Builder);
 
-            return Verify(_Builder);
+            return Verify(_Builder)
+                .UniqueForRuntimeAndVersion();
         }
     }
 

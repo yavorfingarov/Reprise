@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <AnalysisLevel>6.0-minimal</AnalysisLevel>
+    <AnalysisLevel>7.0-minimal</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
     <PackageReference Include="Verify.Http" Version="4.0.0" />
     <PackageReference Include="Verify.Xunit" Version="19.1.0" />

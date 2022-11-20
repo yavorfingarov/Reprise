@@ -1,13 +1,13 @@
 # Reprise
 
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response) 
-pattern and vertical slice architecture into the ASP.NET Core 6 Minimal APIs. 
+pattern and vertical slice architecture into the ASP.NET Core 6+ Minimal APIs. 
 It aims to be unopioniated towards API behavior and to provide a thin layer 
 of abstractions that encourages the creation of convention-based and modular implementations.
 
 ## Getting started
 
-1. Create a new ASP.NET Core 6 empty project.
+1. Create a new ASP.NET Core 6/7 empty project.
 
 2. Install the [Reprise NuGet package](https://www.nuget.org/packages/Reprise).
 
