@@ -45,7 +45,7 @@ namespace Reprise.UnitTests
             var mockProcessorA = new MockTypeProcessor("A");
             var mockProcessorB = new MockTypeProcessor("B");
             Extensions._TypeProcessorFactory = new StubTypeProcessorFactory(mockProcessorA, mockProcessorB);
-            _Builder.ConfigureServices(typeof(Program).Assembly);
+            _Builder.ConfigureServices(GetType().Assembly);
 
             return Verify(MockTypeProcessor.Invocations);
         }
@@ -53,7 +53,7 @@ namespace Reprise.UnitTests
         [Fact]
         public Task ConfigureServicesAssembly_BuilderNull()
         {
-            return Throws(() => Extensions.ConfigureServices(null!, typeof(Program).Assembly))
+            return Throws(() => Extensions.ConfigureServices(null!, GetType().Assembly))
                 .IgnoreStackTrace();
         }
 

@@ -27,7 +27,8 @@
 
             _Processor.Process(builder, handlerInfo, null!, null!);
 
-            return Verify(_App.DataSources);
+            return Verify(_App.DataSources)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -61,7 +62,8 @@
             _Processor.Process(builder, handlerInfo, null!, route);
 
             return Verify(_App.DataSources)
-                .UseParameters(route);
+                .UseParameters(route)
+                .UniqueForRuntimeAndVersion();
         }
     }
 

@@ -1,0 +1,46 @@
+﻿{
+  target: {
+    _MockHttpResponse: [
+      {
+        Method: HttpResponse.get_HasStarted(),
+        ReturnValue: false
+      },
+      {
+        Method: HttpResponse.set_StatusCode(int value),
+        Arguments: [
+          400
+        ]
+      }
+    ],
+    _MockExceptionLogger: [
+      {
+        Method: IExceptionLogger.Log(ILogger logger, ErrorContext<ValidationException> context),
+        Arguments: [
+          {},
+          {
+            Exception: {
+              $type: ValidationException,
+              Type: ValidationException,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ],
+    _MockErrorResponseFactory: [
+      {
+        Method: IErrorResponseFactory.Create(ErrorContext<ValidationException> context),
+        Arguments: [
+          {
+            Exception: {
+              $type: ValidationException,
+              Type: ValidationException,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ]
+  },
+  logs: []
+}

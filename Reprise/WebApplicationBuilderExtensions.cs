@@ -21,6 +21,15 @@
         ///     Bind all configurations decorated with <see cref="ConfigurationAttribute"/> 
         ///     and add them with a <see cref="ServiceLifetime.Singleton"/>.
         ///     </item>
+        ///     <item>
+        ///     Add all <see cref="IValidator{T}"/> implementations with a <see cref="ServiceLifetime.Singleton"/>.
+        ///     </item>
+        ///     <item>
+        ///     Add a <see cref="IExceptionLogger"/> implementation or a default one if none is found.
+        ///     </item>
+        ///     <item>
+        ///     Add a <see cref="IErrorResponseFactory"/> implementation or a default one if none is found.
+        ///     </item>
         /// </list>
         /// </summary>
         /// <exception cref="ArgumentNullException"/>

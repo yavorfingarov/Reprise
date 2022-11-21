@@ -1,6 +1,12 @@
 # Changelog
 
-## [2.0.0] - 2022-11-06
+## [2.1.0] - 2022-11-21
+### Added
+- Validation
+- Exception handling
+- Target framework .NET 7
+
+## [2.0.0] - 2022-11-19
 ### Added
 - Option to require authorization for all endpoints
 - Custom OpenAPI tags

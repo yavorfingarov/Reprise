@@ -1,0 +1,48 @@
+﻿{
+  target: {
+    _MockHttpResponse: [
+      {
+        Method: HttpResponse.get_HasStarted(),
+        ReturnValue: false
+      },
+      {
+        Method: HttpResponse.set_StatusCode(int value),
+        Arguments: [
+          400
+        ]
+      }
+    ],
+    _MockExceptionLogger: [
+      {
+        Method: IExceptionLogger.Log(ILogger logger, ErrorContext<BadHttpRequestException> context),
+        Arguments: [
+          {},
+          {
+            Exception: {
+              $type: BadHttpRequestException,
+              Type: BadHttpRequestException,
+              StatusCode: 400,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ],
+    _MockErrorResponseFactory: [
+      {
+        Method: IErrorResponseFactory.Create(ErrorContext<BadHttpRequestException> context),
+        Arguments: [
+          {
+            Exception: {
+              $type: BadHttpRequestException,
+              Type: BadHttpRequestException,
+              StatusCode: 400,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ]
+  },
+  logs: []
+}

@@ -1,0 +1,12 @@
+﻿{
+  target: {
+    Type: InvalidOperationException,
+    Message: Reprise could not resolve an internal dependency. Have you called 'builder.ConfigureServices()'?,
+    InnerException: {
+      $type: InvalidOperationException,
+      Type: InvalidOperationException,
+      Message: No service for type 'Reprise.IErrorResponseFactory' has been registered.
+    }
+  },
+  logs: []
+}

@@ -1,0 +1,46 @@
+﻿{
+  target: {
+    _MockHttpResponse: [
+      {
+        Method: HttpResponse.get_HasStarted(),
+        ReturnValue: true
+      }
+    ],
+    _MockExceptionLogger: [
+      {
+        Method: IExceptionLogger.Log(ILogger logger, ErrorContext<Exception> context),
+        Arguments: [
+          {},
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ],
+    _MockErrorResponseFactory: [
+      {
+        Method: IErrorResponseFactory.Create(ErrorContext<Exception> context),
+        Arguments: [
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ]
+  },
+  logs: [
+    {
+      Level: Error,
+      Category: Reprise.ExceptionHandler,
+      Message: The response has already started, the error handler will not be executed.
+    }
+  ]
+}

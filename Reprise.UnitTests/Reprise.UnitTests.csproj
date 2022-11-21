@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <AnalysisLevel>6.0-minimum</AnalysisLevel>
+    <AnalysisLevel>7.0-minimum</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +15,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
+    <PackageReference Include="Verify.MicrosoftLogging" Version="3.0.0" />
+    <PackageReference Include="Verify.Moq" Version="2.0.0" />
     <PackageReference Include="Verify.Xunit" Version="19.1.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -24,77 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reprise.SampleApi\Reprise.SampleApi.csproj" />
     <ProjectReference Include="..\Reprise\Reprise.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Features\Endpoints\EndpointAttributes.DeleteAttribute.verified.txt">
-      <DependentUpon>EndpointAttributes.cs</DependentUpon>
-    </None>
-    <None Update="Features\Endpoints\EndpointAttributes.GetAttribute.verified.txt">
-      <DependentUpon>EndpointAttributes.cs</DependentUpon>
-    </None>
-    <None Update="Features\Endpoints\EndpointAttributes.PatchAttribute.verified.txt">
-      <DependentUpon>EndpointAttributes.cs</DependentUpon>
-    </None>
-    <None Update="Features\Endpoints\EndpointAttributes.PostAttribute.verified.txt">
-      <DependentUpon>EndpointAttributes.cs</DependentUpon>
-    </None>
-    <None Update="Features\Endpoints\EndpointAttributes.PutAttribute.verified.txt">
-      <DependentUpon>EndpointAttributes.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo_AmbiguousMatch.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetHandlerInfo_NoMatch.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_DuplicateRoute.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_EmptyHttpMethod.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_EmptyRoute.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_MultipleAttributes.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.GetRouteAndMethods_NoAttribute.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.MapEndpoints_AppNull.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly_AppNull.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="EndpointRouteBuilderExtensions.MapEndpointsAssembly_AssemblyNull.received.txt">
-      <DependentUpon>EndpointRouteBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="Reflection.PublicTypes.verified.txt">
-      <DependentUpon>Reflection.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensions.ConfigureServices.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensions.ConfigureServices_BuilderNull.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensions.ConfigureServicesAssembly.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensions.ConfigureServicesAssembly_AssemblyNull.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensions.ConfigureServicesAssembly_BuilderNull.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
-    </None>
-    <None Update="WebApplicationBuilderExtensions.Processors.verified.txt">
-      <DependentUpon>WebApplicationBuilderExtensions.cs</DependentUpon>
-    </None>
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

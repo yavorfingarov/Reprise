@@ -4,8 +4,9 @@
     public class CreateUserEndpoint
     {
         [Post("/users")]
-        public static IResult Handle(UserDto userDto, DataContext context)
+        public static IResult Handle(UserDto userDto, IValidator<UserDto> validator, DataContext context)
         {
+            validator.ValidateAndThrow(userDto);
             var user = new User()
             {
                 Id = !context.Users.Any() ? 0 : context.Users.Max(u => u.Id) + 1,

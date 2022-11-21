@@ -45,7 +45,8 @@ namespace Reprise.UnitTests.Features.Endpoints
                 _EndpointMapper._MappedRoutes
             };
 
-            return Verify(snapshot);
+            return Verify(snapshot)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]

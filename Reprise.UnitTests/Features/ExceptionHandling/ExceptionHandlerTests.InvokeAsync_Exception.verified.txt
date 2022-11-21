@@ -1,0 +1,46 @@
+﻿{
+  target: {
+    _MockHttpResponse: [
+      {
+        Method: HttpResponse.get_HasStarted(),
+        ReturnValue: false
+      },
+      {
+        Method: HttpResponse.set_StatusCode(int value),
+        Arguments: [
+          500
+        ]
+      }
+    ],
+    _MockExceptionLogger: [
+      {
+        Method: IExceptionLogger.Log(ILogger logger, ErrorContext<Exception> context),
+        Arguments: [
+          {},
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ],
+    _MockErrorResponseFactory: [
+      {
+        Method: IErrorResponseFactory.Create(ErrorContext<Exception> context),
+        Arguments: [
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ]
+  },
+  logs: []
+}

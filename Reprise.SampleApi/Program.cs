@@ -14,6 +14,8 @@ namespace Reprise.SampleApi
 
             var app = builder.Build();
 
+            app.UseExceptionHandling();
+
             app.UseHttpsRedirection();
 
             app.UseSwagger();

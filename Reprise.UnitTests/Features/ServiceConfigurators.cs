@@ -18,15 +18,17 @@
         {
             _Processor.Process(_Builder, typeof(StubServiceConfigurator));
 
-            return Verify(_Builder);
+            return Verify(_Builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
         public Task Process_NoImplementation()
         {
-            _Processor.Process(_Builder, typeof(StubService));
+            _Processor.Process(_Builder, GetType());
 
-            return Verify(_Builder);
+            return Verify(_Builder)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -34,7 +36,8 @@
         {
             _Processor.PostProcess(_Builder);
 
-            return Verify(_Builder);
+            return Verify(_Builder)
+                .UniqueForRuntimeAndVersion();
         }
     }
 
