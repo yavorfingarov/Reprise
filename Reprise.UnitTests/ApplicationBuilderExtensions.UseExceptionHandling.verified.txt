@@ -1,0 +1,15 @@
+﻿[
+  {
+    Method: IApplicationBuilder.get_ApplicationServices()
+  },
+  {
+    Method: IApplicationBuilder.Use(Func<RequestDelegate, RequestDelegate> middleware),
+    Arguments: [
+      {
+        Type: Func<RequestDelegate, RequestDelegate>,
+        Target: UseMiddlewareExtensions.<>c__DisplayClass5_0,
+        Method: Microsoft.AspNetCore.Http.RequestDelegate UseMiddleware(Microsoft.AspNetCore.Http.RequestDelegate)
+      }
+    ]
+  }
+]

@@ -1,4 +1,6 @@
 ﻿[
+  MockTypeProcessorA.Process(Reprise.UnitTests.ApplicationBuilderExtensions),
+  MockTypeProcessorB.Process(Reprise.UnitTests.ApplicationBuilderExtensions),
   MockTypeProcessorA.Process(Reprise.UnitTests.EndpointRouteBuilderExtensions),
   MockTypeProcessorB.Process(Reprise.UnitTests.EndpointRouteBuilderExtensions),
   MockTypeProcessorA.Process(Reprise.UnitTests.ModuleInit),
