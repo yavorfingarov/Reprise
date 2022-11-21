@@ -1,0 +1,57 @@
+﻿{
+  target: {
+    _MockHttpResponse: [
+      {
+        Method: HttpResponse.set_StatusCode(int value),
+        Arguments: [
+          500
+        ]
+      }
+    ],
+    _MockExceptionLogger: [
+      {
+        Method: IExceptionLogger.Log(ILogger logger, ErrorContext<Exception> context),
+        Arguments: [
+          {},
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ],
+    _MockErrorResponseFactory: [
+      {
+        Method: IErrorResponseFactory.Create(ErrorContext<Exception> context),
+        Arguments: [
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ],
+        Exception: {
+          Type: NotImplementedException,
+          Message: The method or operation is not implemented.
+        }
+      }
+    ]
+  },
+  logs: [
+    {
+      Level: Error,
+      Category: Reprise.ExceptionHandler,
+      Message: An exception was thrown attempting to execute the error handler.,
+      Exception: {
+        $type: NotImplementedException,
+        Type: NotImplementedException,
+        Message: The method or operation is not implemented.
+      }
+    }
+  ]
+}

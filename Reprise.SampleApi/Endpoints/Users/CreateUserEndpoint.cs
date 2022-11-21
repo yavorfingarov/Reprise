@@ -6,10 +6,7 @@
         [Post("/users")]
         public static IResult Handle(UserDto userDto, IValidator<UserDto> validator, DataContext context)
         {
-            if (!validator.Validate(userDto).IsValid)
-            {
-                return Results.BadRequest();
-            }
+            validator.ValidateAndThrow(userDto);
             var user = new User()
             {
                 Id = !context.Users.Any() ? 0 : context.Users.Max(u => u.Id) + 1,

@@ -1,8 +1,9 @@
 # Changelog
 
-## [2.1.0] - 2022-11-20
+## [2.1.0] - 2022-11-21
 ### Added
 - Validation
+- Exception handling
 - Target framework .NET 7
 
 ## [2.0.0] - 2022-11-19

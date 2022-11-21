@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: IExceptionLogger is implemented by both Reprise.UnitTests.Features.ExceptionHandling.StubExceptionLogger and Reprise.UnitTests.Features.ExceptionHandling.StubDuplicateExceptionLogger.
+}

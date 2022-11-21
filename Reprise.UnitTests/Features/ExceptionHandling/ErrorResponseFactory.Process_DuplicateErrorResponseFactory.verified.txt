@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: IErrorResponseFactory is implemented by both Reprise.UnitTests.Features.ExceptionHandling.StubErrorResponseFactory and Reprise.UnitTests.Features.ExceptionHandling.StubDuplicateErrorResponseFactory.
+}

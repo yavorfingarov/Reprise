@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Reprise.UnitTests.Features
+﻿namespace Reprise.UnitTests.Features
 {
     [UsesVerify]
     public class Validation
@@ -27,7 +25,7 @@ namespace Reprise.UnitTests.Features
         [Fact]
         public Task Process_NoImplementation()
         {
-            _Processor.Process(_Builder, typeof(StubValidatedType));
+            _Processor.Process(_Builder, GetType());
 
             return Verify(_Builder)
                 .UniqueForRuntimeAndVersion();
@@ -38,7 +36,8 @@ namespace Reprise.UnitTests.Features
         {
             _Processor.Process(_Builder, typeof(StubValidator));
 
-            return Throws(() => _Processor.Process(_Builder, typeof(StubDuplicateValidator)));
+            return Throws(() => _Processor.Process(_Builder, typeof(StubDuplicateValidator)))
+                .IgnoreStackTrace();
         }
 
         [Fact]

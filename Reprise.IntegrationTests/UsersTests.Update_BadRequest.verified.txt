@@ -1,7 +1,19 @@
 ﻿{
   Version: 1.1,
   Status: 400 Bad Request,
-  RequestMessage: {
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      message: Validation failed,
+      details: {
+        FirstName: 'First Name' must not be empty.,
+        LastName: 'Last Name' must not be empty.
+      }
+    }
+  },
+  Request: {
     Method: PUT,
     Uri: http://localhost/users/7,
     Headers: {

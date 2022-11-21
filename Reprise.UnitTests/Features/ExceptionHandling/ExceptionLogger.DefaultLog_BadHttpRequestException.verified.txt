@@ -1,0 +1,17 @@
+﻿{
+  target: {},
+  logs: [
+    {
+      Level: Error,
+      Message: BadHttpRequestException: Test message,
+      State: [
+        {
+          Message: Test message
+        },
+        {
+          {OriginalFormat}: BadHttpRequestException: {Message}
+        }
+      ]
+    }
+  ]
+}

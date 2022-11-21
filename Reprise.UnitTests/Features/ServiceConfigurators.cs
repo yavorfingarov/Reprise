@@ -25,7 +25,7 @@
         [Fact]
         public Task Process_NoImplementation()
         {
-            _Processor.Process(_Builder, typeof(StubService));
+            _Processor.Process(_Builder, GetType());
 
             return Verify(_Builder)
                 .UniqueForRuntimeAndVersion();

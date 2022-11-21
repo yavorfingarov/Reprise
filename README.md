@@ -17,6 +17,7 @@ of abstractions that encourages the creation of convention-based and modular imp
 var builder = WebApplication.CreateBuilder();
 builder.ConfigureServices();
 var app = builder.Build();
+app.UseExceptionHandling();
 app.MapEndpoints();
 app.Run();
 ```
@@ -63,8 +64,8 @@ public class UpdateUserEndpoint
 
 In the example `id` comes from the route, `userDto` - from the body, and 
 `context` - from the DI container. Check 
-[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#parameter-binding-1) 
-for more information on the topic.
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/parameter-binding?view=aspnetcore-7.0) 
+for more information about parameter binding.
 
 ## Services
 
@@ -139,10 +140,7 @@ public class CreateUserEndpoint
     [Post("/users")]
     public static IResult Handle(UserDto userDto, IValidator<UserDto> validator, DataContext context)
     {
-        if (!validator.Validate(userDto).IsValid)
-        {
-            return Results.BadRequest();
-        }
+        validator.ValidateAndThrow(userDto);
         // ...
     }
 }
@@ -159,7 +157,18 @@ public class UserDtoValidator : AbstractValidator<UserDto>
 
 Check 
 [the documentation](https://docs.fluentvalidation.net/en/latest/start.html) 
-for more information.
+for more information about FluentValidation.
+
+## Exception handling
+
+By default, the exception handler returns no body and:
+* On `BadHttpRequestException` (e.g. thrown when the request body couldn't be deserialized) 
+logs an error and returns status code `400`.
+* On `ValidationException` returns status code `400`.
+* On all other exceptions logs an error and returns status code `500`.
+
+To customize exception logging, you can implement `IExceptionLogger`. 
+Similarly, you can customize the response body by implementing `IErrorResponseFactory`.
 
 ## Authorization
 
@@ -174,7 +183,7 @@ app.MapEndpoints(options => options.RequireAuthorization());
 
 Check 
 [the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-7.0) 
-for more information.
+for more information about authentication and authorization.
 
 ## OpenAPI
 
@@ -187,18 +196,20 @@ not "api" (case insensitive) or a parameter is capitalized and set as a tag.
 ## Self-checks
 
 Reprise will throw an `InvalidOperationExcaption` on application startup when:
-* An endpoint has no `Handle` method
-* An endpoint has multiple `Handle` methods
-* A `Handle` method has no HTTP method and route attribute
-* A `Handle` method has multiple HTTP method and route attributes
-* A `Handle` method has an empty route
-* A `Handle` method has an empty HTTP method
-* An HTTP method and route combination is handled by more than one endpoint
-* A service configurator has no public paramereterless constructor
-* A configuration model could not be bound (e.g. missing property for a configuration key)
-* A configuration sub-section is bound to multiple types
-* A model is validated by multiple validators
-* An OpenAPI tag is empty
+* An endpoint has no `Handle` method.
+* An endpoint has multiple `Handle` methods.
+* A `Handle` method has no HTTP method and route attribute.
+* A `Handle` method has multiple HTTP method and route attributes.
+* A `Handle` method has an empty route.
+* A `Handle` method has an empty HTTP method.
+* An HTTP method and route combination is handled by more than one endpoint.
+* A service configurator has no public paramereterless constructor.
+* A configuration model could not be bound (e.g. missing property for a configuration key).
+* A configuration sub-section is bound to multiple types.
+* A model is validated by multiple validators.
+* `IExceptionLogger` has more than one implementation.
+* `IErrorResponseFactory` has more than one implementation.
+* An OpenAPI tag is empty.
 
 ## Performance
 
