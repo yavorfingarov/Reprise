@@ -45,7 +45,6 @@
   logs: [
     {
       Level: Error,
-      Category: Reprise.ExceptionHandler,
       Message: An exception was thrown attempting to execute the error handler.,
       Exception: {
         $type: NotImplementedException,

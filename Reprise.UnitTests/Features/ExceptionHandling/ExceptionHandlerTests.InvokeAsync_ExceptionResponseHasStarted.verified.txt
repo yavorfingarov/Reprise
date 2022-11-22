@@ -39,7 +39,6 @@
   logs: [
     {
       Level: Error,
-      Category: Reprise.ExceptionHandler,
       Message: The response has already started, the error handler will not be executed.
     }
   ]

@@ -10,9 +10,9 @@
 
         private readonly RequestDelegate _Next;
 
-        public ExceptionHandler(ILoggerProvider loggerProvider, IServiceProvider serviceProvider, RequestDelegate next)
+        public ExceptionHandler(ILoggerFactory loggerFactory, IServiceProvider serviceProvider, RequestDelegate next)
         {
-            _Logger = loggerProvider.CreateLogger(GetType().FullName ?? nameof(ExceptionHandler));
+            _Logger = loggerFactory.CreateLogger(GetType().FullName ?? nameof(ExceptionHandler));
             _ExceptionLogger = serviceProvider.GetRequiredServiceSafe<IExceptionLogger>();
             _ErrorResponseFactory = serviceProvider.GetRequiredServiceSafe<IErrorResponseFactory>();
             _Next = next;
