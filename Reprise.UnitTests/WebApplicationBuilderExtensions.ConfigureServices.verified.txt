@@ -35,8 +35,6 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.EndpointAttributes),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.EndpointMapperTests),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.EndpointMapperTests),
-  MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.EndpointOptionsTests),
-  MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.EndpointOptionsTests),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.EndpointTypeProcessorTests),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.EndpointTypeProcessorTests),
   MockTypeProcessorA.PostProcess(),

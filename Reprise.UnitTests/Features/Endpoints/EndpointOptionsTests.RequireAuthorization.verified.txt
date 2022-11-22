@@ -1,3 +1,0 @@
-﻿{
-  _RequireAuthorization: true
-}

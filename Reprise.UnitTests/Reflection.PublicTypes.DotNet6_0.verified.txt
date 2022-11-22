@@ -1,0 +1,19 @@
+﻿[
+  Reprise.ApplicationBuilderExtensions,
+  Reprise.EndpointRouteBuilderExtensions,
+  Reprise.EndpointOptions,
+  Reprise.ConfigurationAttribute,
+  Reprise.EndpointAttribute,
+  Reprise.MapAttribute,
+  Reprise.GetAttribute,
+  Reprise.PostAttribute,
+  Reprise.PutAttribute,
+  Reprise.PatchAttribute,
+  Reprise.DeleteAttribute,
+  Reprise.ErrorContext`1,
+  Reprise.IErrorResponseFactory,
+  Reprise.IExceptionLogger,
+  Reprise.TagsAttribute,
+  Reprise.IServiceConfigurator,
+  Reprise.WebApplicationBuilderExtensions
+]

@@ -1,6 +1,0 @@
-﻿{
-  _RequireAuthorization: true,
-  _AuthorizationPolicyNames: [
-    Policy1
-  ]
-}

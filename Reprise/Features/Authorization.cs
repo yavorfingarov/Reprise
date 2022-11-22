@@ -1,5 +1,21 @@
 ﻿namespace Reprise
 {
+    public partial class EndpointOptions
+    {
+        internal bool _RequireAuthorization;
+
+        internal string[] _AuthorizationPolicyNames = Array.Empty<string>();
+
+        /// <summary>
+        /// Enables authorization for all API endpoints.
+        /// </summary>
+        public void RequireAuthorization(params string[] policyNames)
+        {
+            _RequireAuthorization = true;
+            _AuthorizationPolicyNames = policyNames;
+        }
+    }
+
     internal class AuthorizationProcessor : IRouteHandlerBuilderProcessor
     {
         public void Process(RouteHandlerBuilder builder, MethodInfo handlerInfo, EndpointOptions options, string route)
