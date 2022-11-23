@@ -1,0 +1,14 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Headers: {
+    filter-invocations: StubFilterA
+  },
+  Content: {
+    Headers: {
+      Content-Type: text/plain; charset=utf-8
+    },
+    Value: Hello, world!
+  },
+  Request: http://localhost/
+}

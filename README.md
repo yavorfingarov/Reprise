@@ -126,7 +126,31 @@ is bound to the following section in `appsettings.json`:
 }
 ```
 
-Deeper nested sub-sections could as well be bound using a key like `"Foo:Bar"`.
+Deeper nested sub-sections could as well be bound using a key like `"Foo:Bar"`. Check 
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-7.0) 
+for more information about configuration.
+
+## Filters (.NET 7 only)
+
+You can add filters for all API endpoints: 
+
+```csharp
+app.MapEndpoints(options => 
+{
+    options.AddEndpointFilter<FilterA>();
+    options.AddEndpointFilter<FilterB>();
+    options.AddEndpointFilter<FilterC>();
+});
+```
+
+The filters should implement `IEndpointFilter` and will be executed in the order of registration. 
+
+You can also apply a filter to specific endpoints by using the `FilterAttribute`. 
+Such a filter will be executed after the global ones.
+
+Check 
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/min-api-filters?view=aspnetcore-7.0) 
+for more information about filters.
 
 ## Validation
 
@@ -158,6 +182,19 @@ public class UserDtoValidator : AbstractValidator<UserDto>
 Check 
 [the documentation](https://docs.fluentvalidation.net/en/latest/start.html) 
 for more information about FluentValidation.
+
+### Validation filter (.NET 7 only)
+
+It's also possible to add validation as a filter for all endpoints. This way, you don't need 
+to manually inject the validator and validate.
+
+```csharp
+app.MapEndpoints(options => options.AddValidationFilter());
+```
+
+The filter is implemented as an `EndpointFilterFactory`, so it will be invoked only on endpoints 
+having a non-nullable parameter of type for which a validator is found. If multiple parameters are 
+validatable, only the first one will be handled by the filter. 
 
 ## Exception handling
 

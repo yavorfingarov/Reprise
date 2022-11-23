@@ -12,6 +12,7 @@ namespace Reprise.SampleApi.Endpoints
 
         [Get("/weather")]
         [AllowAnonymous]
+        [Filter(typeof(GreetingFilter))]
         public static async Task<WeatherForecast[]> Handle(IWeatherService weatherService)
         {
             return await weatherService.GetForecast();

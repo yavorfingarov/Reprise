@@ -6,7 +6,8 @@ namespace Reprise.IntegrationTests
         public async Task Get()
         {
             await Verify(await Client.GetAsync("/weather"))
-                .IgnoreMembersWithType<HttpContent>();
+                .IgnoreMembersWithType<HttpContent>()
+                .ScrubMember("trace-id");
         }
     }
 }

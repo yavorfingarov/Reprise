@@ -3,7 +3,7 @@
   logs: [
     {
       Level: Error,
-      Message: An unhandled exception has occurred while executing the request.,
+      Message: An exception was thrown while executing the request.,
       Exception: {
         $type: Exception,
         Type: Exception,

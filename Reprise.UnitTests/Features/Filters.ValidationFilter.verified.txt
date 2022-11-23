@@ -1,0 +1,25 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Content: {
+    Headers: {
+      Content-Type: text/plain; charset=utf-8
+    },
+    Value: Hello, world
+  },
+  Request: {
+    Method: POST,
+    Uri: http://localhost/,
+    Headers: {
+      Transfer-Encoding: chunked
+    },
+    Content: {
+      Headers: {
+        Content-Type: application/json; charset=utf-8
+      },
+      Value: {
+        message: Hello, world
+      }
+    }
+  }
+}

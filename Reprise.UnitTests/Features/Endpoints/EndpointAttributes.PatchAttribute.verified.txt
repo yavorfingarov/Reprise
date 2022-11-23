@@ -1,7 +1,0 @@
-﻿{
-  Methods: [
-    PATCH
-  ],
-  Route: /users,
-  TypeId: PatchAttribute
-}

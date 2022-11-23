@@ -7,7 +7,7 @@
         },
         DisplayName: HTTP: GET /,
         Metadata: [
-          Tags.<>c.<Process>b__4_0(),
+          Tags.<>c.<Process>b__2_0(),
           {
             TypeId: NullableContextAttribute
           },

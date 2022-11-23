@@ -7,7 +7,8 @@
         public async Task GetToken()
         {
             await Verify(await Client.GetAsync("/token"))
-                .ScrubMember("token");
+                .ScrubMember("token")
+                .ScrubMember("trace-id");
         }
     }
 

@@ -1,6 +1,10 @@
 ﻿{
   Version: 1.1,
   Status: 200 OK,
+  Headers: {
+    greeting: Hello!,
+    trace-id: {Scrubbed}
+  },
   Content: {
     Headers: {
       Content-Type: application/json; charset=utf-8

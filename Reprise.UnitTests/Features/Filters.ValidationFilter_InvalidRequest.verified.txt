@@ -1,32 +1,29 @@
 ﻿{
   Version: 1.1,
-  Status: 201 Created,
-  Headers: {
-    Location: /users/0,
-    trace-id: {Scrubbed}
-  },
+  Status: 400 Bad Request,
   Content: {
     Headers: {
       Content-Type: application/json; charset=utf-8
     },
     Value: {
-      id: 0,
-      firstName: Leanna,
-      lastName: Schmeler
+      errors: {
+        Message: 'Message' must not be empty.
+      }
     }
   },
   Request: {
     Method: POST,
-    Uri: http://localhost/users,
+    Uri: http://localhost/,
     Headers: {
-      Authorization: {Scrubbed}
+      Transfer-Encoding: chunked
     },
     Content: {
       Headers: {
-        Content-Length: 44,
         Content-Type: application/json; charset=utf-8
       },
-      Value: 
+      Value: {
+        message: null
+      }
     }
   }
 }

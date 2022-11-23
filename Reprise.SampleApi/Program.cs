@@ -26,7 +26,12 @@ namespace Reprise.SampleApi
 
             app.UseAuthorization();
 
-            app.MapEndpoints(options => options.RequireAuthorization());
+            app.MapEndpoints(options =>
+            {
+                options.RequireAuthorization();
+                options.AddEndpointFilter<TraceIdFilter>();
+                options.AddValidationFilter();
+            });
 
             app.Run();
         }

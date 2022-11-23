@@ -8,6 +8,7 @@ namespace Reprise.UnitTests
         public static void Initialize()
         {
             VerifyMoq.Enable();
+            VerifyHttp.Enable();
             VerifyMicrosoftLogging.Enable();
         }
     }

@@ -21,7 +21,8 @@ namespace Reprise.IntegrationTests
             await GetToken();
 
             await Verify(await Client.PostAsJsonAsync("/users", _Users.Generate()))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -31,7 +32,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.PostAsJsonAsync("/users", new UserDto("", null!)))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -41,7 +43,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.GetAsync("/users/2"))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -51,7 +54,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.GetAsync("/users/7"))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -61,7 +65,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.GetAsync("/users"))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -71,7 +76,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.PutAsJsonAsync("/users/2", _Users.Generate()))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -81,7 +87,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.PutAsJsonAsync("/users/7", _Users.Generate()))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -91,7 +98,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.PutAsJsonAsync("/users/7", new UserDto("", null!)))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -101,7 +109,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.DeleteAsync("/users/2"))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -111,7 +120,8 @@ namespace Reprise.IntegrationTests
             await CreateUsers();
 
             await Verify(await Client.DeleteAsync("/users/7"))
-                .ScrubMember("Authorization");
+                .ScrubMember("Authorization")
+                .ScrubMember("trace-id");
         }
 
         private async Task GetToken()

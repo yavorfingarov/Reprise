@@ -34,7 +34,7 @@
 
         public void Log(ILogger logger, ErrorContext<Exception> context)
         {
-            logger.LogError(context.Exception, "An unhandled exception has occurred while executing the request.");
+            logger.LogError(context.Exception, "An exception was thrown while executing the request.");
         }
     }
 
