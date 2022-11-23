@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <AnalysisLevel>7.0-minimal</AnalysisLevel>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>

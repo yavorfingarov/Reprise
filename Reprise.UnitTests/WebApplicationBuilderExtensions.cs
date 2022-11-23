@@ -29,7 +29,8 @@ namespace Reprise.UnitTests
             Extensions._TypeProcessorFactory = new StubTypeProcessorFactory(mockProcessorA, mockProcessorB);
             _Builder.ConfigureServices();
 
-            return Verify(MockTypeProcessor.Invocations);
+            return Verify(MockTypeProcessor.Invocations)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -47,7 +48,8 @@ namespace Reprise.UnitTests
             Extensions._TypeProcessorFactory = new StubTypeProcessorFactory(mockProcessorA, mockProcessorB);
             _Builder.ConfigureServices(GetType().Assembly);
 
-            return Verify(MockTypeProcessor.Invocations);
+            return Verify(MockTypeProcessor.Invocations)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]

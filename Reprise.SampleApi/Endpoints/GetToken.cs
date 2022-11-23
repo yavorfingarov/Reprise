@@ -7,6 +7,7 @@ namespace Reprise.SampleApi.Endpoints
     {
         [Get("/token")]
         [AllowAnonymous]
+        [Filter(typeof(GreetingFilter))]
         public static TokenResponse Handle(IJwtGenerator generator)
         {
             var (type, token) = generator.Generate();

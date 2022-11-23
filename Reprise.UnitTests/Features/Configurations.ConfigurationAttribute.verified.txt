@@ -1,4 +1,0 @@
-﻿{
-  SubSectionKey: TestSubSection,
-  TypeId: ConfigurationAttribute
-}

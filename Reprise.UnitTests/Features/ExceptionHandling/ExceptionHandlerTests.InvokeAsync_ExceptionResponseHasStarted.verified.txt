@@ -39,8 +39,12 @@
   logs: [
     {
       Level: Error,
-      Category: Reprise.ExceptionHandler,
-      Message: The response has already started, the error handler will not be executed.
+      Message: The response has already started, the error handler will not be executed.,
+      Exception: {
+        $type: Exception,
+        Type: Exception,
+        Message: Test message
+      }
     }
   ]
 }

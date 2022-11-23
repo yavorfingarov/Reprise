@@ -5,7 +5,8 @@
         [Fact]
         public async Task Get()
         {
-            await Verify(await Client.GetAsync("/throw"));
+            await Verify(await Client.GetAsync("/throw"))
+                .ScrubMember("trace-id");
         }
     }
 }

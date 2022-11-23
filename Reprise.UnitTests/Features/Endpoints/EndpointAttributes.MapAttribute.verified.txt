@@ -1,7 +1,0 @@
-﻿{
-  Methods: [
-    HEAD
-  ],
-  Route: /users,
-  TypeId: MapAttribute
-}

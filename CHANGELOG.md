@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0] - 2022-11-23
+### Added
+- Filters (.NET 7 only)
+- Validation filter (.NET 7 only)
+### Fixed
+- Bug in exception handler causing it to log only to a single logger provider when multiple are available
+
 ## [2.1.0] - 2022-11-21
 ### Added
 - Validation

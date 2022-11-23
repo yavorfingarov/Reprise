@@ -1,5 +1,4 @@
-﻿using Reprise.UnitTests.Features.Endpoints;
-using Extensions = Reprise.EndpointRouteBuilderExtensions;
+﻿using Extensions = Reprise.EndpointRouteBuilderExtensions;
 
 namespace Reprise.UnitTests
 {
@@ -17,7 +16,8 @@ namespace Reprise.UnitTests
 
             app.MapEndpoints();
 
-            return Verify(mockEndpointMapper);
+            return Verify(mockEndpointMapper)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -45,7 +45,8 @@ namespace Reprise.UnitTests
 
             app.MapEndpoints(options => options.RequireAuthorization());
 
-            return Verify(mockEndpointMapper);
+            return Verify(mockEndpointMapper)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -63,7 +64,8 @@ namespace Reprise.UnitTests
 
             _Builder.Build().MapEndpoints(null!);
 
-            return Verify(mockEndpointMapper);
+            return Verify(mockEndpointMapper)
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -84,7 +86,7 @@ namespace Reprise.UnitTests
 
         public override void MapEndpoints(IEndpointRouteBuilder app, EndpointOptions options, List<IRouteHandlerBuilderProcessor> processors)
         {
-            EndpointOptions = options.GetSnapshot();
+            EndpointOptions = new { options._RequireAuthorization, options._AuthorizationPolicyNames };
             Processors = processors.Select(p => p.GetType().FullName).ToList();
         }
     }

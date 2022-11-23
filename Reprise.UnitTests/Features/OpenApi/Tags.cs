@@ -8,18 +8,6 @@
         private readonly TagsProcessor _Processor = new();
 
         [Fact]
-        public Task TagsAttribute()
-        {
-            return Verify(new TagsAttribute("Test"));
-        }
-
-        [Fact]
-        public Task TagsAttribute_MultipleTags()
-        {
-            return Verify(new TagsAttribute("Test1", "Test2", "Test3"));
-        }
-
-        [Fact]
         public Task Process()
         {
             var builder = _App.MapGet("/", () => "Hello, world!");

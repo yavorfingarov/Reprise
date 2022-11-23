@@ -16,12 +16,6 @@
         }
 
         [Fact]
-        public Task ConfigurationAttribute()
-        {
-            return Verify(new ConfigurationAttribute("TestSubSection"));
-        }
-
-        [Fact]
         public Task Process()
         {
             var builder = WebApplication.CreateBuilder(new[]

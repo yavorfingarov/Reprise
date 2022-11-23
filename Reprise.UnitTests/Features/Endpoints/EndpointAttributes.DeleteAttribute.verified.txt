@@ -1,7 +1,0 @@
-﻿{
-  Methods: [
-    DELETE
-  ],
-  Route: /users,
-  TypeId: DeleteAttribute
-}

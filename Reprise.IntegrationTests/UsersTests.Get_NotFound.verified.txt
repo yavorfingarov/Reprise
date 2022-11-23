@@ -1,6 +1,9 @@
 ﻿{
   Version: 1.1,
   Status: 404 Not Found,
+  Headers: {
+    trace-id: {Scrubbed}
+  },
   RequestMessage: {
     Uri: http://localhost/users/7,
     Headers: {

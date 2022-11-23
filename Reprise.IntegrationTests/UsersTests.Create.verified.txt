@@ -2,7 +2,8 @@
   Version: 1.1,
   Status: 201 Created,
   Headers: {
-    Location: /users/0
+    Location: /users/0,
+    trace-id: {Scrubbed}
   },
   Content: {
     Headers: {

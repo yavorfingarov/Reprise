@@ -1,7 +1,0 @@
-﻿{
-  Methods: [
-    PUT
-  ],
-  Route: /users,
-  TypeId: PutAttribute
-}

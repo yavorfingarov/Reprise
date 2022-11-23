@@ -1,6 +1,9 @@
 ﻿{
   Version: 1.1,
   Status: 204 No Content,
+  Headers: {
+    trace-id: {Scrubbed}
+  },
   RequestMessage: {
     Method: PUT,
     Uri: http://localhost/users/2,

@@ -10,7 +10,8 @@
                 .GetExportedTypes()
                 .Select(t => t.FullName);
 
-            return Verify(publicTypes);
+            return Verify(publicTypes)
+                .UniqueForRuntimeAndVersion();
         }
     }
 }
