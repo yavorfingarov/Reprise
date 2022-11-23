@@ -58,7 +58,7 @@ namespace Reprise.UnitTests.Features
         {
             await SetupHost(typeof(StubEndpointWithValidation), options => options.AddValidationFilter());
 
-            await Verify(await _Client.PostAsync("/", JsonContent.Create(new StubDto("Hello, world"))));
+            await Verify(await _Client.PostAsync("/", JsonContent.Create(new StubDto("Hello, world!"))));
         }
 
         [Fact]
