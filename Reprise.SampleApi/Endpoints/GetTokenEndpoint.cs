@@ -3,11 +3,13 @@
 namespace Reprise.SampleApi.Endpoints
 {
     [Endpoint]
-    public class GetToken
+    public class GetTokenEndpoint
     {
         [Get("/token")]
         [AllowAnonymous]
         [Filter(typeof(GreetingFilter))]
+        [Produces(StatusCodes.Status200OK, typeof(TokenResponse))]
+        [Tags("Public")]
         public static TokenResponse Handle(IJwtGenerator generator)
         {
             var (type, token) = generator.Generate();

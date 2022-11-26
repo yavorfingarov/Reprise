@@ -1,6 +1,6 @@
 ﻿namespace Reprise
 {
-    internal class EndpointTypeProcessor : AbstractTypeProcessor
+    internal sealed class EndpointTypeProcessor : AbstractTypeProcessor
     {
         internal readonly EndpointMapper _EndpointMapper = new();
 

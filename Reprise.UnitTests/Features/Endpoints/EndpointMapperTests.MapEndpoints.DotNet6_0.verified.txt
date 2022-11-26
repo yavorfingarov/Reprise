@@ -14,10 +14,6 @@
               TypeId: NullableContextAttribute
             },
             {
-              Methods: [
-                GET
-              ],
-              Route: /,
               TypeId: GetAttribute
             },
             {
@@ -45,10 +41,6 @@
               TypeId: NullableContextAttribute
             },
             {
-              Methods: [
-                POST
-              ],
-              Route: /,
               TypeId: PostAttribute
             },
             {

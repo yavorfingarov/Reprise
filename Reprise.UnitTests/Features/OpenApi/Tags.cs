@@ -5,15 +5,21 @@
     {
         private readonly IEndpointRouteBuilder _App = WebApplication.Create();
 
+        private readonly RouteHandlerBuilder _Builder;
+
         private readonly TagsProcessor _Processor = new();
+
+        public Tags()
+        {
+            _Builder = _App.MapGet("/", () => "Hello, world!");
+        }
 
         [Fact]
         public Task Process()
         {
-            var builder = _App.MapGet("/", () => "Hello, world!");
             var handlerInfo = typeof(StubTagType).GetMethod(nameof(StubTagType.WithTag))!;
 
-            _Processor.Process(builder, handlerInfo, null!, null!);
+            _Processor.Process(_Builder, handlerInfo, null!, null!);
 
             return Verify(_App.DataSources)
                 .UniqueForRuntimeAndVersion();
@@ -22,10 +28,9 @@
         [Fact]
         public Task Process_EmptyTag()
         {
-            var builder = _App.MapGet("/", () => "Hello, world!");
             var handlerInfo = typeof(StubTagType).GetMethod(nameof(StubTagType.WithEmptyTag))!;
 
-            return Throws(() => _Processor.Process(builder, handlerInfo, null!, null!))
+            return Throws(() => _Processor.Process(_Builder, handlerInfo, null!, null!))
                 .IgnoreStackTrace();
         }
 
@@ -44,10 +49,9 @@
         [InlineData("/api/users/{id}")]
         public Task Process_NoAttribute(string route)
         {
-            var builder = _App.MapGet("/", () => "Hello, world!");
             var handlerInfo = typeof(StubTagType).GetMethod(nameof(StubTagType.WithoutTag))!;
 
-            _Processor.Process(builder, handlerInfo, null!, route);
+            _Processor.Process(_Builder, handlerInfo, null!, route);
 
             return Verify(_App.DataSources)
                 .UseParameters(route)

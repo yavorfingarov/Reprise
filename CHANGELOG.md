@@ -1,5 +1,21 @@
 # Changelog
 
+## [Upcoming]
+### Added
+- CORS support
+- Filter ordering (.NET 7 only)
+### Changed
+- Endpoints can have multiple filters added via an attribute (.NET 7 only)
+- Validation filter validates all validatable parameters not only the first one (.NET 7 only)
+
+## [3.0.0] - 2022-11-26
+### Added
+- Extentended OpenAPI support with Produces, Name and ExcludeFromDescription attributes
+- NuGet package icon
+### Changed
+- Removed the public properties from all attributes (BREAKING)
+- Validation filter can handle nullable reference types (.NET 7 only)
+
 ## [2.2.0] - 2022-11-23
 ### Added
 - Filters (.NET 7 only)

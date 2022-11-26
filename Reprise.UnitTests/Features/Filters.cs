@@ -74,6 +74,22 @@ namespace Reprise.UnitTests.Features
         {
             await SetupHost(typeof(StubEndpointWithValidationNullableType), options => options.AddValidationFilter());
 
+            await Verify(await _Client.PostAsync("/", JsonContent.Create(new StubDto("Hello, world!"))));
+        }
+
+        [Fact]
+        public async Task ValidationFilter_NullableTypeNull()
+        {
+            await SetupHost(typeof(StubEndpointWithValidationNullableType), options => options.AddValidationFilter());
+
+            await Verify(await _Client.PostAsync("/", null));
+        }
+
+        [Fact]
+        public async Task ValidationFilter_NullableTypeInvalidRequest()
+        {
+            await SetupHost(typeof(StubEndpointWithValidationNullableType), options => options.AddValidationFilter());
+
             await Verify(await _Client.PostAsync("/", JsonContent.Create(new StubDto(null!))));
         }
 

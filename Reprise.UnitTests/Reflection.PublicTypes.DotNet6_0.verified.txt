@@ -13,6 +13,9 @@
   Reprise.ErrorContext`1,
   Reprise.IErrorResponseFactory,
   Reprise.IExceptionLogger,
+  Reprise.ExcludeFromDescriptionAttribute,
+  Reprise.NameAttribute,
+  Reprise.ProducesAttribute,
   Reprise.TagsAttribute,
   Reprise.IServiceConfigurator,
   Reprise.WebApplicationBuilderExtensions

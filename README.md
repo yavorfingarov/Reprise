@@ -1,7 +1,7 @@
-# Reprise
+# 𝄇 Reprise
 
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response) 
-pattern and vertical slice architecture into the ASP.NET Core 6+ Minimal APIs. 
+pattern and vertical slice architecture into the ASP.NET Core 6/7 Minimal APIs. 
 It aims to be unopioniated towards API behavior and to provide a thin layer 
 of abstractions that encourages the creation of convention-based and modular implementations.
 
@@ -192,8 +192,8 @@ to manually inject the validator and validate.
 app.MapEndpoints(options => options.AddValidationFilter());
 ```
 
-The filter is implemented as an `EndpointFilterFactory`, so it will be invoked only on endpoints 
-having a non-nullable parameter of type for which a validator is found. If multiple parameters are 
+The filter is registered using an endpoint filter factory, so it will be invoked only on endpoints 
+having a parameter of type for which a validator is found. If multiple parameters are 
 validatable, only the first one will be handled by the filter. 
 
 ## Exception handling
@@ -224,29 +224,33 @@ for more information about authentication and authorization.
 
 ## OpenAPI
 
-OpenAPI tags are typically used to group operations in the Swagger UI. You can assign custom tag(s) 
-by decorating the `Handle` method with the `TagsAttribute`. If no such attribute is found, 
-Reprise extracts a tag from the route of every endpoint. The first segment that is 
-not "api" (case insensitive) or a parameter is capitalized and set as a tag.
+You can enhance the OpenAPI description of your endpoints by decorating the `Handle` method with attributes.
+
+* `TagsAttribute` assigns custom tags that are typically used to group operations in the Swagger UI. 
+If no attribute is found, Reprise extracts a tag from the route of every endpoint. The first segment 
+that is not "api" (case insensitive) or a parameter is capitalized and set as a tag.
 "/" is used when no match is found. 
+
+* `NameAttribute` assigns a name that is used for link generation and is also treated as the operation ID 
+in the OpenAPI description.
+
+* `ProducesAttribute` describes a response returned from an API endpoint. 
+**NB** Make sure you are using the Reprise' attribute and not the one from `Microsoft.AspNetCore.Mvc`.
+
+* `ExcludeFromDescriptionAttribute` marks an endpoint that is excluded from the OpenAPI description.
+
+Check 
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/openapi?view=aspnetcore-7.0) 
+for more information about OpenAPI.
 
 ## Self-checks
 
-Reprise will throw an `InvalidOperationExcaption` on application startup when:
-* An endpoint has no `Handle` method.
-* An endpoint has multiple `Handle` methods.
-* A `Handle` method has no HTTP method and route attribute.
-* A `Handle` method has multiple HTTP method and route attributes.
-* A `Handle` method has an empty route.
-* A `Handle` method has an empty HTTP method.
-* An HTTP method and route combination is handled by more than one endpoint.
-* A service configurator has no public paramereterless constructor.
-* A configuration model could not be bound (e.g. missing property for a configuration key).
-* A configuration sub-section is bound to multiple types.
-* A model is validated by multiple validators.
-* `IExceptionLogger` has more than one implementation.
-* `IErrorResponseFactory` has more than one implementation.
-* An OpenAPI tag is empty.
+Reprise tries to make sure the API will behave the way you would expect. For this reason, 
+it performs various self-checks on application startup and throws an `InvalidOperationException` 
+when a problem is encountered. The problems covered by those checks include programming errors 
+(e.g., an endpoint has no public static `Handle` method), misconfigurations (e.g., a configuration 
+model could not be bound), code duplications (e.g., a model is validated by multiple validators), 
+and ambiguities (e.g., an HTTP method and route combination is handled by more than one endpoint).
 
 ## Performance
 

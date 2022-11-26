@@ -3,7 +3,7 @@
 namespace Reprise.SampleApi.Endpoints
 {
     [Endpoint]
-    public class GetWeather : IServiceConfigurator
+    public class GetWeatherEndpoint : IServiceConfigurator
     {
         public void ConfigureServices(WebApplicationBuilder builder)
         {
@@ -13,6 +13,8 @@ namespace Reprise.SampleApi.Endpoints
         [Get("/weather")]
         [AllowAnonymous]
         [Filter(typeof(GreetingFilter))]
+        [Produces(StatusCodes.Status200OK, typeof(WeatherForecast[]))]
+        [Tags("Public")]
         public static async Task<WeatherForecast[]> Handle(IWeatherService weatherService)
         {
             return await weatherService.GetForecast();

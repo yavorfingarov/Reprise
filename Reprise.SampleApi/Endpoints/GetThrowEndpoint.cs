@@ -1,10 +1,11 @@
 ﻿namespace Reprise.SampleApi.Endpoints
 {
     [Endpoint]
-    public class GetThrow
+    public class GetThrowEndpoint
     {
         [Get("/throw")]
         [AllowAnonymous]
+        [ExcludeFromDescription]
         public static IResult Handle()
         {
             throw new NotImplementedException();

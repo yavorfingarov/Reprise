@@ -24,7 +24,7 @@
         object? Create(ErrorContext<Exception> context);
     }
 
-    internal class DefaultErrorResponseFactory : IErrorResponseFactory
+    internal sealed class DefaultErrorResponseFactory : IErrorResponseFactory
     {
         public object? Create(ErrorContext<BadHttpRequestException> context)
         {
@@ -42,7 +42,7 @@
         }
     }
 
-    internal class ErrorResponseFactoryTypeProcessor : AbstractTypeProcessor
+    internal sealed class ErrorResponseFactoryTypeProcessor : AbstractTypeProcessor
     {
         private Type? _ErrorResponseFactoryType;
 

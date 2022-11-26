@@ -10,17 +10,14 @@
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class ConfigurationAttribute : Attribute
     {
-        /// <summary>
-        /// Gets the sub-section key.
-        /// </summary>
-        public string SubSectionKey { get; }
+        internal string _SubSectionKey;
 
         /// <summary>
         /// Creates a new <see cref="ConfigurationAttribute"/>.
         /// </summary>
         public ConfigurationAttribute(string subSectionKey)
         {
-            SubSectionKey = subSectionKey;
+            _SubSectionKey = subSectionKey;
         }
     }
 
@@ -33,7 +30,7 @@
             var configurationAttribute = type.GetCustomAttribute<ConfigurationAttribute>();
             if (configurationAttribute != null)
             {
-                AddConfiguration(builder, configurationAttribute.SubSectionKey, type);
+                AddConfiguration(builder, configurationAttribute._SubSectionKey, type);
             }
         }
 

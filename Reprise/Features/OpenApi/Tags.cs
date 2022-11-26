@@ -8,32 +8,29 @@ namespace Reprise
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class TagsAttribute : Attribute
     {
-        /// <summary>
-        /// Gets the tags.
-        /// </summary>
-        public string[] Tags { get; }
+        internal string[] _Tags;
 
         /// <summary>
         /// Creates a new <see cref="TagsAttribute"/>.
         /// </summary>
         public TagsAttribute(string tag, params string[] additionalTags)
         {
-            Tags = additionalTags.Prepend(tag).ToArray();
+            _Tags = additionalTags.Prepend(tag).ToArray();
         }
     }
 
-    internal class TagsProcessor : IRouteHandlerBuilderProcessor
+    internal sealed class TagsProcessor : IRouteHandlerBuilderProcessor
     {
         public void Process(RouteHandlerBuilder builder, MethodInfo handlerInfo, EndpointOptions options, string route)
         {
             var tagsAttribute = handlerInfo.GetCustomAttribute<TagsAttribute>();
             if (tagsAttribute != null)
             {
-                if (tagsAttribute.Tags.Any(t => t.IsEmpty()))
+                if (tagsAttribute._Tags.Any(t => t.IsEmpty()))
                 {
                     throw new InvalidOperationException($"{handlerInfo.GetFullName()} has an empty tag.");
                 }
-                builder.WithTags(tagsAttribute.Tags);
+                builder.WithTags(tagsAttribute._Tags);
             }
             else
             {

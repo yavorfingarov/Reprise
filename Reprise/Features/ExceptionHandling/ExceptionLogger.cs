@@ -21,7 +21,7 @@
         void Log(ILogger logger, ErrorContext<Exception> context);
     }
 
-    internal class DefaultExceptionLogger : IExceptionLogger
+    internal sealed class DefaultExceptionLogger : IExceptionLogger
     {
         public void Log(ILogger logger, ErrorContext<BadHttpRequestException> context)
         {
@@ -38,7 +38,7 @@
         }
     }
 
-    internal class ExceptionLoggerTypeProcessor : AbstractTypeProcessor
+    internal sealed class ExceptionLoggerTypeProcessor : AbstractTypeProcessor
     {
         private Type? _ExceptionLoggerType;
 

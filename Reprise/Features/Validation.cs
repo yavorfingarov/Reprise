@@ -1,6 +1,6 @@
 ﻿namespace Reprise
 {
-    internal class ValidatorTypeProcessor : AbstractTypeProcessor
+    internal sealed class ValidatorTypeProcessor : AbstractTypeProcessor
     {
         private readonly Dictionary<Type, Type> _Validators = new();
 
