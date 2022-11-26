@@ -15,7 +15,6 @@
         {
             _Name = name;
         }
-
     }
 
     internal sealed class NameProcessor : IRouteHandlerBuilderProcessor
