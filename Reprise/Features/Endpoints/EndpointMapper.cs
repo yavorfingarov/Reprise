@@ -56,26 +56,26 @@ namespace Reprise
         private (string[] Methods, string Route) GetMethodsAndRoute(MethodInfo handlerInfo)
         {
             var mapAttribute = GetMapAttribute(handlerInfo);
-            if (mapAttribute.Route.IsEmpty())
+            if (mapAttribute._Route.IsEmpty())
             {
                 throw new InvalidOperationException($"{handlerInfo.GetFullName()} has an empty route.");
             }
-            if (mapAttribute.Methods.Any(m => m.IsEmpty()))
+            if (mapAttribute._Methods.Any(m => m.IsEmpty()))
             {
                 throw new InvalidOperationException($"{handlerInfo.GetFullName()} has an empty HTTP method.");
             }
-            foreach (var method in mapAttribute.Methods)
+            foreach (var method in mapAttribute._Methods)
             {
-                var key = (method, mapAttribute.Route);
+                var key = (method, mapAttribute._Route);
                 if (_MappedRoutes.TryGetValue(key, out var existingEndpointType))
                 {
                     throw new InvalidOperationException(
-                        $"{method} {mapAttribute.Route} is handled by both {handlerInfo.DeclaringType} and {existingEndpointType}.");
+                        $"{method} {mapAttribute._Route} is handled by both {handlerInfo.DeclaringType} and {existingEndpointType}.");
                 }
                 _MappedRoutes[key] = handlerInfo.DeclaringType!;
             }
 
-            return (mapAttribute.Methods, mapAttribute.Route);
+            return (mapAttribute._Methods, mapAttribute._Route);
         }
 
         private static MapAttribute GetMapAttribute(MethodInfo handlerInfo)

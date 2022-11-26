@@ -1,6 +1,6 @@
 ﻿namespace Reprise
 {
-    internal class ExceptionHandler
+    internal sealed class ExceptionHandler
     {
         private readonly ILogger _Logger;
 

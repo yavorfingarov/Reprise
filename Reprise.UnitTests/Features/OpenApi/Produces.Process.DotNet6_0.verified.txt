@@ -1,0 +1,45 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          RawText: /
+        },
+        DisplayName: HTTP: GET /,
+        Metadata: [
+          Produces.<>c.<.ctor>b__3_0(),
+          {
+            TypeId: NullableContextAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            Type: StubProducesResponse,
+            StatusCode: 202,
+            ContentTypes: [
+              application/json,
+              application/xml
+            ]
+          },
+          {
+            Type: StubProducesErrorResponse,
+            StatusCode: 418,
+            ContentTypes: [
+              application/json,
+              application/xml
+            ]
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Target: RequestDelegateFactory.<>c__DisplayClass36_0,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

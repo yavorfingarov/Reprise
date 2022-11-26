@@ -14,6 +14,9 @@
   Reprise.IErrorResponseFactory,
   Reprise.IExceptionLogger,
   Reprise.FilterAttribute,
+  Reprise.ExcludeFromDescriptionAttribute,
+  Reprise.NameAttribute,
+  Reprise.ProducesAttribute,
   Reprise.TagsAttribute,
   Reprise.IServiceConfigurator,
   Reprise.WebApplicationBuilderExtensions

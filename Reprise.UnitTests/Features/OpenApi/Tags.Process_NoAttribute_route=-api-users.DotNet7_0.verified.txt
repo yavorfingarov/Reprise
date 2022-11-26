@@ -7,7 +7,7 @@
         },
         DisplayName: HTTP: GET /,
         Metadata: [
-          Tags.<>c.<Process_NoAttribute>b__4_0(),
+          Tags.<>c.<.ctor>b__3_0(),
           {
             AcceptCorsPreflight: false,
             HttpMethods: [

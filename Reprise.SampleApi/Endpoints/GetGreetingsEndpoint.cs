@@ -1,10 +1,12 @@
 ﻿namespace Reprise.SampleApi.Endpoints
 {
     [Endpoint]
-    public class GetGreetings
+    public class GetGreetingsEndpoint
     {
         [Get("/greetings")]
         [AllowAnonymous]
+        [Produces(StatusCodes.Status200OK, typeof(IEnumerable<string>))]
+        [Tags("Public")]
         public static IEnumerable<string> Handle(GreetingConfiguration configuration)
         {
             return configuration.Names.Select(name => string.Format(configuration.Message, name));

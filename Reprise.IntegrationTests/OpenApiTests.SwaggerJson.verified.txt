@@ -15,7 +15,7 @@
         /greetings: {
           get: {
             tags: [
-              Greetings
+              Public
             ],
             responses: {
               200: {
@@ -34,22 +34,10 @@
             }
           }
         },
-        /throw: {
-          get: {
-            tags: [
-              Throw
-            ],
-            responses: {
-              200: {
-                description: Success
-              }
-            }
-          }
-        },
         /token: {
           get: {
             tags: [
-              Token
+              Public
             ],
             responses: {
               200: {
@@ -57,6 +45,26 @@
                 content: {
                   application/json: {
                     schema: null
+                  }
+                }
+              }
+            }
+          }
+        },
+        /weather: {
+          get: {
+            tags: [
+              Public
+            ],
+            responses: {
+              200: {
+                description: Success,
+                content: {
+                  application/json: {
+                    schema: {
+                      type: array,
+                      items: null
+                    }
                   }
                 }
               }
@@ -77,8 +85,16 @@
               required: true
             },
             responses: {
-              200: {
-                description: Success
+              201: {
+                description: Created
+              },
+              400: {
+                description: Bad Request,
+                content: {
+                  application/json: {
+                    schema: null
+                  }
+                }
               }
             }
           },
@@ -118,8 +134,11 @@
               }
             ],
             responses: {
-              200: {
-                description: Success
+              204: {
+                description: No Content
+              },
+              404: {
+                description: Not Found
               }
             }
           },
@@ -127,6 +146,7 @@
             tags: [
               Users
             ],
+            operationId: GetUser,
             parameters: [
               {
                 name: id,
@@ -140,7 +160,15 @@
             ],
             responses: {
               200: {
-                description: Success
+                description: Success,
+                content: {
+                  application/json: {
+                    schema: null
+                  }
+                }
+              },
+              404: {
+                description: Not Found
               }
             }
           },
@@ -168,26 +196,17 @@
               required: true
             },
             responses: {
-              200: {
-                description: Success
-              }
-            }
-          }
-        },
-        /weather: {
-          get: {
-            tags: [
-              Weather
-            ],
-            responses: {
-              200: {
-                description: Success,
+              204: {
+                description: No Content
+              },
+              404: {
+                description: Not Found
+              },
+              400: {
+                description: Bad Request,
                 content: {
                   application/json: {
-                    schema: {
-                      type: array,
-                      items: null
-                    }
+                    schema: null
                   }
                 }
               }
@@ -197,6 +216,19 @@
       },
       components: {
         schemas: {
+          ErrorResponse: {
+            type: object,
+            properties: {
+              message: {
+                type: string,
+                nullable: true
+              },
+              details: {
+                nullable: true
+              }
+            },
+            additionalProperties: false
+          },
           TokenResponse: {
             type: object,
             properties: {

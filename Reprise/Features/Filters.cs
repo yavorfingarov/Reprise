@@ -7,17 +7,14 @@ namespace Reprise
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class FilterAttribute : Attribute
     {
-        /// <summary>
-        /// Gets the filter type.
-        /// </summary>
-        public Type FilterType { get; }
+        internal Type _FilterType;
 
         /// <summary>
         /// Creates a new <see cref="FilterAttribute"/>.
         /// </summary>
         public FilterAttribute(Type filterType)
         {
-            FilterType = filterType;
+            _FilterType = filterType;
         }
     }
 
@@ -42,7 +39,7 @@ namespace Reprise
         }
     }
 
-    internal class FilterProcessor : IRouteHandlerBuilderProcessor
+    internal sealed class FilterProcessor : IRouteHandlerBuilderProcessor
     {
         public void Process(RouteHandlerBuilder builder, MethodInfo handlerInfo, EndpointOptions options, string route)
         {
@@ -60,11 +57,11 @@ namespace Reprise
             var filterAttribute = handlerInfo.GetCustomAttribute<FilterAttribute>();
             if (filterAttribute != null)
             {
-                if (!filterAttribute.FilterType.IsAssignableTo(typeof(IEndpointFilter)))
+                if (!filterAttribute._FilterType.IsAssignableTo(typeof(IEndpointFilter)))
                 {
-                    throw new InvalidOperationException($"{filterAttribute.FilterType} does not implement {nameof(IEndpointFilter)}.");
+                    throw new InvalidOperationException($"{filterAttribute._FilterType} does not implement {nameof(IEndpointFilter)}.");
                 }
-                AddFilter(builder, filterAttribute.FilterType);
+                AddFilter(builder, filterAttribute._FilterType);
             }
         }
 
@@ -84,12 +81,6 @@ namespace Reprise
             var parameters = context.MethodInfo.GetParameters();
             for (var i = 0; i < parameters.Length; i++)
             {
-                var nullableAttribute = parameters[i].CustomAttributes
-                    .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableAttribute");
-                if (nullableAttribute != null)
-                {
-                    continue;
-                }
                 var validatorType = typeof(IValidator<>).MakeGenericType(parameters[i].ParameterType);
                 var validator = (IValidator?)context.ApplicationServices.GetService(validatorType);
                 if (validator == null)
@@ -98,10 +89,14 @@ namespace Reprise
                 }
                 return invocationContext =>
                 {
-                    var result = validator.Validate(new ValidationContext<object?>(invocationContext.Arguments[i]));
-                    if (!result.IsValid)
+                    var dto = invocationContext.Arguments[i];
+                    if (dto != null)
                     {
-                        throw new ValidationException(result.Errors);
+                        var result = validator.Validate(new ValidationContext<object?>(dto));
+                        if (!result.IsValid)
+                        {
+                            throw new ValidationException(result.Errors);
+                        }
                     }
 
                     return next(invocationContext);

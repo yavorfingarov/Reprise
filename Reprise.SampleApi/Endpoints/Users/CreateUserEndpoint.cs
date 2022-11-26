@@ -4,7 +4,9 @@
     public class CreateUserEndpoint
     {
         [Post("/users")]
-        public static IResult Handle(UserDto userDto, DataContext context)
+        [Produces(StatusCodes.Status201Created)]
+        [ProducesBadRequest]
+        public static IResult Handle(UserDto userDto, DataContext context, LinkGenerator linker)
         {
             var user = new User()
             {
@@ -14,7 +16,7 @@
             };
             context.Users.Add(user);
 
-            return Results.Created($"/users/{user.Id}", user);
+            return Results.Created(linker.GetPathByName(GetUserEndpoint.Id, values: new { user.Id })!, user);
         }
     }
 }
