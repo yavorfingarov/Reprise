@@ -8,7 +8,7 @@ namespace Reprise
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class TagsAttribute : Attribute
     {
-        internal string[] _Tags;
+        internal readonly string[] _Tags;
 
         /// <summary>
         /// Creates a new <see cref="TagsAttribute"/>.

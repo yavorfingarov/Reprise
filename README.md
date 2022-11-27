@@ -132,21 +132,41 @@ for more information about configuration.
 
 ## Filters (.NET 7 only)
 
-You can add filters for all API endpoints: 
+Reprise supports global filters that implement `IEndpointFilter` and endpoint-specific ones 
+via the `FilterAttribute`. 
+
+The execution order is determined by an order value that is set implicitly or explicitly. 
+A higher value means the filter will be executed after the ones with a lower value. 
+Filters having equal order values are run in an arbitrary order. 
+
+Global filters are implicitly assigned an incrementing order value starting from `0` 
+according to the registration order. Endpoint-specific filters are always assigned 
+an implicit order value of `int.MaxValue`.
 
 ```csharp
 app.MapEndpoints(options => 
 {
-    options.AddEndpointFilter<FilterA>();
-    options.AddEndpointFilter<FilterB>();
-    options.AddEndpointFilter<FilterC>();
+    options.AddEndpointFilter<FilterA>(); // implicit order 0
+    options.AddEndpointFilter<FilterB>(); // implicit order 1
+    options.AddEndpointFilter<FilterC>(); // implicit order 2
+    options.AddEndpointFilter<FilterD>(100); // explicit order 100
 });
+
+// ...
+
+[Endpoint]
+public class DeleteUserEndpoint
+{
+    [Delete("/users/{id}")]
+    [Filter(typeof(FilterE))] // implicit order int.MaxValue
+    [Filter(typeof(FilterF))] // implicit order int.MaxValue
+    [Filter(typeof(FilterG), -1)] // explicit order -1
+    public static IResult Handle(int id, DataContext context)
+    {
+        // ...
+    }
+}
 ```
-
-The filters should implement `IEndpointFilter` and will be executed in the order of registration. 
-
-You can also apply a filter to specific endpoints by using the `FilterAttribute`. 
-Such a filter will be executed after the global ones.
 
 Check 
 [the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/min-api-filters?view=aspnetcore-7.0) 
@@ -186,15 +206,14 @@ for more information about FluentValidation.
 ### Validation filter (.NET 7 only)
 
 It's also possible to add validation as a filter for all endpoints. This way, you don't need 
-to manually inject the validator and validate.
+to manually inject validators and validate.
 
 ```csharp
 app.MapEndpoints(options => options.AddValidationFilter());
 ```
 
 The filter is registered using an endpoint filter factory, so it will be invoked only on endpoints 
-having a parameter of type for which a validator is found. If multiple parameters are 
-validatable, only the first one will be handled by the filter. 
+having parameters of type for which a validator is found. 
 
 ## Exception handling
 
@@ -247,10 +266,11 @@ for more information about OpenAPI.
 
 Reprise tries to make sure the API will behave the way you would expect. For this reason, 
 it performs various self-checks on application startup and throws an `InvalidOperationException` 
-when a problem is encountered. The problems covered by those checks include programming errors 
-(e.g., an endpoint has no public static `Handle` method), misconfigurations (e.g., a configuration 
-model could not be bound), code duplications (e.g., a model is validated by multiple validators), 
-and ambiguities (e.g., an HTTP method and route combination is handled by more than one endpoint).
+when a problem is encountered. The problems covered by those checks include:
+* Programming errors (e.g., an endpoint has no public static `Handle` method) 
+* Misconfigurations (e.g., a configuration model could not be bound) 
+* Code duplications (e.g., a model is validated by multiple validators) 
+* Ambiguities (e.g., an HTTP method and route combination is handled by more than one endpoint).
 
 ## Performance
 

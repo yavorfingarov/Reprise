@@ -10,7 +10,7 @@
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class ConfigurationAttribute : Attribute
     {
-        internal string _SubSectionKey;
+        internal readonly string _SubSectionKey;
 
         /// <summary>
         /// Creates a new <see cref="ConfigurationAttribute"/>.

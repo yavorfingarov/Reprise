@@ -30,9 +30,9 @@
 
         private protected static readonly string[] _Delete = new[] { "DELETE" };
 
-        internal string[] _Methods;
+        internal readonly string[] _Methods;
 
-        internal string _Route;
+        internal readonly string _Route;
 
         /// <summary>
         /// Creates a new <see cref="MapAttribute"/> with a single HTTP method.

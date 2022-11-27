@@ -6,7 +6,7 @@
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class NameAttribute : Attribute
     {
-        internal string _Name;
+        internal readonly string _Name;
 
         /// <summary>
         /// Creates a new <see cref="NameAttribute"/>.

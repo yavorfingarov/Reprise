@@ -4,46 +4,66 @@ namespace Reprise
     /// <summary>
     /// Specifies a filter for the API endpoint.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public sealed class FilterAttribute : Attribute
     {
-        internal Type _FilterType;
+        internal readonly int _Order;
+
+        internal readonly Type _FilterType;
 
         /// <summary>
-        /// Creates a new <see cref="FilterAttribute"/>.
+        /// Creates a new <see cref="FilterAttribute"/> with default order value.
         /// </summary>
-        public FilterAttribute(Type filterType)
+        public FilterAttribute(Type filterType) : this(filterType, int.MaxValue)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="FilterAttribute"/> with custom order value.
+        /// </summary>
+        public FilterAttribute(Type filterType, int order)
         {
             _FilterType = filterType;
+            _Order = order;
         }
     }
 
     public partial class EndpointOptions
     {
-        internal List<Type> _FilterTypes = new();
+        internal readonly List<(int Order, Type FilterType)> _FilterTypes = new();
+
+        private int _CurrentOrder = 0;
 
         /// <summary>
         /// Adds a filter for all API endpoints.
         /// </summary>
-        public void AddEndpointFilter<TFilter>() where TFilter : IEndpointFilter
+        public void AddEndpointFilter<TFilter>(int? order = null) where TFilter : IEndpointFilter
         {
-            _FilterTypes.Add(typeof(TFilter));
+            _FilterTypes.Add((order ?? _CurrentOrder++, typeof(TFilter)));
         }
 
         /// <summary>
         /// Adds a validation filter for all API endpoints.
         /// </summary>
-        public void AddValidationFilter()
+        public void AddValidationFilter(int? order = null)
         {
-            _FilterTypes.Add(typeof(ValidationFilterFactory));
+            _FilterTypes.Add((order ?? _CurrentOrder++, typeof(ValidationFilterFactory)));
         }
     }
 
     internal sealed class FilterProcessor : IRouteHandlerBuilderProcessor
     {
+        private readonly MethodInfo _AddEndpointFilterMethod = typeof(EndpointFilterExtensions)
+            .GetMethod(nameof(EndpointFilterExtensions.AddEndpointFilter), 1, new[] { typeof(RouteHandlerBuilder) })!;
+
         public void Process(RouteHandlerBuilder builder, MethodInfo handlerInfo, EndpointOptions options, string route)
         {
-            foreach (var filterType in options._FilterTypes)
+            var filterTypes = handlerInfo.GetCustomAttributes<FilterAttribute>()
+                .Select(a => (Order: a._Order, FilterType: a._FilterType))
+                .Concat(options._FilterTypes)
+                .OrderBy(f => f.Order)
+                .Select(f => f.FilterType);
+            foreach (var filterType in filterTypes)
             {
                 if (filterType == typeof(ValidationFilterFactory))
                 {
@@ -54,40 +74,47 @@ namespace Reprise
                     AddFilter(builder, filterType);
                 }
             }
-            var filterAttribute = handlerInfo.GetCustomAttribute<FilterAttribute>();
-            if (filterAttribute != null)
-            {
-                if (!filterAttribute._FilterType.IsAssignableTo(typeof(IEndpointFilter)))
-                {
-                    throw new InvalidOperationException($"{filterAttribute._FilterType} does not implement {nameof(IEndpointFilter)}.");
-                }
-                AddFilter(builder, filterAttribute._FilterType);
-            }
         }
 
         private void AddFilter(RouteHandlerBuilder builder, Type filterType)
         {
-            var addEndpointFilterOpenMethod = typeof(EndpointFilterExtensions)
-                .GetMethod(nameof(EndpointFilterExtensions.AddEndpointFilter), 1, new[] { typeof(RouteHandlerBuilder) });
-            var addEndpointFilterClosedMethod = addEndpointFilterOpenMethod!.MakeGenericMethod(filterType);
-            addEndpointFilterClosedMethod.Invoke(null, new[] { builder });
+            if (!filterType.IsAssignableTo(typeof(IEndpointFilter)))
+            {
+                throw new InvalidOperationException($"{filterType} does not implement {nameof(IEndpointFilter)}.");
+            }
+            var addEndpointFilterGenericMethod = _AddEndpointFilterMethod.MakeGenericMethod(filterType);
+            addEndpointFilterGenericMethod.Invoke(null, new[] { builder });
         }
     }
 
     internal static class ValidationFilterFactory
     {
-        public static EndpointFilterDelegate Create(EndpointFilterFactoryContext context, EndpointFilterDelegate next)
+        public static EndpointFilterDelegate Create(EndpointFilterFactoryContext factoryContext, EndpointFilterDelegate next)
         {
-            var parameters = context.MethodInfo.GetParameters();
+            var validators = new List<(int, IValidator)>();
+            var parameters = factoryContext.MethodInfo.GetParameters();
             for (var i = 0; i < parameters.Length; i++)
             {
                 var validatorType = typeof(IValidator<>).MakeGenericType(parameters[i].ParameterType);
-                var validator = (IValidator?)context.ApplicationServices.GetService(validatorType);
-                if (validator == null)
+                var validator = (IValidator?)factoryContext.ApplicationServices.GetService(validatorType);
+                if (validator != null)
                 {
-                    continue;
+                    validators.Add((i, validator));
                 }
-                return invocationContext =>
+            }
+            if (validators.Any())
+            {
+                return CreateEndpointFilterDelegate(validators, next);
+            }
+
+            return invocationContext => next(invocationContext);
+        }
+
+        private static EndpointFilterDelegate CreateEndpointFilterDelegate(List<(int, IValidator)> validators, EndpointFilterDelegate next)
+        {
+            return invocationContext =>
+            {
+                foreach (var (i, validator) in validators)
                 {
                     var dto = invocationContext.Arguments[i];
                     if (dto != null)
@@ -98,12 +125,10 @@ namespace Reprise
                             throw new ValidationException(result.Errors);
                         }
                     }
+                }
 
-                    return next(invocationContext);
-                };
-            }
-
-            return context => next(context);
+                return next(invocationContext);
+            };
         }
     }
 }
