@@ -6,13 +6,13 @@
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class ProducesAttribute : Attribute
     {
-        internal int _StatusCode;
+        internal readonly int _StatusCode;
 
-        internal Type? _ResponseType;
+        internal readonly Type? _ResponseType;
 
-        internal string? _ContentType;
+        internal readonly string? _ContentType;
 
-        internal string[] _AdditionalContentTypes;
+        internal readonly string[] _AdditionalContentTypes;
 
         /// <summary>
         /// Creates a new <see cref="ProducesAttribute"/>.

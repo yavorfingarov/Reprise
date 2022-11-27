@@ -1,8 +1,7 @@
 # Changelog
 
-## [Upcoming]
+## [3.1.0] - 2022-11-27
 ### Added
-- CORS support
 - Filter ordering (.NET 7 only)
 ### Changed
 - Endpoints can have multiple filters added via an attribute (.NET 7 only)

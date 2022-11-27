@@ -1,6 +1,7 @@
 ﻿#if NET7_0
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 
@@ -54,6 +55,18 @@ namespace Reprise.UnitTests.Features
         }
 
         [Fact]
+        public async Task GlobalEndpointFilters_EndpointMultipleFilters()
+        {
+            await SetupHost(typeof(StubEndpointWithMultipleFilters), options =>
+            {
+                options.AddEndpointFilter<StubFilterB>(50);
+                options.AddEndpointFilter<StubFilterC>(10);
+            });
+
+            await Verify(await _Client.GetAsync("/"));
+        }
+
+        [Fact]
         public async Task ValidationFilter()
         {
             await SetupHost(typeof(StubEndpointWithValidation), options => options.AddValidationFilter());
@@ -94,6 +107,22 @@ namespace Reprise.UnitTests.Features
         }
 
         [Fact]
+        public async Task ValidationFilter_MultipleTypes()
+        {
+            await SetupHost(typeof(StubEndpointWithValidationMultipleTypes), options => options.AddValidationFilter());
+
+            await Verify(await _Client.PostAsync("/?audience=world", JsonContent.Create(new StubDto("Hello"))));
+        }
+
+        [Fact]
+        public async Task ValidationFilter_MultipleTypesInvalidRequest()
+        {
+            await SetupHost(typeof(StubEndpointWithValidationMultipleTypes), options => options.AddValidationFilter());
+
+            await Verify(await _Client.PostAsync("/?audience= ", JsonContent.Create(new StubDto("Hello"))));
+        }
+
+        [Fact]
         public async Task ValidationFilter_NoValidator()
         {
             await SetupHost(typeof(StubEndpointWithoutValidation), options => options.AddValidationFilter());
@@ -121,6 +150,7 @@ namespace Reprise.UnitTests.Features
                         services.AddSingleton<IExceptionLogger, DefaultExceptionLogger>();
                         services.AddSingleton<IErrorResponseFactory, StubErrorResponseFactory>();
                         services.AddSingleton<IValidator<StubDto>, StubDtoValidator>();
+                        services.AddSingleton<IValidator<StubQueryValues>, StubQueryValuesValidator>();
                     });
                     builder.Configure(app =>
                     {
@@ -161,6 +191,10 @@ namespace Reprise.UnitTests.Features
     {
     }
 
+    internal class StubFilterD : AbstractStubFilter
+    {
+    }
+
     internal class StubFilterNoImplementation
     {
     }
@@ -194,6 +228,17 @@ namespace Reprise.UnitTests.Features
         }
     }
 
+    internal class StubEndpointWithMultipleFilters
+    {
+        [Get("/")]
+        [Filter(typeof(StubFilterA), 100)]
+        [Filter(typeof(StubFilterD), -1)]
+        public static string Handle()
+        {
+            return "Hello, world!";
+        }
+    }
+
     internal class StubEndpointWithValidation
     {
         [Post("/")]
@@ -209,6 +254,15 @@ namespace Reprise.UnitTests.Features
         public static string Handle(StubDto? dto)
         {
             return dto?.Message ?? "No message";
+        }
+    }
+
+    internal class StubEndpointWithValidationMultipleTypes
+    {
+        [Post("/")]
+        public static string Handle(StubDto dto, [AsParameters] StubQueryValues queryValues)
+        {
+            return $"{dto.Message}, {queryValues.Audience}!";
         }
     }
 
@@ -248,8 +302,19 @@ namespace Reprise.UnitTests.Features
         }
     }
 
+    internal class StubQueryValuesValidator : AbstractValidator<StubQueryValues>
+    {
+        public StubQueryValuesValidator()
+        {
+            RuleFor(q => q.Audience)
+                .NotEmpty();
+        }
+    }
+
     internal record StubDto(string Message);
 
     internal record StubDtoNoValidator(string Message);
+
+    internal record StubQueryValues([FromQuery(Name = "audience")] string Audience);
 }
 #endif

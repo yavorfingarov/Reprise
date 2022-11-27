@@ -1,0 +1,34 @@
+﻿{
+  Version: 1.1,
+  Status: 400 Bad Request,
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      errors: {
+        Audience: 'Audience' must not be empty.
+      }
+    }
+  },
+  Request: {
+    Method: POST,
+    Uri: {
+      Path: http://localhost/,
+      Query: {
+        audience: 
+      }
+    },
+    Headers: {
+      Transfer-Encoding: chunked
+    },
+    Content: {
+      Headers: {
+        Content-Type: application/json; charset=utf-8
+      },
+      Value: {
+        message: Hello
+      }
+    }
+  }
+}
