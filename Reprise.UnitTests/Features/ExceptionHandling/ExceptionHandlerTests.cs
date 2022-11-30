@@ -136,6 +136,23 @@
                 .IgnoreStackTrace();
         }
 
+        [Fact]
+        public async Task InvokeAsync_HandleThrowsResponseHasStarted()
+        {
+            var serviceProvider = CreateServiceProvider();
+            RequestDelegate next = _ => throw new Exception("Test message");
+            _MockErrorResponseFactory.Setup(m => m.Create(It.IsAny<ErrorContext<Exception>>()))
+                .Throws(new NotImplementedException());
+            _MockHttpResponse.Setup(m => m.HasStarted)
+                .Returns(true);
+            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+
+            await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
+
+            await Verify(new { _MockHttpResponse, _MockExceptionLogger, _MockErrorResponseFactory })
+                .IgnoreStackTrace();
+        }
+
         private IServiceProvider CreateServiceProvider(bool skipExceptionLogger = false, bool skipErrorResponseFactory = false)
         {
             var serviceCollection = new ServiceCollection();
