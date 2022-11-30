@@ -3,13 +3,7 @@
     _MockHttpResponse: [
       {
         Method: HttpResponse.get_HasStarted(),
-        ReturnValue: false
-      },
-      {
-        Method: HttpResponse.set_StatusCode(int value),
-        Arguments: [
-          500
-        ]
+        ReturnValue: true
       }
     ],
     _MockExceptionLogger: [

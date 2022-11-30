@@ -4,7 +4,11 @@ updates:
     directory: /
     schedule:
       interval: daily
+    assignees:
+      - yavorfingarov
   - package-ecosystem: nuget
     directory: /
     schedule:
       interval: daily
+    assignees:
+      - yavorfingarov

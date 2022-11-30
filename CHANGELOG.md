@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.1.1] - 2022-11-30
+### Fixed
+- Wrongfully try to set the response status code when an exception is thrown while 
+handling an exception and the response has already started.
+
 ## [3.1.0] - 2022-11-27
 ### Added
 - Filter ordering (.NET 7 only)
