@@ -2,8 +2,7 @@
   target: {},
   logs: [
     {
-      Level: Error,
-      Message: BadHttpRequestException: Test message,
+      Error: BadHttpRequestException: Test message,
       State: [
         {
           Message: Test message

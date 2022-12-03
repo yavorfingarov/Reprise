@@ -48,10 +48,8 @@
   },
   logs: [
     {
-      Level: Error,
-      Message: An exception was thrown while executing the error handler.,
+      Error: An exception was thrown while executing the error handler.,
       Exception: {
-        $type: NotImplementedException,
         Type: NotImplementedException,
         Message: The method or operation is not implemented.
       }
