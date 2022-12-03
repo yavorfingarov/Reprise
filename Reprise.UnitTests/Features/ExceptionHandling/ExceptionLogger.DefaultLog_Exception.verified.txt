@@ -2,10 +2,8 @@
   target: {},
   logs: [
     {
-      Level: Error,
-      Message: An exception was thrown while executing the request.,
+      Error: An exception was thrown while executing the request.,
       Exception: {
-        $type: Exception,
         Type: Exception,
         Message: Test message
       }
