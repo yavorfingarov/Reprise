@@ -11,6 +11,8 @@
         /// </summary>
         public static IApplicationBuilder UseExceptionHandling(this IApplicationBuilder app)
         {
+            ArgumentNullException.ThrowIfNull(app);
+
             return app.UseMiddleware<ExceptionHandler>();
         }
     }

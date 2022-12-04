@@ -1,4 +1,6 @@
-﻿namespace Reprise.UnitTests
+﻿using Extensions = Reprise.ApplicationBuilderExtensions;
+
+namespace Reprise.UnitTests
 {
     [UsesVerify]
     public class ApplicationBuilderExtensions
@@ -11,6 +13,13 @@
             mockApplicationBuilder.Object.UseExceptionHandling();
 
             return Verify(mockApplicationBuilder);
+        }
+
+        [Fact]
+        public Task UseExceptionHandling_AppNull()
+        {
+            return Throws(() => Extensions.UseExceptionHandling(null!))
+                .IgnoreStackTrace();
         }
     }
 }

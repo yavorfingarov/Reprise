@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.2] - 2022-12-04
+### Fixed
+- Missing null check in `UseExceptionHandling()`
+
 ## [3.1.1] - 2022-11-30
 ### Fixed
 - Wrongfully try to set the response status code when an exception is thrown while 
