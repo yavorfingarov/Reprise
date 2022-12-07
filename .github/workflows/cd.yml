@@ -3,11 +3,11 @@ name: CD
 on:
   push:
     branches: [ master ]
-    paths: [ 'Reprise/**' ]
+    paths: [ 'src/Reprise/**' ]
 
 env:
   DOTNET_VERSION: 7.0.x
-  CSPROJ_PATH: Reprise/Reprise.csproj
+  CSPROJ_PATH: src/Reprise/Reprise.csproj
 
 jobs:
   publish:

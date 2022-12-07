@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise", "Reprise\Reprise.csproj", "{97214330-9C09-4031-B637-93E03793562E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise", "src\Reprise\Reprise.csproj", "{97214330-9C09-4031-B637-93E03793562E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.UnitTests", "Reprise.UnitTests\Reprise.UnitTests.csproj", "{1996A9BE-F3DB-4210-A6DE-9C16C710DD7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.UnitTests", "tests\Reprise.UnitTests\Reprise.UnitTests.csproj", "{1996A9BE-F3DB-4210-A6DE-9C16C710DD7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.IntegrationTests", "Reprise.IntegrationTests\Reprise.IntegrationTests.csproj", "{39DE4C90-4C65-4112-A350-0EC6010C7A24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.IntegrationTests", "tests\Reprise.IntegrationTests\Reprise.IntegrationTests.csproj", "{39DE4C90-4C65-4112-A350-0EC6010C7A24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.SampleApi", "Reprise.SampleApi\Reprise.SampleApi.csproj", "{5ABC3221-0291-426F-92FA-D165CE734CCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.SampleApi", "samples\Reprise.SampleApi\Reprise.SampleApi.csproj", "{5ABC3221-0291-426F-92FA-D165CE734CCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.SampleApi.WeatherService", "Reprise.SampleApi.WeatherService\Reprise.SampleApi.WeatherService.csproj", "{9D9F56B3-ECBB-4B4E-AB81-D06BBA69D94A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.SampleApi.WeatherService", "samples\Reprise.SampleApi.WeatherService\Reprise.SampleApi.WeatherService.csproj", "{9D9F56B3-ECBB-4B4E-AB81-D06BBA69D94A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDED992E-45B3-4E4D-80C4-5FAA1DDEC9AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D8568E44-E66F-4854-BF56-6F6B5D5C7717}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{74EC593B-0352-44B0-8F41-217B5CCB05F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C9B3E9DF-119F-4264-AA5E-3A93D750DA14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +50,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{97214330-9C09-4031-B637-93E03793562E} = {BDED992E-45B3-4E4D-80C4-5FAA1DDEC9AC}
+		{1996A9BE-F3DB-4210-A6DE-9C16C710DD7D} = {D8568E44-E66F-4854-BF56-6F6B5D5C7717}
+		{39DE4C90-4C65-4112-A350-0EC6010C7A24} = {D8568E44-E66F-4854-BF56-6F6B5D5C7717}
+		{5ABC3221-0291-426F-92FA-D165CE734CCC} = {C9B3E9DF-119F-4264-AA5E-3A93D750DA14}
+		{9D9F56B3-ECBB-4B4E-AB81-D06BBA69D94A} = {C9B3E9DF-119F-4264-AA5E-3A93D750DA14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B60D7A9-6B3F-488C-BBCE-459A59A50808}

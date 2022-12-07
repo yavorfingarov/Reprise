@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Reprise.SampleApi.WeatherService\Reprise.SampleApi.WeatherService.csproj" />
-    <ProjectReference Include="..\Reprise\Reprise.csproj" />
+    <ProjectReference Include="..\..\src\Reprise\Reprise.csproj" />
   </ItemGroup>
 
 </Project>
