@@ -277,6 +277,13 @@ when a problem is encountered. The problems covered by those checks include:
 Besides the assembly scan at application startup when configuring the DI container 
 and discovering endpoints, Reprise doesn't add any performance overhead when handling requests.
 
+|      Method |    Type |        Mean |       Error |      StdDev |    Gen0 |    Gen1 | Allocated |
+|------------ |-------- |------------:|------------:|------------:|--------:|--------:|----------:|
+|     Reprise | Request |    119.3 μs |     1.47 μs |     1.38 μs |  5.6152 |       - |  17.39 KB |
+| MinimalApis | Request |    119.8 μs |     1.65 μs |     1.46 μs |  5.6152 |       - |  17.39 KB |
+|     Reprise | Startup | 22,382.0 μs | 2,095.22 μs | 6,177.81 μs | 70.3125 | 23.4375 | 438.95 KB |
+| MinimalApis | Startup | 18,793.3 μs | 2,159.52 μs | 6,367.39 μs | 78.1250 | 15.6250 | 422.17 KB |
+
 ## Support
 
 If you spot any problems and/or have improvement ideas, please share them via

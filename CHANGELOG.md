@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.3] - 2022-12-11
+### Added
+- Benchmarks
+
 ## [3.1.2] - 2022-12-04
 ### Fixed
 - Missing null check in `UseExceptionHandling()`

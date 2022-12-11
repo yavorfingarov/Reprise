@@ -1,4 +1,4 @@
 stryker-config:
   target-framework: 'net7.0'
-  test-projects: [ 'Reprise.UnitTests/Reprise.UnitTests.csproj' ]
+  test-projects: [ 'tests/Reprise.UnitTests/Reprise.UnitTests.csproj' ]
   reporters: [ 'html', 'dots' ]
