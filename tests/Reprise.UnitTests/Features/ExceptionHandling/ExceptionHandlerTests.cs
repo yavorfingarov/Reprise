@@ -122,6 +122,27 @@
         }
 
         [Fact]
+        public async Task InvokeAsync_ExceptionCustomResponse()
+        {
+            var serviceProvider = CreateServiceProvider();
+            RequestDelegate next = _ => throw new Exception("Test message");
+            _MockErrorResponseFactory.Setup(m => m.Create(It.IsAny<ErrorContext<Exception>>()))
+                .Returns(new { Message = "Test message in body" });
+            _MockHttpResponse.Setup(m => m.HttpContext)
+                .Returns(_MockHttpContext.Object);
+            var mockBodyStream = new Mock<Stream>();
+            _MockHttpResponse.Setup(m => m.Body)
+                .Returns(mockBodyStream.Object);
+            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+
+            await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
+
+            await Verify(new { _MockHttpResponse, mockBodyStream, _MockExceptionLogger, _MockErrorResponseFactory })
+                .IgnoreMembersWithType<HttpContext>()
+                .IgnoreStackTrace();
+        }
+
+        [Fact]
         public async Task InvokeAsync_HandleThrows()
         {
             var serviceProvider = CreateServiceProvider();

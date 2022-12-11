@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise", "Reprise\Reprise.csproj", "{97214330-9C09-4031-B637-93E03793562E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise", "src\Reprise\Reprise.csproj", "{97214330-9C09-4031-B637-93E03793562E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.UnitTests", "Reprise.UnitTests\Reprise.UnitTests.csproj", "{1996A9BE-F3DB-4210-A6DE-9C16C710DD7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.UnitTests", "tests\Reprise.UnitTests\Reprise.UnitTests.csproj", "{1996A9BE-F3DB-4210-A6DE-9C16C710DD7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.IntegrationTests", "Reprise.IntegrationTests\Reprise.IntegrationTests.csproj", "{39DE4C90-4C65-4112-A350-0EC6010C7A24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.IntegrationTests", "tests\Reprise.IntegrationTests\Reprise.IntegrationTests.csproj", "{39DE4C90-4C65-4112-A350-0EC6010C7A24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.SampleApi", "Reprise.SampleApi\Reprise.SampleApi.csproj", "{5ABC3221-0291-426F-92FA-D165CE734CCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks", "tests\Reprise.Benchmarks\Reprise.Benchmarks.csproj", "{EA510397-AEAC-4286-BE4A-7A8D6C05544F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.SampleApi.WeatherService", "Reprise.SampleApi.WeatherService\Reprise.SampleApi.WeatherService.csproj", "{9D9F56B3-ECBB-4B4E-AB81-D06BBA69D94A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks.Api", "tests\Reprise.Benchmarks.Api\Reprise.Benchmarks.Api.csproj", "{6290B67F-B39E-44C0-BD62-A5DB41C29E8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks.Api.MinimalApis", "tests\Reprise.Benchmarks.Api.MinimalApis\Reprise.Benchmarks.Api.MinimalApis.csproj", "{B512A3CB-6175-482A-AE6B-46CE58A94D0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.SampleApi", "samples\Reprise.SampleApi\Reprise.SampleApi.csproj", "{5ABC3221-0291-426F-92FA-D165CE734CCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.SampleApi.WeatherService", "samples\Reprise.SampleApi.WeatherService\Reprise.SampleApi.WeatherService.csproj", "{9D9F56B3-ECBB-4B4E-AB81-D06BBA69D94A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,18 @@ Global
 		{39DE4C90-4C65-4112-A350-0EC6010C7A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39DE4C90-4C65-4112-A350-0EC6010C7A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39DE4C90-4C65-4112-A350-0EC6010C7A24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA510397-AEAC-4286-BE4A-7A8D6C05544F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA510397-AEAC-4286-BE4A-7A8D6C05544F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA510397-AEAC-4286-BE4A-7A8D6C05544F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA510397-AEAC-4286-BE4A-7A8D6C05544F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6290B67F-B39E-44C0-BD62-A5DB41C29E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6290B67F-B39E-44C0-BD62-A5DB41C29E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6290B67F-B39E-44C0-BD62-A5DB41C29E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6290B67F-B39E-44C0-BD62-A5DB41C29E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B512A3CB-6175-482A-AE6B-46CE58A94D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B512A3CB-6175-482A-AE6B-46CE58A94D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B512A3CB-6175-482A-AE6B-46CE58A94D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B512A3CB-6175-482A-AE6B-46CE58A94D0A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5ABC3221-0291-426F-92FA-D165CE734CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5ABC3221-0291-426F-92FA-D165CE734CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ABC3221-0291-426F-92FA-D165CE734CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU

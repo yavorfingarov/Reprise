@@ -12,7 +12,7 @@
 
         public ExceptionHandler(ILoggerFactory loggerFactory, IServiceProvider serviceProvider, RequestDelegate next)
         {
-            _Logger = loggerFactory.CreateLogger(GetType().FullName ?? nameof(ExceptionHandler));
+            _Logger = loggerFactory.CreateLogger(GetType().FullName!);
             _ExceptionLogger = serviceProvider.GetRequiredServiceSafe<IExceptionLogger>();
             _ErrorResponseFactory = serviceProvider.GetRequiredServiceSafe<IErrorResponseFactory>();
             _Next = next;

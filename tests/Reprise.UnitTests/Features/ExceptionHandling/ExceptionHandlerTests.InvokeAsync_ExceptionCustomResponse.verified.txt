@@ -1,0 +1,90 @@
+﻿{
+  target: {
+    _MockHttpResponse: [
+      {
+        Method: HttpResponse.get_HasStarted(),
+        ReturnValue: false
+      },
+      {
+        Method: HttpResponse.set_StatusCode(int value),
+        Arguments: [
+          500
+        ]
+      },
+      {
+        Method: HttpResponse.get_HttpContext()
+      },
+      {
+        Method: HttpResponse.set_ContentType(string value),
+        Arguments: [
+          application/json; charset=utf-8
+        ]
+      },
+      {
+        Method: HttpResponse.get_Body()
+      },
+      {
+        Method: HttpResponse.get_HttpContext()
+      }
+    ],
+    mockBodyStream: [
+      {
+        Method: Stream.WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken),
+        Arguments: [
+          {
+            Length: 34,
+            IsEmpty: false
+          },
+          {
+            IsCancellationRequested: false,
+            CanBeCanceled: false,
+            WaitHandle: {
+              SafeWaitHandle: {
+                IsInvalid: false,
+                IsClosed: false
+              }
+            }
+          }
+        ],
+        ReturnValue: {
+          IsCanceled: false,
+          IsCompleted: true,
+          IsFaulted: false
+        }
+      }
+    ],
+    _MockExceptionLogger: [
+      {
+        Method: IExceptionLogger.Log(ILogger logger, ErrorContext<Exception> context),
+        Arguments: [
+          {},
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ]
+      }
+    ],
+    _MockErrorResponseFactory: [
+      {
+        Method: IErrorResponseFactory.Create(ErrorContext<Exception> context),
+        Arguments: [
+          {
+            Exception: {
+              $type: Exception,
+              Type: Exception,
+              Message: Test message
+            }
+          }
+        ],
+        ReturnValue: {
+          Message: Test message in body
+        }
+      }
+    ]
+  },
+  logs: []
+}
