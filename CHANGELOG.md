@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.4] - 2022-12-12
+### Fixed
+- Readme wording on filters
+
 ## [3.1.3] - 2022-12-11
 ### Added
 - Benchmarks

@@ -132,16 +132,14 @@ for more information about configuration.
 
 ## Filters (.NET 7 only)
 
-Reprise supports global filters that implement `IEndpointFilter` and endpoint-specific ones 
-via the `FilterAttribute`. 
+Reprise supports global and endpoint-specific filters that implement `IEndpointFilter`. 
 
-The execution order is determined by an order value that is set implicitly or explicitly. 
+The filter execution order is determined by an order value that is set implicitly or explicitly. 
 A higher value means the filter will be executed after the ones with a lower value. 
 Filters having equal order values are run in an arbitrary order. 
 
 Global filters are implicitly assigned an incrementing order value starting from `0` 
-according to the registration order. Endpoint-specific filters are always assigned 
-an implicit order value of `int.MaxValue`.
+according to the registration order. 
 
 ```csharp
 app.MapEndpoints(options => 
@@ -151,9 +149,11 @@ app.MapEndpoints(options =>
     options.AddEndpointFilter<FilterC>(); // implicit order 2
     options.AddEndpointFilter<FilterD>(100); // explicit order 100
 });
+```
 
-// ...
+Endpoint-specific filters are implicitly assigned an order value of `int.MaxValue`.
 
+```csharp
 [Endpoint]
 public class DeleteUserEndpoint
 {
@@ -213,7 +213,7 @@ app.MapEndpoints(options => options.AddValidationFilter());
 ```
 
 The filter is registered using an endpoint filter factory, so it will be invoked only on endpoints 
-having parameters of type for which a validator is found. 
+having one or more parameters that are validatable. 
 
 ## Exception handling
 
@@ -254,7 +254,7 @@ that is not "api" (case insensitive) or a parameter is capitalized and set as a 
 in the OpenAPI description.
 
 * `ProducesAttribute` describes a response returned from an API endpoint. 
-**NB** Make sure you are using the Reprise' attribute and not the one from `Microsoft.AspNetCore.Mvc`.
+**NB:** Make sure you are using the Reprise' attribute and not the one from `Microsoft.AspNetCore.Mvc`.
 
 * `ExcludeFromDescriptionAttribute` marks an endpoint that is excluded from the OpenAPI description.
 
