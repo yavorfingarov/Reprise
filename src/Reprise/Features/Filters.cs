@@ -32,14 +32,14 @@ namespace Reprise
     {
         internal readonly List<(int Order, Type FilterType)> _FilterTypes = new();
 
-        private int _CurrentOrder = 0;
+        private int _CurrentFilterOrder = 0;
 
         /// <summary>
         /// Adds a filter for all API endpoints.
         /// </summary>
         public void AddEndpointFilter<TFilter>(int? order = null) where TFilter : IEndpointFilter
         {
-            _FilterTypes.Add((order ?? _CurrentOrder++, typeof(TFilter)));
+            _FilterTypes.Add((order ?? _CurrentFilterOrder++, typeof(TFilter)));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Reprise
         /// </summary>
         public void AddValidationFilter(int? order = null)
         {
-            _FilterTypes.Add((order ?? _CurrentOrder++, typeof(ValidationFilterFactory)));
+            _FilterTypes.Add((order ?? _CurrentFilterOrder++, typeof(ValidationFilterFactory)));
         }
     }
 
