@@ -1,4 +1,6 @@
-﻿namespace Reprise.SampleApi.Endpoints
+﻿using System.Globalization;
+
+namespace Reprise.SampleApi.Endpoints
 {
     [Endpoint]
     public class GetGreetingsEndpoint
@@ -9,7 +11,7 @@
         [Tags("Public")]
         public static IEnumerable<string> Handle(GreetingConfiguration configuration)
         {
-            return configuration.Names.Select(name => string.Format(configuration.Message, name));
+            return configuration.Names.Select(name => string.Format(CultureInfo.InvariantCulture, configuration.Message, name));
         }
     }
 

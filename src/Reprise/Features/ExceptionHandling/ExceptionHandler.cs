@@ -32,7 +32,7 @@
                 }
                 catch (Exception ex2)
                 {
-                    _Logger.LogError(ex2, "An exception was thrown while executing the error handler.");
+                    _Logger.LogExceptionInHandler(ex2);
                     if (!httpContext.Response.HasStarted)
                     {
                         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
@@ -73,7 +73,7 @@
         {
             if (httpContext.Response.HasStarted)
             {
-                _Logger.LogError(exception, "The response has already started, the error handler will not be executed.");
+                _Logger.LogResponseHasStarted(exception);
             }
             else
             {

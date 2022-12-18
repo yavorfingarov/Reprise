@@ -38,7 +38,7 @@
   },
   logs: [
     {
-      Error: The response has already started, the error handler will not be executed.,
+      Error: The response has already started, the exception handler will not be executed.,
       Exception: {
         Type: Exception,
         Message: Test message

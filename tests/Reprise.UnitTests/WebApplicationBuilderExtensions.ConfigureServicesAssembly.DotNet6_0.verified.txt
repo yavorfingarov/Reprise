@@ -9,8 +9,6 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Reflection),
   MockTypeProcessorA.Process(Reprise.UnitTests.WebApplicationBuilderExtensions),
   MockTypeProcessorB.Process(Reprise.UnitTests.WebApplicationBuilderExtensions),
-  MockTypeProcessorA.Process(Reprise.UnitTests.Shared.ExtensionMethods),
-  MockTypeProcessorB.Process(Reprise.UnitTests.Shared.ExtensionMethods),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Authorization),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Authorization),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Configurations),
@@ -41,6 +39,8 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.EndpointMapperTests),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.EndpointTypeProcessorTests),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.EndpointTypeProcessorTests),
+  MockTypeProcessorA.Process(Reprise.UnitTests.Common.ExtensionMethods),
+  MockTypeProcessorB.Process(Reprise.UnitTests.Common.ExtensionMethods),
   MockTypeProcessorA.PostProcess(),
   MockTypeProcessorB.PostProcess()
 ]

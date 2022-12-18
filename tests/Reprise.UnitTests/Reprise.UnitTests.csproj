@@ -14,7 +14,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
     <PackageReference Include="Moq" Version="4.18.3" />
     <PackageReference Include="Verify.Http" Version="4.0.0" />
     <PackageReference Include="Verify.MicrosoftLogging" Version="3.1.1" />
@@ -39,7 +39,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.AspNetCore.TestHost">
-      <Version>7.0.0</Version>
+      <Version>7.0.1</Version>
     </PackageReference>
   </ItemGroup>
 

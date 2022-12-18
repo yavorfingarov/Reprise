@@ -4,6 +4,6 @@
   InnerException: {
     $type: InvalidOperationException,
     Type: InvalidOperationException,
-    Message: No service for type 'Reprise.UnitTests.Shared.StubType' has been registered.
+    Message: No service for type 'Reprise.UnitTests.Common.StubType' has been registered.
   }
 }

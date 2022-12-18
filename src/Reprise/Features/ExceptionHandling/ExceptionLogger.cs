@@ -25,7 +25,7 @@
     {
         public void Log(ILogger logger, ErrorContext<BadHttpRequestException> context)
         {
-            logger.LogError("BadHttpRequestException: {Message}", context.Exception.Message);
+            logger.LogBadHttpRequestException(context.Exception.Message);
         }
 
         public void Log(ILogger logger, ErrorContext<ValidationException> context)
@@ -34,7 +34,7 @@
 
         public void Log(ILogger logger, ErrorContext<Exception> context)
         {
-            logger.LogError(context.Exception, "An exception was thrown while executing the request.");
+            logger.LogException(context.Exception);
         }
     }
 

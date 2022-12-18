@@ -6,9 +6,11 @@ namespace Reprise.Benchmarks.Api.MinimalApis
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder();
+
+            builder.Logging.ClearProviders();
 
             builder.Services.AddSingleton<IValidator<EchoRequest>, EchoRequestValidator>();
 
@@ -26,14 +28,19 @@ namespace Reprise.Benchmarks.Api.MinimalApis
                 IValidator<EchoRequest> validator,
                 IOptions<GreetingConfiguration> greetingOptions) =>
                 {
-                    validator.ValidateAndThrow(requestBody);
-
-                    return new EchoResponse(
+                    var validationResult = validator.Validate(requestBody);
+                    if (!validationResult.IsValid)
+                    {
+                        return Results.BadRequest();
+                    }
+                    var response = new EchoResponse(
                         headerValue,
                         routeValue,
                         queryValue,
                         requestBody.BodyValue,
                         greetingOptions.Value.Message);
+
+                    return Results.Ok(response);
                 });
 
             app.Run();
