@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.5] - 2022-12-18
+### Added
+- API reference
+- More benchmarks
+### Changed
+- Better logging performance
+
 ## [3.1.4] - 2022-12-12
 ### Fixed
 - Readme wording on filters

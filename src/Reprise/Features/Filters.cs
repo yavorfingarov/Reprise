@@ -32,7 +32,7 @@ namespace Reprise
     {
         internal readonly List<(int Order, Type FilterType)> _FilterTypes = new();
 
-        private int _CurrentFilterOrder = 0;
+        private int _CurrentFilterOrder;
 
         /// <summary>
         /// Adds a filter for all API endpoints.
@@ -91,7 +91,7 @@ namespace Reprise
     {
         public static EndpointFilterDelegate Create(EndpointFilterFactoryContext factoryContext, EndpointFilterDelegate next)
         {
-            var validators = new List<(int, IValidator)>();
+            var validators = new LinkedList<(int, IValidator)>();
             var parameters = factoryContext.MethodInfo.GetParameters();
             for (var i = 0; i < parameters.Length; i++)
             {
@@ -99,7 +99,7 @@ namespace Reprise
                 var validator = (IValidator?)factoryContext.ApplicationServices.GetService(validatorType);
                 if (validator != null)
                 {
-                    validators.Add((i, validator));
+                    validators.AddLast((i, validator));
                 }
             }
             if (validators.Any())
@@ -110,7 +110,7 @@ namespace Reprise
             return invocationContext => next(invocationContext);
         }
 
-        private static EndpointFilterDelegate CreateEndpointFilterDelegate(List<(int, IValidator)> validators, EndpointFilterDelegate next)
+        private static EndpointFilterDelegate CreateEndpointFilterDelegate(LinkedList<(int, IValidator)> validators, EndpointFilterDelegate next)
         {
             return invocationContext =>
             {

@@ -8,11 +8,13 @@
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DefaultDocumentationFolder>..\..\docs</DefaultDocumentationFolder>
+    <DefaultDocumentationGeneratedPages>Namespaces,Types</DefaultDocumentationGeneratedPages>
     <Authors>Yavor Fingarov</Authors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/yavorfingarov/Reprise</PackageProjectUrl>
     <PackageTags>aspnetcore; minimal-api; repr-pattern; vertical-slice-architecture; rest</PackageTags>
-    <Version>3.1.4</Version>
+    <Version>3.1.5</Version>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>A micro-framework that brings the REPR pattern into ASP.NET Core Minimal APIs.</Description>
@@ -27,6 +29,13 @@
     <PackageReference Include="FluentValidation" Version="11.4.0" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="DefaultDocumentation" Version="0.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
   <ItemGroup>
     <None Include="icon.png">
       <Pack>True</Pack>

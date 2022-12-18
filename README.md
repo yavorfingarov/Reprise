@@ -277,12 +277,29 @@ when a problem is encountered. The problems covered by those checks include:
 Besides the assembly scan at application startup when configuring the DI container 
 and discovering endpoints, Reprise doesn't add any performance overhead when handling requests.
 
-|      Method |    Type |        Mean |       Error |      StdDev |    Gen0 |    Gen1 | Allocated |
-|------------ |-------- |------------:|------------:|------------:|--------:|--------:|----------:|
-|     Reprise | Request |    119.3 μs |     1.47 μs |     1.38 μs |  5.6152 |       - |  17.39 KB |
-| MinimalApis | Request |    119.8 μs |     1.65 μs |     1.46 μs |  5.6152 |       - |  17.39 KB |
-|     Reprise | Startup | 22,382.0 μs | 2,095.22 μs | 6,177.81 μs | 70.3125 | 23.4375 | 438.95 KB |
-| MinimalApis | Startup | 18,793.3 μs | 2,159.52 μs | 6,367.39 μs | 78.1250 | 15.6250 | 422.17 KB |
+### Startup
+
+|        Method |      Mean |     Error |    StdDev |    Median |     Gen0 |     Gen1 |    Gen2 |  Allocated |
+|-------------- |----------:|----------:|----------:|----------:|---------:|---------:|--------:|-----------:|
+|       Reprise |  5.162 ms | 0.4405 ms | 1.2987 ms |  4.775 ms |  31.2500 |        - |       - |  301.58 KB |
+|        Carter | 12.082 ms | 1.0711 ms | 3.1583 ms | 12.098 ms | 250.0000 | 250.0000 | 31.2500 | 1475.91 KB |
+| FastEndpoints |  5.558 ms | 0.4526 ms | 1.3345 ms |  5.249 ms |  31.2500 |  31.2500 |       - |  312.04 KB |
+|   MinimalApis |  4.084 ms | 0.2329 ms | 0.6867 ms |  3.944 ms |  31.2500 |  31.2500 |       - |  273.97 KB |
+
+### Request
+
+|        Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
+|-------------- |---------:|--------:|--------:|-------:|----------:|
+|       Reprise | 111.1 μs | 0.54 μs | 0.51 μs | 5.6152 |  17.13 KB |
+|        Carter | 117.6 μs | 0.68 μs | 0.64 μs | 5.3711 |  16.63 KB |
+| FastEndpoints | 124.2 μs | 1.12 μs | 0.88 μs | 5.8594 |  17.91 KB |
+|   MinimalApis | 114.8 μs | 1.01 μs | 0.95 μs | 5.3711 |  16.67 KB |
+
+## Further reading
+
+* [API reference](https://github.com/yavorfingarov/Reprise/blob/master/docs/Reprise.md)
+
+* [Sample app](https://github.com/yavorfingarov/Reprise/blob/master/samples/Reprise.SampleApi)
 
 ## Support
 

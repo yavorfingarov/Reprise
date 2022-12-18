@@ -2,15 +2,19 @@ namespace Reprise.Benchmarks.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder();
+
+            builder.Logging.ClearProviders();
 
             builder.ConfigureServices();
 
             var app = builder.Build();
 
-            app.MapEndpoints();
+            app.UseExceptionHandling();
+
+            app.MapEndpoints(options => options.AddValidationFilter());
 
             app.Run();
         }

@@ -11,11 +11,8 @@ namespace Reprise.Benchmarks.Api.Endpoints
             string routeValue,
             string queryValue,
             EchoRequest requestBody,
-            IValidator<EchoRequest> validator,
             GreetingConfiguration greetingConfiguration)
         {
-            validator.ValidateAndThrow(requestBody);
-
             return new EchoResponse(
                 headerValue,
                 routeValue,
@@ -31,6 +28,8 @@ namespace Reprise.Benchmarks.Api.Endpoints
         public string Message { get; set; } = null!;
     }
 
+    public record EchoRequest(string BodyValue);
+
     public class EchoRequestValidator : AbstractValidator<EchoRequest>
     {
         public EchoRequestValidator()
@@ -39,8 +38,6 @@ namespace Reprise.Benchmarks.Api.Endpoints
                 .NotEmpty();
         }
     }
-
-    public record EchoRequest(string BodyValue);
 
     public record EchoResponse(
         string HeaderValue,

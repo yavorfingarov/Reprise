@@ -1,4 +1,4 @@
-﻿namespace Reprise.UnitTests.Shared
+﻿namespace Reprise.UnitTests.Common
 {
     [UsesVerify]
     public class ExtensionMethods
@@ -47,7 +47,7 @@
         {
             var fullName = GetType().GetMethod(nameof(ExtensionMethods.GetFullName))!.GetFullName();
 
-            Assert.Equal("Reprise.UnitTests.Shared.ExtensionMethods.GetFullName", fullName);
+            Assert.Equal("Reprise.UnitTests.Common.ExtensionMethods.GetFullName", fullName);
         }
 
         [Theory]

@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Reprise.Benchmarks.Api.Carter\Reprise.Benchmarks.Api.Carter.csproj" />
+    <ProjectReference Include="..\Reprise.Benchmarks.Api.FastEndpoints\Reprise.Benchmarks.Api.FastEndpoints.csproj" />
     <ProjectReference Include="..\Reprise.Benchmarks.Api\Reprise.Benchmarks.Api.csproj" />
     <ProjectReference Include="..\Reprise.Benchmarks.Api.MinimalApis\Reprise.Benchmarks.Api.MinimalApis.csproj" />
   </ItemGroup>

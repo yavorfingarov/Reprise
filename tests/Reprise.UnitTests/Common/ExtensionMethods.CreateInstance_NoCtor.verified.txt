@@ -1,0 +1,9 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Common.StubTypeNoCtor could not be instantiated. Check the inner exception for more details.,
+  InnerException: {
+    $type: MissingMethodException,
+    Type: MissingMethodException,
+    Message: No parameterless constructor defined for type 'Reprise.UnitTests.Common.StubTypeNoCtor'.
+  }
+}

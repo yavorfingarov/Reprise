@@ -6,7 +6,8 @@ namespace Reprise.Benchmarks
     {
         public static void Main()
         {
-            BenchmarkRunner.Run<Benchmarks>();
+            BenchmarkRunner.Run<StartupBenchmarks>();
+            BenchmarkRunner.Run<RequestBenchmarks>();
         }
     }
 }
