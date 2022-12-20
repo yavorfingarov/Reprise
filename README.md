@@ -1,5 +1,7 @@
 # 𝄇 Reprise
 
+> **reprise** /rɪˈpriːz/ noun [French] A repeated part of something, especially a piece of music
+
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response) 
 pattern and vertical slice architecture into the ASP.NET Core 6/7 Minimal APIs. 
 It aims to be unopioniated towards API behavior and to provide a thin layer 
@@ -205,8 +207,8 @@ for more information about FluentValidation.
 
 ### Validation filter (.NET 7 only)
 
-It's also possible to add validation as a filter for all endpoints. This way, you don't need 
-to manually inject validators and validate.
+It's also possible to add a global validation filter. This way, you don't need to manually inject 
+validators and validate.
 
 ```csharp
 app.MapEndpoints(options => options.AddValidationFilter());
@@ -279,21 +281,21 @@ and discovering endpoints, Reprise doesn't add any performance overhead when han
 
 ### Startup
 
-|        Method |      Mean |     Error |    StdDev |    Median |     Gen0 |     Gen1 |    Gen2 |  Allocated |
-|-------------- |----------:|----------:|----------:|----------:|---------:|---------:|--------:|-----------:|
-|       Reprise |  5.162 ms | 0.4405 ms | 1.2987 ms |  4.775 ms |  31.2500 |        - |       - |  301.58 KB |
-|        Carter | 12.082 ms | 1.0711 ms | 3.1583 ms | 12.098 ms | 250.0000 | 250.0000 | 31.2500 | 1475.91 KB |
-| FastEndpoints |  5.558 ms | 0.4526 ms | 1.3345 ms |  5.249 ms |  31.2500 |  31.2500 |       - |  312.04 KB |
-|   MinimalApis |  4.084 ms | 0.2329 ms | 0.6867 ms |  3.944 ms |  31.2500 |  31.2500 |       - |  273.97 KB |
+|        Method |     Mean |     Error |    StdDev |   Median |    Gen0 |    Gen1 | Allocated |
+|-------------- |---------:|----------:|----------:|---------:|--------:|--------:|----------:|
+|       Reprise | 5.054 ms | 0.4487 ms | 1.3231 ms | 4.688 ms | 62.5000 |       - | 302.21 KB |
+|        Carter | 4.109 ms | 0.2401 ms | 0.7079 ms | 3.956 ms | 31.2500 | 31.2500 | 272.16 KB |
+| FastEndpoints | 5.558 ms | 0.4580 ms | 1.3506 ms | 5.081 ms | 31.2500 |       - | 312.04 KB |
+|   MinimalApis | 4.034 ms | 0.2238 ms | 0.6600 ms | 3.950 ms | 31.2500 | 31.2500 | 273.97 KB |
 
 ### Request
 
 |        Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |-------------- |---------:|--------:|--------:|-------:|----------:|
-|       Reprise | 111.1 μs | 0.54 μs | 0.51 μs | 5.6152 |  17.13 KB |
-|        Carter | 117.6 μs | 0.68 μs | 0.64 μs | 5.3711 |  16.63 KB |
-| FastEndpoints | 124.2 μs | 1.12 μs | 0.88 μs | 5.8594 |  17.91 KB |
-|   MinimalApis | 114.8 μs | 1.01 μs | 0.95 μs | 5.3711 |  16.67 KB |
+|       Reprise | 110.0 μs | 0.45 μs | 0.40 μs | 5.6152 |  17.13 KB |
+|        Carter | 116.3 μs | 0.76 μs | 0.64 μs | 5.3711 |  16.63 KB |
+| FastEndpoints | 129.2 μs | 1.96 μs | 1.83 μs | 5.8594 |  17.91 KB |
+|   MinimalApis | 115.2 μs | 0.98 μs | 0.92 μs | 5.3711 |  16.67 KB |
 
 ## Further reading
 
