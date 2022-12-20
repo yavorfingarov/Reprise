@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.1.6] - 2022-12-20
+### Fixed
+- Carter benchmarks
+
 ## [3.1.5] - 2022-12-18
 ### Added
 - API reference

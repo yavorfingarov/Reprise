@@ -10,7 +10,7 @@ namespace Reprise.Benchmarks.Api.Carter
 
             builder.Logging.ClearProviders();
 
-            builder.Services.AddCarter();
+            builder.Services.AddCarter(new DependencyContextAssemblyCatalog(new[] { typeof(Program).Assembly }));
 
             builder.Services.Configure<GreetingConfiguration>(
                 builder.Configuration.GetSection("Greeting"),
