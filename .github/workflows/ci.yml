@@ -27,7 +27,7 @@ jobs:
       - name: Run tests
         run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
       - name: Generate test coverage report
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.13
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.14
         with:
           reports: '**/coverage.cobertura.xml'
           targetdir: TestCoverageReport
