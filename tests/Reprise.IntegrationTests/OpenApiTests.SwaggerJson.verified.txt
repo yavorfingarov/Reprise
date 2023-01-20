@@ -15,7 +15,7 @@
         /greetings: {
           get: {
             tags: [
-              Public
+              Greetings
             ],
             responses: {
               200: {
@@ -30,6 +30,24 @@
                     }
                   }
                 }
+              }
+            }
+          },
+          post: {
+            tags: [
+              Greetings
+            ],
+            requestBody: {
+              content: {
+                application/json: {
+                  schema: null
+                }
+              },
+              required: true
+            },
+            responses: {
+              202: {
+                description: Accepted
               }
             }
           }
@@ -224,6 +242,16 @@
                 nullable: true
               },
               details: {
+                nullable: true
+              }
+            },
+            additionalProperties: false
+          },
+          Greeting: {
+            type: object,
+            properties: {
+              message: {
+                type: string,
                 nullable: true
               }
             },

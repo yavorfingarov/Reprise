@@ -2,12 +2,18 @@ namespace Reprise.IntegrationTests
 {
     public class WeatherTests : TestBase
     {
-        [Fact]
-        public async Task Get()
+        [Theory]
+        [InlineData("https://example.com")]
+        [InlineData("https://contoso.com")]
+        public async Task Get(string origin)
         {
-            await Verify(await Client.GetAsync("/weather"))
+            var request = new HttpRequestMessage(HttpMethod.Get, "/weather");
+            request.Headers.Add("Origin", origin);
+
+            await Verify(await Client.SendAsync(request))
                 .IgnoreMembersWithType<HttpContent>()
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UseParameters(origin);
         }
     }
 }

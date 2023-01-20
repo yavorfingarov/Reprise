@@ -24,5 +24,8 @@
 | Interfaces | |
 | :--- | :--- |
 | [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') | Specifies the contract for creating error responses. |
+| [IEvent](Reprise.IEvent.md 'Reprise.IEvent') | Marker interface to represent an event. |
+| [IEventBus](Reprise.IEventBus.md 'Reprise.IEventBus') | Defines an event bus to encapsulate publishing of events. |
+| [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') | Specifies the contract to handle events. |
 | [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') | Specifies the contract for exception logging. |
 | [IServiceConfigurator](Reprise.IServiceConfigurator.md 'Reprise.IServiceConfigurator') | Specifies the contract to configure services at application startup. |

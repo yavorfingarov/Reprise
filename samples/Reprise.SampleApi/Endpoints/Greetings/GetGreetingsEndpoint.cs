@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Reprise.SampleApi.Endpoints
+namespace Reprise.SampleApi.Endpoints.Greetings
 {
     [Endpoint]
     public class GetGreetingsEndpoint
@@ -8,7 +8,6 @@ namespace Reprise.SampleApi.Endpoints
         [Get("/greetings")]
         [AllowAnonymous]
         [Produces(StatusCodes.Status200OK, typeof(IEnumerable<string>))]
-        [Tags("Public")]
         public static IEnumerable<string> Handle(GreetingConfiguration configuration)
         {
             return configuration.Names.Select(name => string.Format(CultureInfo.InvariantCulture, configuration.Message, name));

@@ -1,6 +1,6 @@
 ﻿namespace Reprise
 {
-    internal static class LoggerExtensions
+    internal static partial class LoggerExtensions
     {
         private static readonly Action<ILogger, Exception> _ResponseHasStarted = LoggerMessage.Define(
             LogLevel.Error, default,
