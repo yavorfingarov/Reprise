@@ -89,8 +89,9 @@ namespace Reprise.UnitTests.Features
             sw.Stop();
 
             Assert.True(sw.ElapsedMilliseconds < 150);
+            await Task.Delay(150);
             var handler = AbstractMockEventHandler.Instances.Single();
-            Assert.Equal(HandlerStatus.NotStarted, handler.HandlerStatus);
+            Assert.Equal(HandlerStatus.Running, handler.HandlerStatus);
             Assert.False(handler.IsDisposed);
             await Task.Delay(1_000 + 150);
 
@@ -111,8 +112,9 @@ namespace Reprise.UnitTests.Features
             sw.Stop();
 
             Assert.True(sw.ElapsedMilliseconds < 150);
+            await Task.Delay(150);
             var handler = AbstractMockEventHandler.Instances.Single();
-            Assert.Equal(HandlerStatus.NotStarted, handler.HandlerStatus);
+            Assert.Equal(HandlerStatus.Running, handler.HandlerStatus);
             Assert.False(handler.IsDisposed);
             await Task.Delay(1_000 + 150);
 
