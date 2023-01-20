@@ -1,3 +1,6 @@
+using NLog.Web;
+using SimpleRequestLogger;
+
 namespace Reprise.SampleApi
 {
     public class Program
@@ -5,6 +8,10 @@ namespace Reprise.SampleApi
         public static void Main()
         {
             var builder = WebApplication.CreateBuilder();
+
+            builder.Logging.ClearProviders();
+
+            builder.Host.UseNLog();
 
             builder.ConfigureServices();
 
@@ -14,6 +21,8 @@ namespace Reprise.SampleApi
 
             var app = builder.Build();
 
+            app.UseRequestLogging();
+
             app.UseExceptionHandling();
 
             app.UseHttpsRedirection();
@@ -21,6 +30,8 @@ namespace Reprise.SampleApi
             app.UseSwagger();
 
             app.UseSwaggerUI();
+
+            app.UseCors();
 
             app.UseAuthentication();
 
@@ -32,6 +43,8 @@ namespace Reprise.SampleApi
                 options.AddEndpointFilter<TraceIdFilter>();
                 options.AddValidationFilter();
             });
+
+            app.Logger.LogInformation("Environment: {Environment}", app.Environment.EnvironmentName);
 
             app.Run();
         }

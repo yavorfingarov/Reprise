@@ -1,6 +1,6 @@
 # 𝄇 Reprise
 
-> **reprise** /rɪˈpriːz/ noun [French] A repeated part of something, especially a piece of music
+> **reprise** /rɪˈpriːz/ _noun_ [French] A repeated part of something, especially a piece of music
 
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response) 
 pattern and vertical slice architecture into the ASP.NET Core 6/7 Minimal APIs. 
@@ -76,7 +76,7 @@ and implements `IServiceConfgurator` can configure services.
 
 ```csharp
 [Endpoint]
-public class GetWeather : IServiceConfigurator
+public class GetWeatherEndpoint : IServiceConfigurator
 {
     public void ConfigureServices(WebApplicationBuilder builder)
     {
@@ -98,7 +98,7 @@ A simple example would look like this:
 
 ```csharp
 [Endpoint]
-public class GetGreetings
+public class GetGreetingsEndpoint
 {
     [Get("/greetings")]
     public static IEnumerable<string> Handle(GreetingConfiguration configuration)
@@ -243,6 +243,14 @@ Check
 [the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/security?view=aspnetcore-7.0) 
 for more information about authentication and authorization.
 
+## CORS
+
+The CORS middleware and attributes work with Reprise exactly the same way as when using pure Minimal APIs. 
+
+Check 
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#cors) 
+for more information about CORS.
+
 ## OpenAPI
 
 You can enhance the OpenAPI description of your endpoints by decorating the `Handle` method with attributes.
@@ -264,9 +272,52 @@ Check
 [the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/openapi?view=aspnetcore-7.0) 
 for more information about OpenAPI.
 
+## Events
+
+Events are an easy way to do some work in the background using the publish-subscribe pattern. 
+On application startup, all `IEventHandler<T>` implementations are added with a scoped lifetime.
+
+```csharp
+[Endpoint]
+public class PostGreetingsEndpoint
+{
+    [Post("/greetings")]
+    public static IResult Handle(Greeting greeting, IEventBus eventBus)
+    {
+        eventBus.Publish(greeting);
+
+        return Results.Accepted();
+    }
+}
+
+public record Greeting(string Message) : IEvent;
+
+public class GreetingHandler : IEventHandler<Greeting>
+{
+    private readonly ILogger<GreetingHandler> _Logger;
+
+    public GreetingHandler(ILogger<GreetingHandler> logger)
+    {
+        _Logger = logger;
+    }
+
+    public async Task Handle(Greeting payload, CancellationToken stoppingToken)
+    {
+        await Task.Delay(1_000, stoppingToken);
+        _Logger.LogInformation("Received greeting with message: {Message}", payload.Message);
+    }
+}
+```
+
+The `Publish` method returns immediately. Under the hood, Reprise creates a new `IServiceScope`, 
+resolves all matching event handlers, and executes them in parallel. 
+`IHostApplicationLifetime.ApplicationStopping` is passed as `stoppingToken`.
+
+If a handler throws, the exception is logged.
+
 ## Self-checks
 
-Reprise tries to make sure the API will behave the way you would expect. For this reason, 
+Reprise tries to make sure the API will behave exactly the way you would expect. For this reason, 
 it performs various self-checks on application startup and throws an `InvalidOperationException` 
 when a problem is encountered. The problems covered by those checks include:
 * Programming errors (e.g., an endpoint has no public static `Handle` method) 
@@ -283,25 +334,25 @@ and discovering endpoints, Reprise doesn't add any performance overhead when han
 
 |        Method |     Mean |     Error |    StdDev |   Median |    Gen0 |    Gen1 | Allocated |
 |-------------- |---------:|----------:|----------:|---------:|--------:|--------:|----------:|
-|       Reprise | 5.054 ms | 0.4487 ms | 1.3231 ms | 4.688 ms | 62.5000 |       - | 302.21 KB |
-|        Carter | 4.109 ms | 0.2401 ms | 0.7079 ms | 3.956 ms | 31.2500 | 31.2500 | 272.16 KB |
-| FastEndpoints | 5.558 ms | 0.4580 ms | 1.3506 ms | 5.081 ms | 31.2500 |       - | 312.04 KB |
-|   MinimalApis | 4.034 ms | 0.2238 ms | 0.6600 ms | 3.950 ms | 31.2500 | 31.2500 | 273.97 KB |
+|       Reprise | 5.249 ms | 0.4375 ms | 1.2901 ms | 4.896 ms | 31.2500 | 31.2500 | 302.22 KB |
+|        Carter | 4.193 ms | 0.2483 ms | 0.7321 ms | 4.032 ms | 31.2500 | 31.2500 | 268.96 KB |
+| FastEndpoints | 4.901 ms | 0.3249 ms | 0.9580 ms | 4.797 ms | 31.2500 | 31.2500 | 319.60 KB |
+|   MinimalApis | 4.111 ms | 0.2300 ms | 0.6781 ms | 3.998 ms | 31.2500 | 31.2500 | 272.38 KB |
 
 ### Request
 
 |        Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |-------------- |---------:|--------:|--------:|-------:|----------:|
-|       Reprise | 110.0 μs | 0.45 μs | 0.40 μs | 5.6152 |  17.13 KB |
-|        Carter | 116.3 μs | 0.76 μs | 0.64 μs | 5.3711 |  16.63 KB |
-| FastEndpoints | 129.2 μs | 1.96 μs | 1.83 μs | 5.8594 |  17.91 KB |
-|   MinimalApis | 115.2 μs | 0.98 μs | 0.92 μs | 5.3711 |  16.67 KB |
+|       Reprise | 112.1 μs | 0.60 μs | 0.53 μs | 5.6152 |  17.13 KB |
+|        Carter | 115.2 μs | 1.28 μs | 1.20 μs | 5.3711 |  16.63 KB |
+| FastEndpoints | 123.5 μs | 2.41 μs | 2.68 μs | 5.8594 |  17.91 KB |
+|   MinimalApis | 114.9 μs | 0.85 μs | 0.80 μs | 5.3711 |  16.67 KB |
 
 ## Further reading
 
 * [API reference](https://github.com/yavorfingarov/Reprise/blob/master/docs/Reprise.md)
 
-* [Sample app](https://github.com/yavorfingarov/Reprise/blob/master/samples/Reprise.SampleApi)
+* [Sample app](https://github.com/yavorfingarov/Reprise/tree/master/samples/Reprise.SampleApi)
 
 ## Support
 

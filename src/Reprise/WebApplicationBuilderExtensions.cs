@@ -30,6 +30,12 @@
         ///     <item>
         ///     Add a <see cref="IErrorResponseFactory"/> implementation or a default one if none is found.
         ///     </item>
+        ///     <item>
+        ///     Add all <see cref="IEventHandler{TEvent}"/> implementations with a <see cref="ServiceLifetime.Scoped"/>.
+        ///     </item>
+        ///     <item>
+        ///     Add the <see cref="IEventBus"/>.
+        ///     </item>
         /// </list>
         /// </summary>
         /// <exception cref="ArgumentNullException"/>

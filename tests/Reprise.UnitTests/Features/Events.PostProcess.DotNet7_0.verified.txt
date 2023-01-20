@@ -1,0 +1,174 @@
+﻿{
+  target: {
+    Environment: {
+      EnvironmentName: Production,
+      ApplicationName: testhost,
+      WebRootFileProvider: {},
+      ContentRootPath: {CurrentDirectory},
+      ContentRootFileProvider: {
+        UsePollingFileWatcher: false,
+        UseActivePolling: false,
+        Root: {CurrentDirectory}
+      }
+    },
+    Services: [
+      {
+        ServiceType: IEventBus,
+        ImplementationType: EventBus
+      }
+    ],
+    Configuration: {
+      Sources: [
+        {},
+        {
+          Prefix: ASPNETCORE_
+        },
+        {
+          InitialData: [
+            {
+              contentRoot: {CurrentDirectory}
+            }
+          ]
+        },
+        {
+          Prefix: DOTNET_
+        },
+        {
+          FileProvider: {
+            UsePollingFileWatcher: false,
+            UseActivePolling: false,
+            Root: {CurrentDirectory}
+          },
+          Path: appsettings.json,
+          Optional: true,
+          ReloadOnChange: true,
+          ReloadDelay: 250
+        },
+        {
+          FileProvider: {
+            UsePollingFileWatcher: false,
+            UseActivePolling: false,
+            Root: {CurrentDirectory}
+          },
+          Path: appsettings.Production.json,
+          Optional: true,
+          ReloadOnChange: true,
+          ReloadDelay: 250
+        },
+        {},
+        {
+          Configuration: {
+            Providers: [
+              [
+                {
+                  applicationName: testhost
+                },
+                {},
+                {},
+                {}
+              ]
+            ]
+          },
+          ShouldDisposeConfiguration: false
+        }
+      ]
+    },
+    Logging: {
+      Services: [
+        {
+          ServiceType: IEventBus,
+          ImplementationType: EventBus
+        }
+      ]
+    },
+    WebHost: {},
+    Host: {
+      Properties: {
+        Microsoft.AspNetCore.Hosting.WebHostBuilderContext, Microsoft.AspNetCore.Hosting.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60: {
+          HostingEnvironment: {
+            EnvironmentName: Production,
+            ApplicationName: testhost,
+            WebRootFileProvider: {},
+            ContentRootPath: {CurrentDirectory},
+            ContentRootFileProvider: {
+              UsePollingFileWatcher: false,
+              UseActivePolling: false,
+              Root: {CurrentDirectory}
+            }
+          },
+          Configuration: {
+            Sources: [
+              {},
+              {
+                Prefix: ASPNETCORE_
+              },
+              {
+                InitialData: [
+                  {
+                    contentRoot: {CurrentDirectory}
+                  }
+                ]
+              },
+              {
+                Prefix: DOTNET_
+              },
+              {
+                FileProvider: {
+                  UsePollingFileWatcher: false,
+                  UseActivePolling: false,
+                  Root: {CurrentDirectory}
+                },
+                Path: appsettings.json,
+                Optional: true,
+                ReloadOnChange: true,
+                ReloadDelay: 250
+              },
+              {
+                FileProvider: {
+                  UsePollingFileWatcher: false,
+                  UseActivePolling: false,
+                  Root: {CurrentDirectory}
+                },
+                Path: appsettings.Production.json,
+                Optional: true,
+                ReloadOnChange: true,
+                ReloadDelay: 250
+              },
+              {},
+              {
+                Configuration: {
+                  Providers: [
+                    [
+                      {
+                        applicationName: testhost
+                      },
+                      {},
+                      {},
+                      {}
+                    ]
+                  ]
+                },
+                ShouldDisposeConfiguration: false
+              }
+            ]
+          }
+        },
+        Microsoft.AspNetCore.Hosting.WebHostOptions, Microsoft.AspNetCore.Hosting, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60: {
+          ApplicationName: testhost,
+          PreventHostingStartup: false,
+          SuppressStatusMessages: false,
+          HostingStartupAssemblies: [
+            testhost
+          ],
+          DetailedErrors: false,
+          CaptureStartupErrors: false,
+          Environment: Production,
+          ContentRootPath: {CurrentDirectory},
+          ShutdownTimeout: 00:00:05,
+          PreferHostingUrls: false
+        }
+      }
+    }
+  },
+  logs: []
+}

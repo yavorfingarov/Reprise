@@ -1,0 +1,14 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Headers: {
+    greeting: Hello!,
+    trace-id: {Scrubbed}
+  },
+  Request: {
+    Uri: http://localhost/weather,
+    Headers: {
+      Origin: https://example.com
+    }
+  }
+}

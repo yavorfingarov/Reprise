@@ -15,6 +15,8 @@
                     if (genericTypeDefinition == typeof(IValidator<>))
                     {
                         AddValidator(builder.Services, interfaceType, type);
+
+                        break;
                     }
                 }
             }

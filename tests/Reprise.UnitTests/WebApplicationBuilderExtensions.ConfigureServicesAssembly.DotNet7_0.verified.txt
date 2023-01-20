@@ -13,6 +13,8 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Authorization),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Configurations),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Configurations),
+  MockTypeProcessorA.Process(Reprise.UnitTests.Features.Events),
+  MockTypeProcessorB.Process(Reprise.UnitTests.Features.Events),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Filters),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Filters),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.ServiceConfigurators),
