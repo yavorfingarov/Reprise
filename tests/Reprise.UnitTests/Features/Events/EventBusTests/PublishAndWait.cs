@@ -106,7 +106,7 @@
             await messageBus.PublishAndWait(new StubEvent());
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds >= 1_500 && Stopwatch.ElapsedMilliseconds <= 1_600);
+            Assert.True(Stopwatch.ElapsedMilliseconds >= 1_500 && Stopwatch.ElapsedMilliseconds <= 1_600, $"Actual value: {Stopwatch.ElapsedMilliseconds}");
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances });
         }
