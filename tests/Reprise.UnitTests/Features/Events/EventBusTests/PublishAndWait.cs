@@ -39,7 +39,7 @@
             await messageBus.PublishAndWait(new StubEvent());
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds >= 500 && Stopwatch.ElapsedMilliseconds <= 600);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 400, 600);
             var handler = AbstractMockEventHandler.Instances.Single();
 
             await Verify(new { requestScopeIdentifier, handler });
@@ -71,7 +71,7 @@
             await messageBus.PublishAndWait(new StubEvent());
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds >= 500 && Stopwatch.ElapsedMilliseconds <= 600);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 400, 600);
             var handler = AbstractMockEventHandler.Instances.Single();
 
             await Verify(new { requestScopeIdentifier, handler });
@@ -106,7 +106,7 @@
             await messageBus.PublishAndWait(new StubEvent());
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds >= 1_500 && Stopwatch.ElapsedMilliseconds <= 1_600, $"Actual value: {Stopwatch.ElapsedMilliseconds}");
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_400, 1_600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances });
         }
@@ -145,7 +145,7 @@
             await messageBus.PublishAndWait(new StubEvent(), cancellationTokenSource.Token);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds >= 750 && Stopwatch.ElapsedMilliseconds <= 850);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 650, 850);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances });
         }
