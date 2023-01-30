@@ -15,7 +15,7 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 ## ApplicationBuilderExtensions.UseExceptionHandling(this IApplicationBuilder) Method
 
-Adds the Reprise exception handler. Its behavior can be customized by implementing   
+Adds the Reprise exception handler. Its behavior can be customized by implementing 
 [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') and/or [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory').
 
 ```csharp

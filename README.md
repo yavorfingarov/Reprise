@@ -13,7 +13,9 @@ of abstractions that encourages the creation of convention-based and modular imp
 
 2. Install the [Reprise NuGet package](https://www.nuget.org/packages/Reprise).
 
-3. Modify your `Program.cs` to use Reprise. 
+3. Add `Reprise` as a global using.
+
+4. Modify your `Program.cs` to use Reprise. 
 
 ```csharp
 var builder = WebApplication.CreateBuilder();
@@ -24,7 +26,7 @@ app.MapEndpoints();
 app.Run();
 ```
 
-4. Create an endpoint `Endpoints/GetHelloEndpoint.cs`. 
+5. Create an endpoint `Endpoints/GetHelloEndpoint.cs`. 
 
 ```csharp
 [Endpoint]
@@ -35,7 +37,7 @@ public class GetHelloEndpoint
 }
 ```
 
-5. Run the application.
+6. Run the application.
 
 ## Endpoints
 
@@ -274,22 +276,11 @@ for more information about OpenAPI.
 
 ## Events
 
-Events are an easy way to do some work in the background using the publish-subscribe pattern. 
-On application startup, all `IEventHandler<T>` implementations are added with a scoped lifetime.
+Events provide an elegant way to do some work using the publish-subscribe pattern. 
+An event is handled by one or more handlers in parallel. 
+All event handlers are added to the DI container with a scoped lifetime.
 
 ```csharp
-[Endpoint]
-public class PostGreetingsEndpoint
-{
-    [Post("/greetings")]
-    public static IResult Handle(Greeting greeting, IEventBus eventBus)
-    {
-        eventBus.Publish(greeting);
-
-        return Results.Accepted();
-    }
-}
-
 public record Greeting(string Message) : IEvent;
 
 public class GreetingHandler : IEventHandler<Greeting>
@@ -301,19 +292,23 @@ public class GreetingHandler : IEventHandler<Greeting>
         _Logger = logger;
     }
 
-    public async Task Handle(Greeting payload, CancellationToken stoppingToken)
+    public async Task Handle(Greeting payload, CancellationToken cancellationToken)
     {
-        await Task.Delay(1_000, stoppingToken);
+        await Task.Delay(1_000, cancellationToken);
         _Logger.LogInformation("Received greeting with message: {Message}", payload.Message);
     }
 }
 ```
 
-The `Publish` method returns immediately. Under the hood, Reprise creates a new `IServiceScope`, 
-resolves all matching event handlers, and executes them in parallel. 
-`IHostApplicationLifetime.ApplicationStopping` is passed as `stoppingToken`.
+You can publish events via the `IEventBus`. It has two methods:
 
-If a handler throws, the exception is logged.
+* `Publish` does not wait for the handlers to finish execution. All matching handlers are resolved in
+a new `IServiceScope`. `IHostApplicationLifetime.ApplicationStopping` is passed to the handlers 
+as a cancellation token. If a handler throws, the exception is logged.
+
+* `PublishAndWait` waits for all handlers to finish execution. All matching handlers are resolved in
+the current `IServiceScope`. If one or more handlers throw, all exceptions are packed into 
+an `AggregateException`.
 
 ## Self-checks
 

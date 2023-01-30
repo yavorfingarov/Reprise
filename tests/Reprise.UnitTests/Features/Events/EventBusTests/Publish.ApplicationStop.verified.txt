@@ -1,0 +1,28 @@
+﻿{
+  target: {
+    requestScopeIdentifier: {
+      ScopeId: Guid_1
+    },
+    Instances: [
+      {
+        ScopeId: Guid_2,
+        Name: MockAsyncEventHandler1,
+        HandlerStatus: Done,
+        IsDisposed: true
+      },
+      {
+        ScopeId: Guid_2,
+        Name: MockAsyncEventHandler2,
+        HandlerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ScopeId: Guid_2,
+        Name: MockAsyncEventHandler3,
+        HandlerStatus: Cancelled,
+        IsDisposed: true
+      }
+    ]
+  },
+  logs: []
+}

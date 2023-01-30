@@ -19,11 +19,10 @@ public interface IEventHandler<T>
 
 ## IEventHandler<T>.Handle(T, CancellationToken) Method
 
-Handles the [payload](Reprise.IEventHandler_T_.md#Reprise.IEventHandler_T_.Handle(T,System.Threading.CancellationToken).payload 'Reprise.IEventHandler<T>.Handle(T, System.Threading.CancellationToken).payload'). [Microsoft.Extensions.Hosting.IHostApplicationLifetime.ApplicationStopping](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.Hosting.IHostApplicationLifetime.ApplicationStopping 'Microsoft.Extensions.Hosting.IHostApplicationLifetime.ApplicationStopping') is passed   
-as [stoppingToken](Reprise.IEventHandler_T_.md#Reprise.IEventHandler_T_.Handle(T,System.Threading.CancellationToken).stoppingToken 'Reprise.IEventHandler<T>.Handle(T, System.Threading.CancellationToken).stoppingToken').
+Handles an event.
 
 ```csharp
-System.Threading.Tasks.Task Handle(T payload, System.Threading.CancellationToken stoppingToken);
+System.Threading.Tasks.Task Handle(T payload, System.Threading.CancellationToken cancellationToken);
 ```
 #### Parameters
 
@@ -31,9 +30,9 @@ System.Threading.Tasks.Task Handle(T payload, System.Threading.CancellationToken
 
 `payload` [T](Reprise.IEventHandler_T_.md#Reprise.IEventHandler_T_.T 'Reprise.IEventHandler<T>.T')
 
-<a name='Reprise.IEventHandler_T_.Handle(T,System.Threading.CancellationToken).stoppingToken'></a>
+<a name='Reprise.IEventHandler_T_.Handle(T,System.Threading.CancellationToken).cancellationToken'></a>
 
-`stoppingToken` [System.Threading.CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.CancellationToken 'System.Threading.CancellationToken')
+`cancellationToken` [System.Threading.CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.CancellationToken 'System.Threading.CancellationToken')
 
 #### Returns
 [System.Threading.Tasks.Task](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task 'System.Threading.Tasks.Task')

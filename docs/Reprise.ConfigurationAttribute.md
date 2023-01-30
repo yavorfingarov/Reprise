@@ -11,7 +11,7 @@ public sealed class ConfigurationAttribute : System.Attribute
 Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.Object 'System.Object') &#129106; [System.Attribute](https://docs.microsoft.com/en-us/dotnet/api/System.Attribute 'System.Attribute') &#129106; ConfigurationAttribute
 
 ### Remarks
-A configuration class should be public non-abstract with a public parameterless constructor.  
+A configuration class should be public non-abstract with a public parameterless constructor.
 All public read-write properties of the type are bound.
 ### Constructors
 

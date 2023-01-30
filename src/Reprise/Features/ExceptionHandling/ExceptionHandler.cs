@@ -2,7 +2,7 @@
 {
     internal sealed class ExceptionHandler
     {
-        private readonly ILogger _Logger;
+        private readonly ILogger<ExceptionHandler> _Logger;
 
         private readonly IExceptionLogger _ExceptionLogger;
 
@@ -10,9 +10,9 @@
 
         private readonly RequestDelegate _Next;
 
-        public ExceptionHandler(ILoggerFactory loggerFactory, IServiceProvider serviceProvider, RequestDelegate next)
+        public ExceptionHandler(ILogger<ExceptionHandler> logger, IServiceProvider serviceProvider, RequestDelegate next)
         {
-            _Logger = loggerFactory.CreateLogger(GetType().FullName!);
+            _Logger = logger;
             _ExceptionLogger = serviceProvider.GetRequiredServiceSafe<IExceptionLogger>();
             _ErrorResponseFactory = serviceProvider.GetRequiredServiceSafe<IErrorResponseFactory>();
             _Next = next;

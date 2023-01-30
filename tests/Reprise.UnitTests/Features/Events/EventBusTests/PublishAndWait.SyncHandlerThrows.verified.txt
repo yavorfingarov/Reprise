@@ -1,0 +1,10 @@
+﻿{
+  target: {
+    Type: AggregateException,
+    InnerException: {
+      Type: Exception,
+      Message: Test message from MockSyncEventHandler1
+    }
+  },
+  logs: []
+}

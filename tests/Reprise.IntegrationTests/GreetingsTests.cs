@@ -6,6 +6,8 @@ namespace Reprise.IntegrationTests
 {
     public sealed class GreetingsTests : TestBase, IDisposable
     {
+        private readonly Stopwatch _Stopwatch = new();
+
         [Fact]
         public async Task Get()
         {
@@ -16,19 +18,54 @@ namespace Reprise.IntegrationTests
         [Fact]
         public async Task Post()
         {
-            var sw = Stopwatch.StartNew();
+            _Stopwatch.Start();
             var response = await Client.PostAsJsonAsync("/greetings", new Greeting("Hello, world!"));
-            sw.Stop();
+            _Stopwatch.Stop();
 
-            Assert.True(sw.ElapsedMilliseconds < 500);
-            await Task.Delay(2_000 + 150);
-            await Verify(new { response, EventBus.Greetings })
+            Assert.True(_Stopwatch.ElapsedMilliseconds < 300);
+            await Task.Delay(1_300);
+
+            await Verify(new { response, EventBus.Log })
+                .ScrubMember("trace-id");
+        }
+
+        [Fact]
+        public async Task PostWait()
+        {
+            _Stopwatch.Start();
+            var response = await Client.PostAsJsonAsync("/greetings/wait", new Greeting("Hello, world!"));
+            _Stopwatch.Stop();
+
+            Assert.True(_Stopwatch.ElapsedMilliseconds >= 1_000 && _Stopwatch.ElapsedMilliseconds <= 1_300);
+
+            await Verify(new { response, EventBus.Log })
+                .ScrubMember("trace-id");
+        }
+
+        [Fact]
+        public async Task PostWaitCancel()
+        {
+            var cancellationTokenSource = new CancellationTokenSource(750);
+            _Stopwatch.Start();
+            HttpResponseMessage? response = null;
+            try
+            {
+                response = await Client.PostAsJsonAsync("/greetings/wait", new Greeting("Hello, world!"), cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            _Stopwatch.Stop();
+
+            Assert.True(_Stopwatch.ElapsedMilliseconds >= 750 && _Stopwatch.ElapsedMilliseconds <= 1_050);
+
+            await Verify(new { response, EventBus.Log })
                 .ScrubMember("trace-id");
         }
 
         public void Dispose()
         {
-            EventBus.Greetings.Clear();
+            EventBus.ClearLog();
         }
     }
 }

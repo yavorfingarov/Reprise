@@ -52,6 +52,26 @@
             }
           }
         },
+        /greetings/wait: {
+          post: {
+            tags: [
+              Greetings
+            ],
+            requestBody: {
+              content: {
+                application/json: {
+                  schema: null
+                }
+              },
+              required: true
+            },
+            responses: {
+              202: {
+                description: Accepted
+              }
+            }
+          }
+        },
         /token: {
           get: {
             tags: [

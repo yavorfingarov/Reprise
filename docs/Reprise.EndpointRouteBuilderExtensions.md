@@ -15,8 +15,8 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 ## EndpointRouteBuilderExtensions.MapEndpoints(this IEndpointRouteBuilder) Method
 
-Maps all API endpoints discovered by   
-[ConfigureServices(this WebApplicationBuilder)](Reprise.WebApplicationBuilderExtensions.md#Reprise.WebApplicationBuilderExtensions.ConfigureServices(thisMicrosoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.WebApplicationBuilderExtensions.ConfigureServices(this Microsoft.AspNetCore.Builder.WebApplicationBuilder)')  
+Maps all API endpoints discovered by 
+[ConfigureServices(this WebApplicationBuilder)](Reprise.WebApplicationBuilderExtensions.md#Reprise.WebApplicationBuilderExtensions.ConfigureServices(thisMicrosoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.WebApplicationBuilderExtensions.ConfigureServices(this Microsoft.AspNetCore.Builder.WebApplicationBuilder)')
 with the default [EndpointOptions](Reprise.EndpointOptions.md 'Reprise.EndpointOptions').
 
 ```csharp
@@ -41,8 +41,8 @@ public static Microsoft.AspNetCore.Routing.IEndpointRouteBuilder MapEndpoints(th
 
 ## EndpointRouteBuilderExtensions.MapEndpoints(this IEndpointRouteBuilder, Action<EndpointOptions>) Method
 
-Maps all API endpoints discovered by   
-[ConfigureServices(this WebApplicationBuilder)](Reprise.WebApplicationBuilderExtensions.md#Reprise.WebApplicationBuilderExtensions.ConfigureServices(thisMicrosoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.WebApplicationBuilderExtensions.ConfigureServices(this Microsoft.AspNetCore.Builder.WebApplicationBuilder)')  
+Maps all API endpoints discovered by 
+[ConfigureServices(this WebApplicationBuilder)](Reprise.WebApplicationBuilderExtensions.md#Reprise.WebApplicationBuilderExtensions.ConfigureServices(thisMicrosoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.WebApplicationBuilderExtensions.ConfigureServices(this Microsoft.AspNetCore.Builder.WebApplicationBuilder)')
 with custom [EndpointOptions](Reprise.EndpointOptions.md 'Reprise.EndpointOptions').
 
 ```csharp

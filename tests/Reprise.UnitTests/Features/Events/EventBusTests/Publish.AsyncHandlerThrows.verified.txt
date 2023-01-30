@@ -12,10 +12,11 @@
   },
   logs: [
     {
-      Error: An exception was thrown while executing Reprise.UnitTests.Features.MockAsyncEventHandler.,
+      Error: An exception was thrown while executing Reprise.UnitTests.Features.Events.MockAsyncEventHandler.,
+      Category: EventBus,
       State: [
         {
-          EventHandlerType: Reprise.UnitTests.Features.MockAsyncEventHandler
+          EventHandlerType: Reprise.UnitTests.Features.Events.MockAsyncEventHandler
         },
         {
           {OriginalFormat}: An exception was thrown while executing {EventHandlerType}.
@@ -23,7 +24,7 @@
       ],
       Exception: {
         Type: Exception,
-        Message: Test message
+        Message: Test message from MockAsyncEventHandler1
       }
     }
   ]

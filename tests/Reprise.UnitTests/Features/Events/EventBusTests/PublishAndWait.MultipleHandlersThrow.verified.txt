@@ -1,0 +1,16 @@
+﻿{
+  target: {
+    Type: AggregateException,
+    InnerExceptions: [
+      {
+        Type: Exception,
+        Message: Test message from MockAsyncEventHandler2
+      },
+      {
+        Type: Exception,
+        Message: Test message from MockSyncEventHandler3
+      }
+    ]
+  },
+  logs: []
+}

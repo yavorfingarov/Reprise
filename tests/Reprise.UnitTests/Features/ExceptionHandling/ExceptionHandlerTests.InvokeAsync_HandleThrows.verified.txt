@@ -49,6 +49,7 @@
   logs: [
     {
       Error: An exception was thrown while executing the exception handler.,
+      Category: ExceptionHandler,
       Exception: {
         Type: NotImplementedException,
         Message: The method or operation is not implemented.

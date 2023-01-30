@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.3.0] - 2023-01-30
+### Added
+- Possibility to publish events and wait for the handlers to finish execution.
+
 ## [3.2.0] - 2023-01-20
 ### Added
 - Events

@@ -10,7 +10,7 @@
     },
     Request: {
       Method: POST,
-      Uri: http://localhost/greetings,
+      Uri: http://localhost/greetings/wait,
       Content: {
         Headers: {
           Content-Length: 27,
