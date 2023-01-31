@@ -5,7 +5,7 @@
     },
     handler: {
       ScopeId: Guid_2,
-      Name: MockSyncEventHandler1,
+      HandlerId: MockSyncEventHandler-1,
       HandlerStatus: Done,
       IsDisposed: true
     }

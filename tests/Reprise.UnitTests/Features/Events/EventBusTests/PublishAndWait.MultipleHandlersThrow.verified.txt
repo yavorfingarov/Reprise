@@ -4,11 +4,11 @@
     InnerExceptions: [
       {
         Type: Exception,
-        Message: Test message from MockAsyncEventHandler2
+        Message: [MockAsyncEventHandler-1] Test message
       },
       {
         Type: Exception,
-        Message: Test message from MockSyncEventHandler3
+        Message: [MockSyncEventHandler-4] Test message
       }
     ]
   },

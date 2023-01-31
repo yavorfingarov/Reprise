@@ -6,19 +6,19 @@
     Instances: [
       {
         ScopeId: Guid_2,
-        Name: MockAsyncEventHandler1,
+        HandlerId: MockAsyncEventHandler-1,
         HandlerStatus: Done,
         IsDisposed: true
       },
       {
         ScopeId: Guid_2,
-        Name: MockAsyncEventHandler2,
+        HandlerId: MockAsyncEventHandler-2,
         HandlerStatus: Cancelled,
         IsDisposed: true
       },
       {
         ScopeId: Guid_2,
-        Name: MockAsyncEventHandler3,
+        HandlerId: MockAsyncEventHandler-3,
         HandlerStatus: Cancelled,
         IsDisposed: true
       }

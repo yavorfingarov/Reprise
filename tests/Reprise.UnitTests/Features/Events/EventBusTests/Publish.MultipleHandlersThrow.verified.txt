@@ -6,26 +6,26 @@
     Instances: [
       {
         ScopeId: Guid_2,
-        Name: MockAsyncEventHandler1,
-        HandlerStatus: Done,
-        IsDisposed: true
-      },
-      {
-        ScopeId: Guid_2,
-        Name: MockAsyncEventHandler2,
+        HandlerId: MockAsyncEventHandler-1,
         HandlerStatus: Faulted,
         IsDisposed: true
       },
       {
         ScopeId: Guid_2,
-        Name: MockSyncEventHandler3,
-        HandlerStatus: Faulted,
+        HandlerId: MockAsyncEventHandler-2,
+        HandlerStatus: Done,
         IsDisposed: true
       },
       {
         ScopeId: Guid_2,
-        Name: MockSyncEventHandler4,
+        HandlerId: MockSyncEventHandler-3,
         HandlerStatus: Done,
+        IsDisposed: true
+      },
+      {
+        ScopeId: Guid_2,
+        HandlerId: MockSyncEventHandler-4,
+        HandlerStatus: Faulted,
         IsDisposed: true
       }
     ]
@@ -44,7 +44,7 @@
       ],
       Exception: {
         Type: Exception,
-        Message: Test message from MockAsyncEventHandler2
+        Message: [MockAsyncEventHandler-1] Test message
       }
     },
     {
@@ -60,7 +60,7 @@
       ],
       Exception: {
         Type: Exception,
-        Message: Test message from MockSyncEventHandler3
+        Message: [MockSyncEventHandler-4] Test message
       }
     }
   ]

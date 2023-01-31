@@ -13,7 +13,7 @@
 
         public Guid ScopeId { get; }
 
-        public string Name { get; }
+        public string HandlerId { get; }
 
         public HandlerStatus HandlerStatus { get; protected set; } = HandlerStatus.NotStarted;
 
@@ -26,7 +26,7 @@
         public AbstractMockEventHandler(ServiceScopeIdentifier serviceScopeIdentifier, EventHandlerDescriptor messageHandlerDescriptor)
         {
             ScopeId = serviceScopeIdentifier.ScopeId;
-            Name = $"{GetType().Name}{++InstanceId}";
+            HandlerId = $"{GetType().Name}-{++InstanceId}";
             Delay = messageHandlerDescriptor.Delay;
             Throws = messageHandlerDescriptor.Throws;
             Instances.Add(this);
@@ -61,7 +61,7 @@
             if (Throws)
             {
                 HandlerStatus = HandlerStatus.Faulted;
-                throw new Exception($"Test message from {Name}");
+                throw new Exception($"[{HandlerId}] Test message");
             }
             HandlerStatus = HandlerStatus.Done;
 
@@ -92,7 +92,7 @@
             if (Throws)
             {
                 HandlerStatus = HandlerStatus.Faulted;
-                throw new Exception($"Test message from {Name}");
+                throw new Exception($"[{HandlerId}] Test message");
             }
             HandlerStatus = HandlerStatus.Done;
         }

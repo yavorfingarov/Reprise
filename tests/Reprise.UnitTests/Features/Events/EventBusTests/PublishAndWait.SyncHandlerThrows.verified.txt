@@ -3,7 +3,7 @@
     Type: AggregateException,
     InnerException: {
       Type: Exception,
-      Message: Test message from MockSyncEventHandler1
+      Message: [MockSyncEventHandler-1] Test message
     }
   },
   logs: []

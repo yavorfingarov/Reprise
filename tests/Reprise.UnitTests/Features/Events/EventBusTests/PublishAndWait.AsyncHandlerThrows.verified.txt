@@ -3,7 +3,7 @@
     Type: AggregateException,
     InnerException: {
       Type: Exception,
-      Message: Test message from MockAsyncEventHandler1
+      Message: [MockAsyncEventHandler-1] Test message
     }
   },
   logs: []
