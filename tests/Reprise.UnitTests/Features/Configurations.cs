@@ -5,16 +5,6 @@
     {
         private readonly ConfigurationTypeProcessor _Processor = new();
 
-        public Configurations()
-        {
-            var builder = WebApplication.CreateBuilder(new[]
-            {
-                "TestConfiguration:Number=123",
-                "TestConfiguration:SubSection:Message=Hello,world!"
-            });
-            builder.Services.Clear();
-        }
-
         [Fact]
         public Task Process()
         {

@@ -7,11 +7,14 @@
 
         private readonly EventHandlerTypeProcessor _Processor = new();
 
+        public EventHandlerTypeProcessorTests()
+        {
+            _Builder.Services.Clear();
+        }
+
         [Fact]
         public Task Process()
         {
-            _Builder.Services.Clear();
-
             _Processor.Process(_Builder, typeof(MockAsyncEventHandler));
 
             return Verify(_Builder)
@@ -21,8 +24,6 @@
         [Fact]
         public Task Process_NoImplementation()
         {
-            _Builder.Services.Clear();
-
             _Processor.Process(_Builder, GetType());
 
             return Verify(_Builder)
@@ -32,8 +33,6 @@
         [Fact]
         public Task PostProcess()
         {
-            _Builder.Services.Clear();
-
             _Processor.PostProcess(_Builder);
 
             return Verify(_Builder)

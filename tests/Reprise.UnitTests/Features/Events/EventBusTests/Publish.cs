@@ -126,9 +126,35 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
         {
             ConfigureServices(
                 new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, false),
+                new EventHandlerDescriptor(typeof(MockSyncEventHandler), 1_000, false),
+                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_500, false));
+            var app = Builder.Build();
+            using var scope = app.Services.CreateScope();
+            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
+            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+
+            Stopwatch.Start();
+            messageBus.Publish(new StubEvent());
+            Stopwatch.Stop();
+
+            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            await Task.Delay(100);
+            Assert.All(AbstractMockEventHandler.Instances, h => Assert.Equal(HandlerStatus.Running, h.HandlerStatus));
+            Assert.All(AbstractMockEventHandler.Instances, h => Assert.False(h.IsDisposed));
+            await Task.Delay(1_500);
+
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances })
+                .IgnoreStackTrace();
+        }
+
+        [Fact]
+        public async Task MultipleHandlersThrow()
+        {
+            ConfigureServices(
+                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, false),
                 new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_000, true),
                 new EventHandlerDescriptor(typeof(MockSyncEventHandler), 1_500, true),
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 2_000, false));
+                new EventHandlerDescriptor(typeof(MockSyncEventHandler), 2_000, false));
             var app = Builder.Build();
             using var scope = app.Services.CreateScope();
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();

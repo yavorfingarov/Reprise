@@ -3,13 +3,12 @@
     [UsesVerify]
     public class ServiceConfigurators
     {
-        private readonly WebApplicationBuilder _Builder;
+        private readonly WebApplicationBuilder _Builder = WebApplication.CreateBuilder();
 
         private readonly ServiceConfiguratorTypeProcessor _Processor = new();
 
         public ServiceConfigurators()
         {
-            _Builder = WebApplication.CreateBuilder();
             _Builder.Services.Clear();
         }
 

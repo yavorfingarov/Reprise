@@ -118,7 +118,7 @@
                 new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, false),
                 new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_000, true),
                 new EventHandlerDescriptor(typeof(MockSyncEventHandler), 1_500, true),
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 2_000, false));
+                new EventHandlerDescriptor(typeof(MockSyncEventHandler), 2_000, false));
             var app = Builder.Build();
             using var scope = app.Services.CreateScope();
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
