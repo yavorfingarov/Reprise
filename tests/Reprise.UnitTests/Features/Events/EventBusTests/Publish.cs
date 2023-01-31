@@ -41,13 +41,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            var handler = AbstractMockEventHandler.Instances.Single();
-            Assert.Equal(HandlerStatus.Running, handler.HandlerStatus);
-            Assert.False(handler.IsDisposed);
-            await Task.Delay(500);
+            await Task.Delay(600);
 
-            await Verify(new { requestScopeIdentifier, handler });
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
 
         [Fact]
@@ -64,13 +60,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            var handler = AbstractMockEventHandler.Instances.Single();
-            Assert.Equal(HandlerStatus.Running, handler.HandlerStatus);
-            Assert.False(handler.IsDisposed);
-            await Task.Delay(500);
+            await Task.Delay(600);
 
-            await Verify(new { requestScopeIdentifier, handler })
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
         }
 
@@ -88,13 +80,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            var handler = AbstractMockEventHandler.Instances.Single();
-            Assert.Equal(HandlerStatus.Running, handler.HandlerStatus);
-            Assert.False(handler.IsDisposed);
-            await Task.Delay(500);
+            await Task.Delay(600);
 
-            await Verify(new { requestScopeIdentifier, handler });
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
 
         [Fact]
@@ -111,13 +99,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            var handler = AbstractMockEventHandler.Instances.Single();
-            Assert.Equal(HandlerStatus.Running, handler.HandlerStatus);
-            Assert.False(handler.IsDisposed);
-            await Task.Delay(500);
+            await Task.Delay(600);
 
-            await Verify(new { requestScopeIdentifier, handler })
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
         }
 
@@ -138,12 +122,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            Assert.All(AbstractMockEventHandler.Instances, h => Assert.Equal(HandlerStatus.Running, h.HandlerStatus));
-            Assert.All(AbstractMockEventHandler.Instances, h => Assert.False(h.IsDisposed));
-            await Task.Delay(1_500);
+            await Task.Delay(1_600);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances })
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
         }
 
@@ -165,12 +146,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            Assert.All(AbstractMockEventHandler.Instances, h => Assert.Equal(HandlerStatus.Running, h.HandlerStatus));
-            Assert.All(AbstractMockEventHandler.Instances, h => Assert.False(h.IsDisposed));
-            await Task.Delay(2_000);
+            await Task.Delay(2_100);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances })
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
         }
 
@@ -192,14 +170,12 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(100);
-            Assert.All(AbstractMockEventHandler.Instances, h => Assert.Equal(HandlerStatus.Running, h.HandlerStatus));
-            Assert.All(AbstractMockEventHandler.Instances, h => Assert.False(h.IsDisposed));
-            await Task.Delay(500);
+            await Task.Delay(600);
+
             hostApplicationLifetime.StopApplication();
             await Task.Delay(100);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances })
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
         }
     }

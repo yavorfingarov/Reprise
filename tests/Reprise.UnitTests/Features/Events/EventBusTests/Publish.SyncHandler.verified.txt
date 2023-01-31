@@ -3,12 +3,14 @@
     requestScopeIdentifier: {
       ScopeId: Guid_1
     },
-    handler: {
-      ScopeId: Guid_2,
-      HandlerId: MockSyncEventHandler-1,
-      HandlerStatus: Done,
-      IsDisposed: true
-    }
+    Handlers: [
+      {
+        ServiceScopeId: Guid_2,
+        HandlerId: MockSyncEventHandler-1,
+        HandlerStatus: Done,
+        IsDisposed: true
+      }
+    ]
   },
   logs: []
 }

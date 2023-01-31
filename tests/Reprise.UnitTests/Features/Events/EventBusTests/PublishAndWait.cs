@@ -40,9 +40,8 @@
             Stopwatch.Stop();
 
             Assert.InRange(Stopwatch.ElapsedMilliseconds, 400, 600);
-            var handler = AbstractMockEventHandler.Instances.Single();
 
-            await Verify(new { requestScopeIdentifier, handler });
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
 
         [Fact]
@@ -72,9 +71,8 @@
             Stopwatch.Stop();
 
             Assert.InRange(Stopwatch.ElapsedMilliseconds, 400, 600);
-            var handler = AbstractMockEventHandler.Instances.Single();
 
-            await Verify(new { requestScopeIdentifier, handler });
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
 
         [Fact]
@@ -108,7 +106,7 @@
 
             Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_400, 1_600);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances });
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
 
         [Fact]
@@ -147,7 +145,7 @@
 
             Assert.InRange(Stopwatch.ElapsedMilliseconds, 650, 850);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Instances });
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
     }
 }

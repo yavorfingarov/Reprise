@@ -3,27 +3,27 @@
     requestScopeIdentifier: {
       ScopeId: Guid_1
     },
-    Instances: [
+    Handlers: [
       {
-        ScopeId: Guid_2,
+        ServiceScopeId: Guid_2,
         HandlerId: MockAsyncEventHandler-1,
         HandlerStatus: Faulted,
         IsDisposed: true
       },
       {
-        ScopeId: Guid_2,
+        ServiceScopeId: Guid_2,
         HandlerId: MockAsyncEventHandler-2,
         HandlerStatus: Done,
         IsDisposed: true
       },
       {
-        ScopeId: Guid_2,
+        ServiceScopeId: Guid_2,
         HandlerId: MockSyncEventHandler-3,
         HandlerStatus: Done,
         IsDisposed: true
       },
       {
-        ScopeId: Guid_2,
+        ServiceScopeId: Guid_2,
         HandlerId: MockSyncEventHandler-4,
         HandlerStatus: Faulted,
         IsDisposed: true

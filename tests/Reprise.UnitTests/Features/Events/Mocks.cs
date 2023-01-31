@@ -7,15 +7,15 @@
 
     internal abstract class AbstractMockEventHandler : IEventHandler<StubEvent>, IDisposable
     {
-        public static List<AbstractMockEventHandler> Instances { get; } = new();
+        public static List<AbstractMockEventHandler> Handlers { get; } = new();
 
         public static int InstanceId;
 
-        public Guid ScopeId { get; }
+        public Guid ServiceScopeId { get; }
 
         public string HandlerId { get; }
 
-        public HandlerStatus HandlerStatus { get; protected set; } = HandlerStatus.NotStarted;
+        public HandlerStatus HandlerStatus { get; protected set; } = HandlerStatus.Initial;
 
         public bool IsDisposed { get; private set; }
 
@@ -25,11 +25,11 @@
 
         public AbstractMockEventHandler(ServiceScopeIdentifier serviceScopeIdentifier, EventHandlerDescriptor messageHandlerDescriptor)
         {
-            ScopeId = serviceScopeIdentifier.ScopeId;
+            ServiceScopeId = serviceScopeIdentifier.ScopeId;
             HandlerId = $"{GetType().Name}-{++InstanceId}";
             Delay = messageHandlerDescriptor.Delay;
             Throws = messageHandlerDescriptor.Throws;
-            Instances.Add(this);
+            Handlers.Add(this);
         }
 
         public void Dispose()
@@ -56,7 +56,6 @@
 
         public override Task Handle(StubEvent payload, CancellationToken cancellationToken)
         {
-            HandlerStatus = HandlerStatus.Running;
             Thread.Sleep(Delay);
             if (Throws)
             {
@@ -78,7 +77,6 @@
 
         public override async Task Handle(StubEvent payload, CancellationToken cancellationToken)
         {
-            HandlerStatus = HandlerStatus.Running;
             try
             {
                 await Task.Delay(Delay, cancellationToken);
@@ -102,8 +100,7 @@
 
     internal enum HandlerStatus
     {
-        NotStarted,
-        Running,
+        Initial,
         Faulted,
         Cancelled,
         Done

@@ -15,7 +15,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
 
         public void Dispose()
         {
-            AbstractMockEventHandler.Instances.Clear();
+            AbstractMockEventHandler.Handlers.Clear();
             AbstractMockEventHandler.InstanceId = 0;
             GC.SuppressFinalize(this);
         }
