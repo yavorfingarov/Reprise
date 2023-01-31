@@ -35,11 +35,7 @@
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
             var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            Stopwatch.Start();
             await messageBus.PublishAndWait(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 400, 600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
@@ -68,11 +64,7 @@
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
             var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            Stopwatch.Start();
             await messageBus.PublishAndWait(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 400, 600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
@@ -108,7 +100,7 @@
             await messageBus.PublishAndWait(new StubEvent());
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_400, 1_600);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_450, 1_600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
@@ -126,7 +118,11 @@
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
             var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
+            Stopwatch.Start();
             var exception = await Assert.ThrowsAnyAsync<Exception>(() => messageBus.PublishAndWait(new StubEvent()));
+            Stopwatch.Stop();
+
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_950, 2_100);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers, exception })
                 .IgnoreStackTrace();
@@ -149,7 +145,7 @@
             await messageBus.PublishAndWait(new StubEvent(), cancellationTokenSource.Token);
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 650, 850);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 700, 850);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }

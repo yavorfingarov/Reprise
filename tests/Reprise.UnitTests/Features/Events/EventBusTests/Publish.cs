@@ -60,7 +60,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(700);
+            await Task.Delay(600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
@@ -80,7 +80,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(700);
+            await Task.Delay(600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
@@ -99,7 +99,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(700);
+            await Task.Delay(600);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
@@ -122,7 +122,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(1_700);
+            await Task.Delay(1_800);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
@@ -146,7 +146,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(2_200);
+            await Task.Delay(2_300);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
@@ -173,7 +173,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             await Task.Delay(600);
 
             hostApplicationLifetime.StopApplication();
-            await Task.Delay(200);
+            await Task.Delay(300);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
