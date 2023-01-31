@@ -53,7 +53,9 @@
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
             var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            await ThrowsTask(() => messageBus.PublishAndWait(new StubEvent()))
+            var exception = await Assert.ThrowsAnyAsync<Exception>(() => messageBus.PublishAndWait(new StubEvent()));
+
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers, exception })
                 .IgnoreStackTrace();
         }
 
@@ -84,7 +86,9 @@
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
             var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            await ThrowsTask(() => messageBus.PublishAndWait(new StubEvent()))
+            var exception = await Assert.ThrowsAnyAsync<Exception>(() => messageBus.PublishAndWait(new StubEvent()));
+
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers, exception })
                 .IgnoreStackTrace();
         }
 
@@ -122,7 +126,9 @@
             var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
             var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            await ThrowsTask(() => messageBus.PublishAndWait(new StubEvent()))
+            var exception = await Assert.ThrowsAnyAsync<Exception>(() => messageBus.PublishAndWait(new StubEvent()));
+
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers, exception })
                 .IgnoreStackTrace();
         }
 

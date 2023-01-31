@@ -175,8 +175,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             hostApplicationLifetime.StopApplication();
             await Task.Delay(100);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
-                .IgnoreStackTrace();
+            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
     }
 }

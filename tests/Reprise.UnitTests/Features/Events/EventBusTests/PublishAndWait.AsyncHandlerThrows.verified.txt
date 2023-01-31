@@ -1,9 +1,22 @@
 ﻿{
   target: {
-    Type: AggregateException,
-    InnerException: {
-      Type: Exception,
-      Message: [MockAsyncEventHandler-1] Test message
+    requestScopeIdentifier: {
+      ScopeId: Guid_1
+    },
+    Handlers: [
+      {
+        ServiceScopeId: Guid_1,
+        HandlerId: MockAsyncEventHandler-1,
+        HandlerStatus: Faulted,
+        IsDisposed: false
+      }
+    ],
+    exception: {
+      Type: AggregateException,
+      InnerException: {
+        Type: Exception,
+        Message: [MockAsyncEventHandler-1] Test message
+      }
     }
   },
   logs: []
