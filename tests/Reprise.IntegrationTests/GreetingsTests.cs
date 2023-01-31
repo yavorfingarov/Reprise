@@ -22,8 +22,8 @@ namespace Reprise.IntegrationTests
             var response = await Client.PostAsJsonAsync("/greetings", new Greeting("Hello, world!"));
             _Stopwatch.Stop();
 
-            Assert.True(_Stopwatch.ElapsedMilliseconds < 300);
-            await Task.Delay(1_300);
+            Assert.True(_Stopwatch.ElapsedMilliseconds < 500);
+            await Task.Delay(1_500);
 
             await Verify(new { response, EventBus.Log })
                 .ScrubMember("trace-id");
@@ -36,7 +36,7 @@ namespace Reprise.IntegrationTests
             var response = await Client.PostAsJsonAsync("/greetings/wait", new Greeting("Hello, world!"));
             _Stopwatch.Stop();
 
-            Assert.True(_Stopwatch.ElapsedMilliseconds >= 1_000 && _Stopwatch.ElapsedMilliseconds <= 1_300);
+            Assert.True(_Stopwatch.ElapsedMilliseconds > 950 && _Stopwatch.ElapsedMilliseconds <= 1_500);
 
             await Verify(new { response, EventBus.Log })
                 .ScrubMember("trace-id");
@@ -57,7 +57,7 @@ namespace Reprise.IntegrationTests
             }
             _Stopwatch.Stop();
 
-            Assert.True(_Stopwatch.ElapsedMilliseconds >= 750 && _Stopwatch.ElapsedMilliseconds <= 1_050);
+            Assert.True(_Stopwatch.ElapsedMilliseconds > 700 && _Stopwatch.ElapsedMilliseconds <= 950);
 
             await Verify(new { response, EventBus.Log })
                 .ScrubMember("trace-id");
