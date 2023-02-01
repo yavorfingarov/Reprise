@@ -47,5 +47,5 @@ jobs:
         with:
           name: CoverageReport      
           path: |
-            TestCoverageReport/
-            **/StrykerOutput/*/reports/*/mutation-report.html
+            ./TestCoverageReport/
+            **/StrykerOutput/*/reports/mutation-report.html
