@@ -1,0 +1,16 @@
+﻿{
+  target: {
+    requestScopeIdentifier: {
+      ScopeId: Guid_1
+    },
+    Handlers: [
+      {
+        ServiceScopeId: Guid_2,
+        HandlerId: MockSyncEventHandler-1,
+        HandlerStatus: Done,
+        IsDisposed: true
+      }
+    ]
+  },
+  logs: []
+}

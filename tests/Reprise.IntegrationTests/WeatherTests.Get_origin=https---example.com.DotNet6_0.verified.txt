@@ -1,0 +1,10 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Request: {
+    Uri: http://localhost/weather,
+    Headers: {
+      Origin: https://example.com
+    }
+  }
+}

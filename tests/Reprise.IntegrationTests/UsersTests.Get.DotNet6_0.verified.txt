@@ -1,0 +1,20 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      id: 2,
+      firstName: Cornell,
+      lastName: Ratke
+    }
+  },
+  Request: {
+    Uri: http://localhost/users/2,
+    Headers: {
+      Authorization: {Scrubbed}
+    }
+  }
+}

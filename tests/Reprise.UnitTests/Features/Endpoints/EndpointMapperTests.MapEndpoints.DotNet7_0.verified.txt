@@ -67,6 +67,172 @@
             Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
+        },
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: PUT / => Handle,
+          Metadata: [
+            StubPutEndpoint.Handle(),
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                PUT
+              ]
+            },
+            {
+              StatusCode: 200,
+              ContentTypes: [
+                text/plain
+              ]
+            },
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              TypeId: PutAttribute
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
+        },
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: PATCH / => Handle,
+          Metadata: [
+            StubPatchEndpoint.Handle(),
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                PATCH
+              ]
+            },
+            {
+              StatusCode: 200,
+              ContentTypes: [
+                text/plain
+              ]
+            },
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              TypeId: PatchAttribute
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
+        },
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: DELETE / => Handle,
+          Metadata: [
+            StubDeleteEndpoint.Handle(),
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                DELETE
+              ]
+            },
+            {
+              StatusCode: 200,
+              ContentTypes: [
+                text/plain
+              ]
+            },
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              TypeId: DeleteAttribute
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
+        },
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: HEAD / => Handle,
+          Metadata: [
+            StubHeadEndpoint.Handle(),
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                HEAD
+              ]
+            },
+            {
+              StatusCode: 200,
+              ContentTypes: [
+                text/plain
+              ]
+            },
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              TypeId: MapAttribute
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
+        },
+        {
+          RoutePattern: {
+            RawText: /
+          },
+          DisplayName: HTTP: OPTIONS, TRACE / => Handle,
+          Metadata: [
+            StubOptionsTraceEndpoint.Handle(),
+            {
+              AcceptCorsPreflight: false,
+              HttpMethods: [
+                OPTIONS,
+                TRACE
+              ]
+            },
+            {
+              StatusCode: 200,
+              ContentTypes: [
+                text/plain
+              ]
+            },
+            {
+              Flag: 1,
+              TypeId: NullableContextAttribute
+            },
+            {
+              TypeId: MapAttribute
+            }
+          ],
+          RequestDelegate: {
+            Type: RequestDelegate,
+            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
+            Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+          }
         }
       ]
     }
@@ -75,6 +241,16 @@
     MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
     MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
     MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /)
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPutEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPutEndpoint.Handle, /),
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPatchEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPatchEndpoint.Handle, /),
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubDeleteEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubDeleteEndpoint.Handle, /),
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubHeadEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubHeadEndpoint.Handle, /),
+    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubOptionsTraceEndpoint.Handle, /),
+    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubOptionsTraceEndpoint.Handle, /)
   ]
 }

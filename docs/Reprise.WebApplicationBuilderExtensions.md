@@ -15,16 +15,16 @@ Inheritance [System.Object](https://docs.microsoft.com/en-us/dotnet/api/System.O
 
 ## WebApplicationBuilderExtensions.ConfigureServices(this WebApplicationBuilder) Method
 
-Sets up the DI container by performing an assembly scan to:  
-- Discover all API endpoints (types decorated with [EndpointAttribute](Reprise.EndpointAttribute.md 'Reprise.EndpointAttribute')).  
-- Call all [ConfigureServices(WebApplicationBuilder)](Reprise.IServiceConfigurator.md#Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)')   
-  implementations.  
-- Bind all configurations decorated with [ConfigurationAttribute](Reprise.ConfigurationAttribute.md 'Reprise.ConfigurationAttribute')   
-  and add them with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').  
-- Add all [FluentValidation.IValidator&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/FluentValidation.IValidator-1 'FluentValidation.IValidator`1') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').  
-- Add a [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') implementation or a default one if none is found.  
-- Add a [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') implementation or a default one if none is found.  
-- Add all [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').  
+Sets up the DI container by performing an assembly scan to:
+- Discover all API endpoints (types decorated with [EndpointAttribute](Reprise.EndpointAttribute.md 'Reprise.EndpointAttribute')).
+- Call all [ConfigureServices(WebApplicationBuilder)](Reprise.IServiceConfigurator.md#Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)') 
+  implementations.
+- Bind all configurations decorated with [ConfigurationAttribute](Reprise.ConfigurationAttribute.md 'Reprise.ConfigurationAttribute') 
+  and add them with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').
+- Add all [FluentValidation.IValidator&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/FluentValidation.IValidator-1 'FluentValidation.IValidator`1') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').
+- Add a [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') implementation or a default one if none is found.
+- Add a [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') implementation or a default one if none is found.
+- Add all [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').
 - Add the [IEventBus](Reprise.IEventBus.md 'Reprise.IEventBus').
 
 ```csharp
@@ -49,16 +49,16 @@ public static Microsoft.AspNetCore.Builder.WebApplicationBuilder ConfigureServic
 
 ## WebApplicationBuilderExtensions.ConfigureServices(this WebApplicationBuilder, Assembly) Method
 
-Sets up the DI container by performing an assembly scan to:  
-- Discover all API endpoints (types decorated with [EndpointAttribute](Reprise.EndpointAttribute.md 'Reprise.EndpointAttribute')).  
-- Call all [ConfigureServices(WebApplicationBuilder)](Reprise.IServiceConfigurator.md#Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)')   
-  implementations.  
-- Bind all configurations decorated with [ConfigurationAttribute](Reprise.ConfigurationAttribute.md 'Reprise.ConfigurationAttribute')   
-  and add them with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').  
-- Add all [FluentValidation.IValidator&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/FluentValidation.IValidator-1 'FluentValidation.IValidator`1') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').  
-- Add a [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') implementation or a default one if none is found.  
-- Add a [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') implementation or a default one if none is found.  
-- Add all [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').  
+Sets up the DI container by performing an assembly scan to:
+- Discover all API endpoints (types decorated with [EndpointAttribute](Reprise.EndpointAttribute.md 'Reprise.EndpointAttribute')).
+- Call all [ConfigureServices(WebApplicationBuilder)](Reprise.IServiceConfigurator.md#Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder) 'Reprise.IServiceConfigurator.ConfigureServices(Microsoft.AspNetCore.Builder.WebApplicationBuilder)') 
+  implementations.
+- Bind all configurations decorated with [ConfigurationAttribute](Reprise.ConfigurationAttribute.md 'Reprise.ConfigurationAttribute') 
+  and add them with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').
+- Add all [FluentValidation.IValidator&lt;&gt;](https://docs.microsoft.com/en-us/dotnet/api/FluentValidation.IValidator-1 'FluentValidation.IValidator`1') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton').
+- Add a [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') implementation or a default one if none is found.
+- Add a [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') implementation or a default one if none is found.
+- Add all [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').
 - Add the [IEventBus](Reprise.IEventBus.md 'Reprise.IEventBus').
 
 ```csharp

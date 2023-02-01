@@ -3,13 +3,12 @@
     [UsesVerify]
     public class Validation
     {
-        private readonly WebApplicationBuilder _Builder;
+        private readonly WebApplicationBuilder _Builder = WebApplication.CreateBuilder();
 
         private readonly ValidatorTypeProcessor _Processor = new();
 
         public Validation()
         {
-            _Builder = WebApplication.CreateBuilder();
             _Builder.Services.Clear();
         }
 

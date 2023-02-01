@@ -13,6 +13,7 @@ namespace Reprise.IntegrationTests
             await Verify(await Client.SendAsync(request))
                 .IgnoreMembersWithType<HttpContent>()
                 .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion()
                 .UseParameters(origin);
         }
     }

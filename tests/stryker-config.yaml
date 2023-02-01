@@ -1,5 +1,0 @@
-stryker-config:
-  target-framework: 'net7.0'
-  test-projects: [ 'tests/Reprise.UnitTests/Reprise.UnitTests.csproj' ]
-  project: Reprise.csproj
-  reporters: [ 'html', 'dots' ]

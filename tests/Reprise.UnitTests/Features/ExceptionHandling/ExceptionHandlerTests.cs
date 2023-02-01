@@ -11,14 +11,12 @@
 
         private readonly Mock<IErrorResponseFactory> _MockErrorResponseFactory = new();
 
-        private readonly Mock<ILoggerFactory> _MockLoggerFactory = new();
-
-        private readonly ILogger _LoggerProvider = LoggerRecording.Start();
+        private readonly ILogger<ExceptionHandler> _Logger;
 
         public ExceptionHandlerTests()
         {
-            _MockLoggerFactory.Setup(m => m.CreateLogger(It.IsAny<string>()))
-                .Returns(_LoggerProvider);
+            var loggerProvider = LoggerRecording.Start();
+            _Logger = loggerProvider.CreateLogger<ExceptionHandler>();
             _MockHttpContext.Setup(m => m.Response)
                 .Returns(_MockHttpResponse.Object);
         }
@@ -28,7 +26,7 @@
         {
             var serviceProvider = CreateServiceProvider();
 
-            _ = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, _ => Task.CompletedTask);
+            _ = new ExceptionHandler(_Logger, serviceProvider, _ => Task.CompletedTask);
         }
 
         [Fact]
@@ -36,7 +34,7 @@
         {
             var serviceProvider = CreateServiceProvider(skipExceptionLogger: true);
 
-            return Throws(() => new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, _ => Task.CompletedTask))
+            return Throws(() => new ExceptionHandler(_Logger, serviceProvider, _ => Task.CompletedTask))
                 .IgnoreStackTrace();
         }
 
@@ -45,7 +43,7 @@
         {
             var serviceProvider = CreateServiceProvider(skipErrorResponseFactory: true);
 
-            return Throws(() => new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, _ => Task.CompletedTask))
+            return Throws(() => new ExceptionHandler(_Logger, serviceProvider, _ => Task.CompletedTask))
                 .IgnoreStackTrace();
         }
 
@@ -60,7 +58,7 @@
 
                 return Task.CompletedTask;
             };
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -72,7 +70,7 @@
         {
             var serviceProvider = CreateServiceProvider();
             RequestDelegate next = _ => throw new BadHttpRequestException("Test message");
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -85,7 +83,7 @@
         {
             var serviceProvider = CreateServiceProvider();
             RequestDelegate next = _ => throw new ValidationException("Test message");
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -98,7 +96,7 @@
         {
             var serviceProvider = CreateServiceProvider();
             RequestDelegate next = _ => throw new Exception("Test message");
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -113,7 +111,7 @@
             RequestDelegate next = _ => throw new Exception("Test message");
             _MockHttpResponse.Setup(m => m.HasStarted)
                 .Returns(true);
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -133,7 +131,7 @@
             var mockBodyStream = new Mock<Stream>();
             _MockHttpResponse.Setup(m => m.Body)
                 .Returns(mockBodyStream.Object);
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -149,7 +147,7 @@
             RequestDelegate next = _ => throw new Exception("Test message");
             _MockErrorResponseFactory.Setup(m => m.Create(It.IsAny<ErrorContext<Exception>>()))
                 .Throws(new NotImplementedException());
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 
@@ -166,7 +164,7 @@
                 .Throws(new NotImplementedException());
             _MockHttpResponse.Setup(m => m.HasStarted)
                 .Returns(true);
-            var exceptionHandler = new ExceptionHandler(_MockLoggerFactory.Object, serviceProvider, next);
+            var exceptionHandler = new ExceptionHandler(_Logger, serviceProvider, next);
 
             await exceptionHandler.InvokeAsync(_MockHttpContext.Object);
 

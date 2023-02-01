@@ -3,7 +3,7 @@
     [UsesVerify]
     public class ExceptionLogger
     {
-        private readonly WebApplicationBuilder _Builder;
+        private readonly WebApplicationBuilder _Builder = WebApplication.CreateBuilder();
 
         private readonly HttpContext _HttpContext = new DefaultHttpContext();
 
@@ -13,7 +13,6 @@
 
         public ExceptionLogger()
         {
-            _Builder = WebApplication.CreateBuilder();
             _Builder.Services.Clear();
         }
 

@@ -1,0 +1,47 @@
+﻿{
+  target: {
+    requestScopeIdentifier: {
+      ScopeId: Guid_1
+    },
+    Handlers: [
+      {
+        ServiceScopeId: Guid_1,
+        HandlerId: MockAsyncEventHandler-1,
+        HandlerStatus: Faulted,
+        IsDisposed: false
+      },
+      {
+        ServiceScopeId: Guid_1,
+        HandlerId: MockAsyncEventHandler-2,
+        HandlerStatus: Done,
+        IsDisposed: false
+      },
+      {
+        ServiceScopeId: Guid_1,
+        HandlerId: MockSyncEventHandler-3,
+        HandlerStatus: Done,
+        IsDisposed: false
+      },
+      {
+        ServiceScopeId: Guid_1,
+        HandlerId: MockSyncEventHandler-4,
+        HandlerStatus: Faulted,
+        IsDisposed: false
+      }
+    ],
+    exception: {
+      Type: AggregateException,
+      InnerExceptions: [
+        {
+          Type: Exception,
+          Message: [MockAsyncEventHandler-1] Test message
+        },
+        {
+          Type: Exception,
+          Message: [MockSyncEventHandler-4] Test message
+        }
+      ]
+    }
+  },
+  logs: []
+}

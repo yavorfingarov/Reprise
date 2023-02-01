@@ -1,0 +1,23 @@
+﻿{
+  target: {
+    requestScopeIdentifier: {
+      ScopeId: Guid_1
+    },
+    Handlers: [
+      {
+        ServiceScopeId: Guid_1,
+        HandlerId: MockSyncEventHandler-1,
+        HandlerStatus: Faulted,
+        IsDisposed: false
+      }
+    ],
+    exception: {
+      Type: AggregateException,
+      InnerException: {
+        Type: Exception,
+        Message: [MockSyncEventHandler-1] Test message
+      }
+    }
+  },
+  logs: []
+}

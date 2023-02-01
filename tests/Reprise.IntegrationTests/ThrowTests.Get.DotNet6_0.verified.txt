@@ -1,0 +1,14 @@
+﻿{
+  Version: 1.1,
+  Status: 500 Internal Server Error,
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: {
+      message: The method or operation is not implemented.,
+      details: null
+    }
+  },
+  Request: http://localhost/throw
+}

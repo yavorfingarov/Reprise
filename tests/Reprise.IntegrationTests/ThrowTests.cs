@@ -6,7 +6,8 @@
         public async Task Get()
         {
             await Verify(await Client.GetAsync("/throw"))
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
     }
 }

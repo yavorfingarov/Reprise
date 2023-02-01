@@ -3,7 +3,7 @@
     [UsesVerify]
     public class ErrorResponseFactory
     {
-        private readonly WebApplicationBuilder _Builder;
+        private readonly WebApplicationBuilder _Builder = WebApplication.CreateBuilder();
 
         private readonly HttpContext _HttpContext = new DefaultHttpContext();
 
@@ -13,7 +13,6 @@
 
         public ErrorResponseFactory()
         {
-            _Builder = WebApplication.CreateBuilder();
             _Builder.Services.Clear();
         }
 

@@ -6,29 +6,70 @@ namespace Reprise.IntegrationTests
 {
     public sealed class GreetingsTests : TestBase, IDisposable
     {
+        private readonly Stopwatch _Stopwatch = new();
+
         [Fact]
         public async Task Get()
         {
             await Verify(await Client.GetAsync("/greetings"))
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
         public async Task Post()
         {
-            var sw = Stopwatch.StartNew();
+            _Stopwatch.Start();
             var response = await Client.PostAsJsonAsync("/greetings", new Greeting("Hello, world!"));
-            sw.Stop();
+            _Stopwatch.Stop();
 
-            Assert.True(sw.ElapsedMilliseconds < 500);
-            await Task.Delay(2_000 + 150);
-            await Verify(new { response, EventBus.Greetings })
-                .ScrubMember("trace-id");
+            Assert.True(_Stopwatch.ElapsedMilliseconds < 500);
+            await Task.Delay(1_500);
+
+            await Verify(new { response, EventBus.Log })
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
+        }
+
+        [Fact]
+        public async Task PostWait()
+        {
+            _Stopwatch.Start();
+            var response = await Client.PostAsJsonAsync("/greetings/wait", new Greeting("Hello, world!"));
+            _Stopwatch.Stop();
+
+            Assert.InRange(_Stopwatch.ElapsedMilliseconds, 950, 1_500);
+
+            await Verify(new { response, EventBus.Log })
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
+        }
+
+        [Fact]
+        public async Task PostWaitCancel()
+        {
+            var cancellationTokenSource = new CancellationTokenSource(750);
+            _Stopwatch.Start();
+            HttpResponseMessage? response = null;
+            try
+            {
+                response = await Client.PostAsJsonAsync("/greetings/wait", new Greeting("Hello, world!"), cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            _Stopwatch.Stop();
+
+            Assert.InRange(_Stopwatch.ElapsedMilliseconds, 700, 950);
+
+            await Verify(new { response, EventBus.Log })
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
 
         public void Dispose()
         {
-            EventBus.Greetings.Clear();
+            EventBus.ClearLog();
         }
     }
 }

@@ -32,6 +32,11 @@ namespace Reprise.UnitTests.Features.Endpoints
         {
             _EndpointMapper.Add(typeof(StubGetEndpoint));
             _EndpointMapper.Add(typeof(StubPostEndpoint));
+            _EndpointMapper.Add(typeof(StubPutEndpoint));
+            _EndpointMapper.Add(typeof(StubPatchEndpoint));
+            _EndpointMapper.Add(typeof(StubDeleteEndpoint));
+            _EndpointMapper.Add(typeof(StubHeadEndpoint));
+            _EndpointMapper.Add(typeof(StubOptionsTraceEndpoint));
             _Processors.Add(new MockRouteHandlerBuilderProcessor("A"));
             _Processors.Add(new MockRouteHandlerBuilderProcessor("B"));
 
@@ -143,6 +148,36 @@ namespace Reprise.UnitTests.Features.Endpoints
     internal class StubPostEndpoint
     {
         [Post("/")]
+        public static string Handle() => "Hello, world!";
+    }
+
+    internal class StubPutEndpoint
+    {
+        [Put("/")]
+        public static string Handle() => "Hello, world!";
+    }
+
+    internal class StubPatchEndpoint
+    {
+        [Patch("/")]
+        public static string Handle() => "Hello, world!";
+    }
+
+    internal class StubDeleteEndpoint
+    {
+        [Delete("/")]
+        public static string Handle() => "Hello, world!";
+    }
+
+    internal class StubHeadEndpoint
+    {
+        [Map("HEAD", "/")]
+        public static string Handle() => "Hello, world!";
+    }
+
+    internal class StubOptionsTraceEndpoint
+    {
+        [Map(new[] { "OPTIONS", "TRACE" }, "/")]
         public static string Handle() => "Hello, world!";
     }
 

@@ -1,0 +1,33 @@
+﻿{
+  target: {
+    requestScopeIdentifier: {
+      ScopeId: Guid_1
+    },
+    Handlers: [
+      {
+        ServiceScopeId: Guid_2,
+        HandlerId: MockSyncEventHandler-1,
+        HandlerStatus: Faulted,
+        IsDisposed: true
+      }
+    ]
+  },
+  logs: [
+    {
+      Error: An exception was thrown while executing Reprise.UnitTests.Features.Events.MockSyncEventHandler.,
+      Category: EventBus,
+      State: [
+        {
+          EventHandlerType: Reprise.UnitTests.Features.Events.MockSyncEventHandler
+        },
+        {
+          {OriginalFormat}: An exception was thrown while executing {EventHandlerType}.
+        }
+      ],
+      Exception: {
+        Type: Exception,
+        Message: [MockSyncEventHandler-1] Test message
+      }
+    }
+  ]
+}

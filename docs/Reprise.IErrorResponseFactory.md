@@ -13,7 +13,7 @@ public interface IErrorResponseFactory
 
 ## IErrorResponseFactory.Create(ErrorContext<ValidationException>) Method
 
-Creates a response body when handling a [FluentValidation.ValidationException](https://docs.microsoft.com/en-us/dotnet/api/FluentValidation.ValidationException 'FluentValidation.ValidationException').   
+Creates a response body when handling a [FluentValidation.ValidationException](https://docs.microsoft.com/en-us/dotnet/api/FluentValidation.ValidationException 'FluentValidation.ValidationException'). 
 Return [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') to omit the body.
 
 ```csharp
@@ -32,7 +32,7 @@ object? Create(Reprise.ErrorContext<FluentValidation.ValidationException> contex
 
 ## IErrorResponseFactory.Create(ErrorContext<BadHttpRequestException>) Method
 
-Creates a response body when handling a [Microsoft.AspNetCore.Http.BadHttpRequestException](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.AspNetCore.Http.BadHttpRequestException 'Microsoft.AspNetCore.Http.BadHttpRequestException').   
+Creates a response body when handling a [Microsoft.AspNetCore.Http.BadHttpRequestException](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.AspNetCore.Http.BadHttpRequestException 'Microsoft.AspNetCore.Http.BadHttpRequestException'). 
 Return [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') to omit the body.
 
 ```csharp
@@ -51,7 +51,7 @@ object? Create(Reprise.ErrorContext<Microsoft.AspNetCore.Http.BadHttpRequestExce
 
 ## IErrorResponseFactory.Create(ErrorContext<Exception>) Method
 
-Creates a response when handling an [System.Exception](https://docs.microsoft.com/en-us/dotnet/api/System.Exception 'System.Exception').   
+Creates a response when handling an [System.Exception](https://docs.microsoft.com/en-us/dotnet/api/System.Exception 'System.Exception'). 
 Return [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null') to omit the body.
 
 ```csharp
