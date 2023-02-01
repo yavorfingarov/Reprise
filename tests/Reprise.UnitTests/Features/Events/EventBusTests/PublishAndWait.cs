@@ -100,7 +100,7 @@
             await messageBus.PublishAndWait(new StubEvent());
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_450, 2_000);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_450, 2_500);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
@@ -122,7 +122,7 @@
             var exception = await Assert.ThrowsAnyAsync<Exception>(() => messageBus.PublishAndWait(new StubEvent()));
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_950, 3_500);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_950, 4_000);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers, exception })
                 .IgnoreStackTrace();

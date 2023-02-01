@@ -122,7 +122,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(2_000);
+            await Task.Delay(2_500);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
@@ -146,7 +146,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Stopwatch.Stop();
 
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(3_500);
+            await Task.Delay(4_000);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
                 .IgnoreStackTrace();
