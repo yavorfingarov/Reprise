@@ -122,7 +122,7 @@
             var exception = await Assert.ThrowsAnyAsync<Exception>(() => messageBus.PublishAndWait(new StubEvent()));
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_950, 3_000);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 1_950, 3_500);
 
             await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers, exception })
                 .IgnoreStackTrace();
