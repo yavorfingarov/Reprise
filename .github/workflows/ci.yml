@@ -47,5 +47,5 @@ jobs:
         with:
           name: CoverageReport      
           path: |
-            '**/TestCoverageReport/'
-            '**/StrykerOutput/*/reports/mutation-report.html'
+            '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport/'
+            '${{ env.UNIT_TESTS_PATH }}/StrykerOutput/*/reports/mutation-report.html'
