@@ -6,6 +6,7 @@ on:
 
 env:
   DOTNET_VERSION: 7.0.x
+  UNIT_TESTS_PATH: ./tests/Reprise.UnitTests
 
 jobs:
   build:
@@ -25,9 +26,9 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Run unit tests
-        run: dotnet test --filter UnitTests --no-build --collect:"XPlat Code Coverage" --results-directory ./coverage
+        run: dotnet test --no-build --filter UnitTests --collect:"XPlat Code Coverage" --results-directory ./coverage
       - name: Run integration tests
-        run: dotnet test --filter IntegrationTests --no-build
+        run: dotnet test --no-build --filter IntegrationTests
       - name: Generate test coverage report
         uses: danielpalme/ReportGenerator-GitHub-Action@5.1.15
         with:
@@ -35,14 +36,14 @@ jobs:
           targetdir: TestCoverageReport
           reporttypes: 'Html'
       - name: Set up Stryker
-        run: dotnet tool install dotnet-stryker --tool-path ./tools
+        run: dotnet tool install dotnet-stryker
       - name: Run mutation tests
-        run: ./tools/dotnet-stryker --config-file stryker-config.yaml --reporter "html" --output ./StrykerOutput
-        working-directory: ./tests/Reprise.UnitTests
+        run: dotnet tool run dotnet-stryker --config-file stryker-config.yaml --reporter "html"
+        working-directory: ${{ env.UNIT_TESTS_PATH }}
       - name: Upload coverage report artifact
         uses: actions/upload-artifact@v3
         with:
           name: CoverageReport      
           path: |
             TestCoverageReport/
-            StrykerOutput/*/reports/
+            **/StrykerOutput/*/reports/*/mutation-report.html
