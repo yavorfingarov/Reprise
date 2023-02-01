@@ -36,7 +36,9 @@ jobs:
           targetdir: TestCoverageReport
           reporttypes: 'Html'
       - name: Set up Stryker
-        run: dotnet tool install dotnet-stryker
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-stryker
       - name: Run mutation tests
         run: dotnet tool run dotnet-stryker --config-file stryker-config.yaml --reporter "html"
         working-directory: ${{ env.UNIT_TESTS_PATH }}
