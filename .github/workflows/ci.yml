@@ -26,13 +26,13 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Run unit tests
-        run: dotnet test --no-build --filter UnitTests --collect:"XPlat Code Coverage" --results-directory ./coverage
+        run: dotnet test --no-build --filter UnitTests --collect:"XPlat Code Coverage" --results-directory ${{ env.UNIT_TESTS_PATH }}/coverage
       - name: Run integration tests
         run: dotnet test --no-build --filter IntegrationTests
       - name: Generate test coverage report
         uses: danielpalme/ReportGenerator-GitHub-Action@5.1.15
         with:
-          reports: '**/coverage.cobertura.xml'
+          reports: '${{ env.UNIT_TESTS_PATH }}/coverage/**/coverage.cobertura.xml'
           targetdir: '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport'
           reporttypes: 'Html'
       - name: Set up Stryker
@@ -47,5 +47,5 @@ jobs:
         with:
           name: CoverageReport      
           path: |
-            '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport/'
-            '${{ env.UNIT_TESTS_PATH }}/StrykerOutput/*/reports/mutation-report.html'
+            ${{ env.UNIT_TESTS_PATH }}/TestCoverageReport/
+            ${{ env.UNIT_TESTS_PATH }}/StrykerOutput/
