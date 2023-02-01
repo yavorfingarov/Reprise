@@ -33,13 +33,8 @@ jobs:
         uses: danielpalme/ReportGenerator-GitHub-Action@5.1.15
         with:
           reports: '**/coverage.cobertura.xml'
-          targetdir: TestCoverageReport
+          targetdir: '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport'
           reporttypes: 'Html'
-      - name: Upload test coverage report artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: TestCoverageReport
-          path: TestCoverageReport/*.*
       - name: Set up Stryker
         run: |
           dotnet new tool-manifest
@@ -47,8 +42,10 @@ jobs:
       - name: Run mutation tests
         run: dotnet tool run dotnet-stryker --config-file stryker-config.yaml --reporter "html"
         working-directory: ${{ env.UNIT_TESTS_PATH }}
-      - name: Upload mutation test report artifact
+      - name: Upload coverage report artifact
         uses: actions/upload-artifact@v3
         with:
-          name: MutationTestReport 
-          path: '**/StrykerOutput/*/reports/mutation-report.html'
+          name: CoverageReport      
+          path: |
+            '**/TestCoverageReport/'
+            '**/StrykerOutput/*/reports/mutation-report.html'
