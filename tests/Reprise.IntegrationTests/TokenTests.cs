@@ -8,7 +8,8 @@
         {
             await Verify(await Client.GetAsync("/token"))
                 .ScrubMember("token")
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
     }
 

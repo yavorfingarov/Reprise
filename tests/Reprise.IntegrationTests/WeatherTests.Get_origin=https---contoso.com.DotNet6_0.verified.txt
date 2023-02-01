@@ -1,0 +1,13 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Headers: {
+    Access-Control-Allow-Origin: https://contoso.com
+  },
+  Request: {
+    Uri: http://localhost/weather,
+    Headers: {
+      Origin: https://contoso.com
+    }
+  }
+}

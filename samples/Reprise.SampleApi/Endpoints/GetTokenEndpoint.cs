@@ -7,7 +7,9 @@ namespace Reprise.SampleApi.Endpoints
     {
         [Get("/token")]
         [AllowAnonymous]
+#if NET7_0
         [Filter(typeof(GreetingFilter))]
+#endif
         [Produces(StatusCodes.Status200OK, typeof(TokenResponse))]
         [Tags("Public")]
         public static TokenResponse Handle(IJwtGenerator generator)

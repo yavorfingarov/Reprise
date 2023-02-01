@@ -1,0 +1,6 @@
+﻿{
+  Log: [
+    [GreetingHandler] Received greeting with message: Hello, world!,
+    [SlowerGreetingHandler] Task was cancelled.
+  ]
+}

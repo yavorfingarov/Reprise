@@ -33,7 +33,6 @@ jobs:
         with:
           reports: '**/coverage.cobertura.xml'
           targetdir: TestCoverageReport
-          assemblyfilters: +Reprise
           reporttypes: 'Html'
       - name: Set up Stryker
         run: dotnet tool install dotnet-stryker --tool-path ./tools

@@ -40,8 +40,10 @@ namespace Reprise.SampleApi
             app.MapEndpoints(options =>
             {
                 options.RequireAuthorization();
+#if NET7_0
                 options.AddEndpointFilter<TraceIdFilter>();
                 options.AddValidationFilter();
+#endif
             });
 
             app.Logger.LogInformation("Environment: {Environment}", app.Environment.EnvironmentName);

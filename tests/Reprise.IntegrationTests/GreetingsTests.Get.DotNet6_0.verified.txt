@@ -1,0 +1,15 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Content: {
+    Headers: {
+      Content-Type: application/json; charset=utf-8
+    },
+    Value: [
+      Hello, Alice!,
+      Hello, John!,
+      Hello, Skylar!
+    ]
+  },
+  Request: http://localhost/greetings
+}

@@ -12,7 +12,8 @@ namespace Reprise.IntegrationTests
         public async Task Get()
         {
             await Verify(await Client.GetAsync("/greetings"))
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -26,7 +27,8 @@ namespace Reprise.IntegrationTests
             await Task.Delay(1_500);
 
             await Verify(new { response, EventBus.Log })
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -36,10 +38,11 @@ namespace Reprise.IntegrationTests
             var response = await Client.PostAsJsonAsync("/greetings/wait", new Greeting("Hello, world!"));
             _Stopwatch.Stop();
 
-            Assert.True(_Stopwatch.ElapsedMilliseconds > 950 && _Stopwatch.ElapsedMilliseconds <= 1_500);
+            Assert.InRange(_Stopwatch.ElapsedMilliseconds, 950, 1_500);
 
             await Verify(new { response, EventBus.Log })
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
 
         [Fact]
@@ -57,10 +60,11 @@ namespace Reprise.IntegrationTests
             }
             _Stopwatch.Stop();
 
-            Assert.True(_Stopwatch.ElapsedMilliseconds > 700 && _Stopwatch.ElapsedMilliseconds <= 950);
+            Assert.InRange(_Stopwatch.ElapsedMilliseconds, 700, 950);
 
             await Verify(new { response, EventBus.Log })
-                .ScrubMember("trace-id");
+                .ScrubMember("trace-id")
+                .UniqueForRuntimeAndVersion();
         }
 
         public void Dispose()

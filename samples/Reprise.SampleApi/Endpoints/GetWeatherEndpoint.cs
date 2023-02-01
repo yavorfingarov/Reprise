@@ -24,7 +24,9 @@ namespace Reprise.SampleApi.Endpoints
         [Get("/weather")]
         [AllowAnonymous]
         [EnableCors(_CorsPolicy)]
+#if NET7_0
         [Filter(typeof(GreetingFilter))]
+#endif
         [Produces(StatusCodes.Status200OK, typeof(WeatherForecast[]))]
         [Tags("Public")]
         public static async Task<WeatherForecast[]> Handle(IWeatherService weatherService)

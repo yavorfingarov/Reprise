@@ -1,0 +1,24 @@
+﻿{
+  response: {
+    Version: 1.1,
+    Status: 202 Accepted,
+    Content: {
+      Headers: {}
+    },
+    Request: {
+      Method: POST,
+      Uri: http://localhost/greetings,
+      Content: {
+        Headers: {
+          Content-Length: 27,
+          Content-Type: application/json; charset=utf-8
+        },
+        Value: 
+      }
+    }
+  },
+  Log: [
+    [GreetingHandler] Received greeting with message: Hello, world!,
+    [SlowerGreetingHandler] Received greeting with message: Hello, world!
+  ]
+}

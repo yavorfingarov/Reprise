@@ -27,6 +27,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.2" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\..\src\Reprise\Reprise.csproj" />
   </ItemGroup>
@@ -35,12 +39,6 @@
     <Content Include="xunit.runner.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.AspNetCore.TestHost">
-      <Version>7.0.2</Version>
-    </PackageReference>
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿namespace Reprise.SampleApi.Filters
+﻿#if NET7_0
+namespace Reprise.SampleApi.Filters
 {
     public class GreetingFilter : IEndpointFilter
     {
@@ -10,3 +11,4 @@
         }
     }
 }
+#endif

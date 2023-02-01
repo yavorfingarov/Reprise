@@ -6,8 +6,17 @@
         [Post("/users")]
         [Produces(StatusCodes.Status201Created)]
         [ProducesBadRequest]
-        public static IResult Handle(UserDto userDto, DataContext context, LinkGenerator linker)
+        public static IResult Handle(
+            UserDto userDto,
+#if NET6_0
+            IValidator<UserDto> validator,
+#endif
+            DataContext context,
+            LinkGenerator linker)
         {
+#if NET6_0
+            validator.ValidateAndThrow(userDto);
+#endif
             var user = new User()
             {
                 Id = !context.Users.Any() ? 0 : context.Users.Max(u => u.Id) + 1,
