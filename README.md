@@ -4,6 +4,7 @@
 [![downloads](https://img.shields.io/nuget/dt/Reprise?color=blue)](https://www.nuget.org/packages/Reprise)
 [![build](https://img.shields.io/github/actions/workflow/status/yavorfingarov/Reprise/cd.yml?branch=master)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
 [![codeql](https://img.shields.io/github/actions/workflow/status/yavorfingarov/Reprise/codeql.yml?branch=master&label=codeql)](https://github.com/yavorfingarov/Reprise/actions/workflows/codeql.yml)
+[![loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/lines-of-code.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
 [![test coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/test-coverage.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
 [![mutation score](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/mutation-score.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
 
