@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: 24 2 * * 1
+    - cron: 30 3 * * 1
 
 env:
   DOTNET_VERSION: 7.0.x
@@ -20,19 +20,25 @@ jobs:
       contents: read
       security-events: write
     steps:
+
       - name: Check out repository
         uses: actions/checkout@v3
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: csharp
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore --configuration Release
+
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v2

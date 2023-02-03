@@ -16,10 +16,10 @@ A clear and concise description of what led to the problem.
 A clear and concise description of what you expected to happen.
 
 **Package version**
-E.g. 1.0.0
+E.g. 3.3.1
 
 **.NET version**
-E.g. 6.0.10
+E.g. 7.0.2
 
 **Additional context**
 Add any other context about the problem here.

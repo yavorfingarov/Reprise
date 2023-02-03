@@ -2,7 +2,6 @@
 {
     public class PublishAndWait : EventBusTestBase
     {
-
         [Fact]
         public async Task PayloadNull()
         {
