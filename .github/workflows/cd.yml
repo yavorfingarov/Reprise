@@ -115,7 +115,7 @@ jobs:
           mutation_score=$(cat $mutation_report_path | grep -Po '(?<=## The final mutation score is )[0-9]{1,2}')
           set_output "mutation_score" "Mutation score" "$mutation_score" "%"
           set_color "mutation_score_color" "$mutation_score"
-          # set_output "summary_message" "" "$summary_message"
+          set_output "summary_message" "" $summary_message
         working-directory: ${{ env.UNIT_TESTS_PATH }}
 
       - name: Upload coverage report
