@@ -78,8 +78,8 @@ jobs:
             echo "$1=$3$4" >> $GITHUB_OUTPUT
             if [[ -n $2 ]]; then
               summary_line="* $2: **$3$4**"
-              echo "$summary_line" >> $GITHUB_STEP_SUMMARY
-              summary_message+="$summary_line"
+              echo $summary_line >> $GITHUB_STEP_SUMMARY
+              summary_message+=$summary_line
               summary_message+=$'\n'
             fi
           }
