@@ -24,6 +24,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: csharp
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
         with:
@@ -33,12 +38,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: csharp
+        run: dotnet build --no-restore --configuration Release
 
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v2

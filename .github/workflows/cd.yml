@@ -107,8 +107,8 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
-            * Test coverage: ${{ steps.coverage-summary.outputs.test_coverage }}
-            * Mutation score: ${{ steps.coverage-summary.outputs.mutation_score }}
+            * Test coverage: **${{ steps.coverage-summary.outputs.test_coverage }}**
+            * Mutation score: **${{ steps.coverage-summary.outputs.mutation_score }}**
 
       - name: Update coverage summary gist
         if: ${{ github.event_name == 'push' }}
