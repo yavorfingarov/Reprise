@@ -95,11 +95,13 @@ jobs:
           }
           test_coverage=$(cat ./TestCoverageReport/Summary.csv | grep -Po '(?<=Line coverage:;)[0-9]{1,2}')
           set_output "test_coverage" "$test_coverage" "%"
-          set_color "test_coverage_color" $test_coverage
+          set_color "test_coverage_color" "$test_coverage"
           mutation_report_path=$(find ./StrykerOutput -name mutation-report.md)
           mutation_score=$(cat $mutation_report_path | grep -Po '(?<=## The final mutation score is )[0-9]{1,2}')
           set_output "mutation_score" "$mutation_score" "%"
-          set_color "mutation_score_color" $mutation_score
+          set_color "mutation_score_color" "$mutation_score"
+          echo "* Test coverage: **$test_coverage%**" >> $GITHUB_STEP_SUMMARY
+          echo "* Mutation score: **$mutation_score%**" >> $GITHUB_STEP_SUMMARY
         working-directory: ${{ env.UNIT_TESTS_PATH }}
 
       - name: Add coverage summary comment
@@ -132,7 +134,7 @@ jobs:
           message: ${{ steps.coverage-summary.outputs.mutation_score }}
           color: ${{ steps.coverage-summary.outputs.mutation_score_color }}
 
-      - name: Check for changes in src
+      - name: Check publish conditions
         if: ${{ github.event_name == 'push' }}
         id: changed-src
         uses: marceloprado/has-changed-path@v1.0.1
