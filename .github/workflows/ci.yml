@@ -30,7 +30,7 @@ jobs:
       - name: Run integration tests
         run: dotnet test --no-build --filter IntegrationTests
       - name: Generate test coverage report
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.15
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.16
         with:
           reports: '${{ env.UNIT_TESTS_PATH }}/coverage/**/coverage.cobertura.xml'
           targetdir: '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport'
