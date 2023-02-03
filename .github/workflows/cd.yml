@@ -39,10 +39,10 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Run unit tests
-        run: dotnet test --no-build --filter UnitTests --collect:"XPlat Code Coverage" --results-directory ${{ env.UNIT_TESTS_PATH }}/coverage
+        run: dotnet test --no-build --configuration Release --filter UnitTests --collect:"XPlat Code Coverage" --results-directory ${{ env.UNIT_TESTS_PATH }}/coverage
 
       - name: Run integration tests
-        run: dotnet test --no-build --filter IntegrationTests
+        run: dotnet test --no-build --configuration Release --filter IntegrationTests
 
       - name: Upload failed snapshots
         if: ${{ failure() }}
