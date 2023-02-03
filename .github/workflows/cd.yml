@@ -3,28 +3,146 @@ name: CD
 on:
   push:
     branches: [ master ]
-    paths: [ 'src/Reprise/**' ]
+  pull_request:
+    branches: [ master ]
 
 env:
   DOTNET_VERSION: 7.0.x
-  CSPROJ_PATH: src/Reprise/Reprise.csproj
+  SRC_PATH: ./src
+  CSPROJ_PATH: ./src/Reprise/Reprise.csproj
+  UNIT_TESTS_PATH: ./tests/Reprise.UnitTests
+  GIST_ID: 552110af4a546bfef6adfd60e60163c3
 
 jobs:
-  publish:
-    name: Publish
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
+
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
       - name: Set up .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
       - name: Restore dependencies
-        run: dotnet restore ${{ env.CSPROJ_PATH }}
+        run: dotnet restore
+
+      - name: Analyze code
+        run: dotnet format --no-restore --verify-no-changes --severity info
+
       - name: Build
-        run: dotnet build --no-restore --configuration Release ${{ env.CSPROJ_PATH }}
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run unit tests
+        run: dotnet test --no-build --filter UnitTests --collect:"XPlat Code Coverage" --results-directory ${{ env.UNIT_TESTS_PATH }}/coverage
+
+      - name: Run integration tests
+        run: dotnet test --no-build --filter IntegrationTests
+
+      - name: Upload failed snapshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: FailedSnapshots
+          path: '**/*.received.*'
+
+      - name: Generate test coverage report
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.16
+        with:
+          reports: '${{ env.UNIT_TESTS_PATH }}/coverage/**/coverage.cobertura.xml'
+          targetdir: '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport'
+          reporttypes: 'Html;CsvSummary'
+
+      - name: Set up Stryker
+        run: dotnet tool install dotnet-stryker --tool-path ./tools
+        working-directory: ${{ env.UNIT_TESTS_PATH }}
+
+      - name: Run mutation tests
+        run: ./tools/dotnet-stryker --config-file stryker-config.yaml --reporter "html" --reporter "markdown"
+        working-directory: ${{ env.UNIT_TESTS_PATH }}
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: CoverageReport
+          path: |
+            ${{ env.UNIT_TESTS_PATH }}/TestCoverageReport/
+            ${{ env.UNIT_TESTS_PATH }}/StrykerOutput/
+
+      - name: Extract coverage summary
+        id: coverage-summary
+        run: |
+          set_output() {
+            if [[ -z $2 ]]; then
+              echo "::error::Got empty value for $1."
+              exit 1
+            fi
+            echo "$1=$2$3" >> $GITHUB_OUTPUT
+          }
+          set_color() {
+            if [[ $2 -ge 90 ]]; then
+              set_output "$1" "brightgreen"
+            elif [[ $2 -ge 70 ]]; then
+              set_output "$1" "yellow"
+            else
+              set_output "$1" "red"
+            fi
+          }
+          test_coverage=$(cat ./TestCoverageReport/Summary.csv | grep -Po '(?<=Line coverage:;)[0-9]{1,2}')
+          set_output "test_coverage" "$test_coverage" "%"
+          set_color "test_coverage_color" $test_coverage
+          mutation_report_path=$(find ./StrykerOutput -name mutation-report.md)
+          mutation_score=$(cat $mutation_report_path | grep -Po '(?<=## The final mutation score is )[0-9]{1,2}')
+          set_output "mutation_score" "$mutation_score" "%"
+          set_color "mutation_score_color" $mutation_score
+        working-directory: ${{ env.UNIT_TESTS_PATH }}
+
+      - name: Add coverage summary comment
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            * Test coverage: ${{ steps.coverage-summary.outputs.test_coverage }}
+            * Mutation score: ${{ steps.coverage-summary.outputs.mutation_score }}
+
+      - name: Update coverage summary gist
+        if: ${{ github.event_name == 'push' }}
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: test-coverage.json
+          label: test coverage
+          message: ${{ steps.coverage-summary.outputs.test_coverage }}
+          color: ${{ steps.coverage-summary.outputs.test_coverage_color }}
+
+      - name: Update mutation score gist
+        if: ${{ github.event_name == 'push' }}
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_TOKEN }}
+          gistID: ${{ env.GIST_ID }}
+          filename: mutation-score.json
+          label: mutation score
+          message: ${{ steps.coverage-summary.outputs.mutation_score }}
+          color: ${{ steps.coverage-summary.outputs.mutation_score_color }}
+
+      - name: Check for changes in src
+        if: ${{ github.event_name == 'push' }}
+        id: changed-src
+        uses: marceloprado/has-changed-path@v1.0.1
+        with:
+          paths: ${{ env.SRC_PATH }}
+
       - name: Create package
+        if: ${{ github.event_name == 'push' && steps.changed-src.outputs.changed == 'true' }}
         run: dotnet pack --no-build --configuration Release ${{ env.CSPROJ_PATH }}
+
       - name: Publish to NuGet gallery
-        run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        if: ${{ github.event_name == 'push' && steps.changed-src.outputs.changed == 'true' }}
+        run: dotnet nuget push ${{ env.SRC_PATH }}/**/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

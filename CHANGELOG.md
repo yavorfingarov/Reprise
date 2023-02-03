@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.3.1] - 2023-02-03
+### Added
+- More information in the readme
+
 ## [3.3.0] - 2023-02-01
 ### Added
 - Option to publish events and wait for the handlers to finish execution.
