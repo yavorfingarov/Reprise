@@ -1,12 +1,12 @@
 # 𝄇 Reprise
 
 [![nuget](https://img.shields.io/nuget/v/Reprise)](https://www.nuget.org/packages/Reprise)
-[![downloads](https://img.shields.io/nuget/dt/Reprise?color=blue)](https://www.nuget.org/packages/Reprise)
-[![build](https://img.shields.io/github/actions/workflow/status/yavorfingarov/Reprise/cd.yml?branch=master)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
-[![codeql](https://img.shields.io/github/actions/workflow/status/yavorfingarov/Reprise/codeql.yml?branch=master&label=codeql)](https://github.com/yavorfingarov/Reprise/actions/workflows/codeql.yml)
-[![loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/lines-of-code.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
-[![test coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/test-coverage.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
-[![mutation score](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/mutation-score.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml)
+[![downloads](https://img.shields.io/nuget/dt/Reprise?color=blue)](https://www.nuget.org/stats/packages/Reprise?groupby=Version)
+[![build](https://img.shields.io/github/actions/workflow/status/yavorfingarov/Reprise/cd.yml?branch=master)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml?query=branch%3Amaster)
+[![codeql](https://img.shields.io/github/actions/workflow/status/yavorfingarov/Reprise/codeql.yml?branch=master&label=codeql)](https://github.com/yavorfingarov/Reprise/actions/workflows/codeql.yml?query=branch%3Amaster)
+[![loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/lines-of-code.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml?query=branch%3Amaster)
+[![test coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/test-coverage.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml?query=branch%3Amaster)
+[![mutation score](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/yavorfingarov/552110af4a546bfef6adfd60e60163c3/raw/mutation-score.json)](https://github.com/yavorfingarov/Reprise/actions/workflows/cd.yml?query=branch%3Amaster)
 
 > **reprise** /rɪˈpriːz/ _noun_ [French] A repeated part of something, especially a piece of music
 
