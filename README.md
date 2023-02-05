@@ -357,6 +357,10 @@ and discovering endpoints, Reprise doesn't add any performance overhead when han
 
 * [Sample app](https://github.com/yavorfingarov/Reprise/tree/master/samples/Reprise.SampleApi)
 
+* [Changelog](https://github.com/yavorfingarov/Reprise/blob/master/CHANGELOG.md)
+
+* [License](https://github.com/yavorfingarov/Reprise/blob/master/LICENSE)
+
 ## Help and support
 
 For bug reports and feature requests, please use the [issue tracker](https://github.com/yavorfingarov/Reprise/issues).

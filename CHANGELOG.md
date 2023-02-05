@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.4.0] - 2023-02-05
+### Added
+- SourceLink
+- Deterministic build
+
 ## [3.3.1] - 2023-02-03
 ### Added
 - More information in the readme

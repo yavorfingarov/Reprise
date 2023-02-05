@@ -128,7 +128,7 @@ jobs:
           message: ${{ steps.analyze-coverage-report.outputs.lines_of_code }}
           color: blue
 
-      - name: Update coverage summary gist
+      - name: Update test coverage gist
         if: ${{ github.event_name == 'push' }}
         uses: schneegans/dynamic-badges-action@v1.6.0
         with:
