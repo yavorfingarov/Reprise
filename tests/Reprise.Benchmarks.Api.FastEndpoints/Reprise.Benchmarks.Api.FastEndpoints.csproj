@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FastEndpoints" Version="5.7.0" />
+    <PackageReference Include="FastEndpoints" Version="5.7.1" />
   </ItemGroup>
 
 </Project>
