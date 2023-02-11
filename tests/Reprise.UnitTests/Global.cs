@@ -20,9 +20,9 @@ namespace Reprise.UnitTests
         [ModuleInitializer]
         public static void Initialize()
         {
-            VerifyMoq.Enable();
-            VerifyHttp.Enable();
-            VerifyMicrosoftLogging.Enable();
+            VerifyMoq.Initialize();
+            VerifyHttp.Initialize();
+            VerifyMicrosoftLogging.Initialize();
         }
     }
 }
