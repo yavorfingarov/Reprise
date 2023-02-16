@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.4.1] - 2023-02-16
+### Fixed
+- Wording in readme
+- Updated dependencies
+
 ## [3.4.0] - 2023-02-05
 ### Added
 - SourceLink
