@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/yavorfingarov/Reprise</PackageProjectUrl>
     <RepositoryUrl>https://github.com/yavorfingarov/Reprise.git</RepositoryUrl>
     <PackageTags>aspnetcore; minimal-api; repr-pattern; vertical-slice-architecture; rest</PackageTags>
-    <Version>3.4.0</Version>
+    <Version>3.4.1</Version>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>A micro-framework that brings the REPR pattern into ASP.NET Core Minimal APIs.</Description>
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="FluentValidation" Version="11.5.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

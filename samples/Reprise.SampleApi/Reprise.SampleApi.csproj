@@ -11,16 +11,16 @@
 
   <ItemGroup>
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.1" />
-    <PackageReference Include="SimpleRequestLogger" Version="3.2.0" />
+    <PackageReference Include="SimpleRequestLogger" Version="3.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.14" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
   </ItemGroup>
   
   <ItemGroup>

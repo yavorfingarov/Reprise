@@ -7,8 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  DOTNET_VERSION: 7.0.x
-  SRC_PATH: ./src
+  DOTNET_VERSION: 7.0.102
   CSPROJ_PATH: ./src/Reprise/Reprise.csproj
   UNIT_TESTS_PATH: ./tests/Reprise.UnitTests
   MIN_COVERAGE: 90
@@ -164,20 +163,18 @@ jobs:
         id: changed-src
         uses: marceloprado/has-changed-path@v1.0.1
         with:
-          paths: ${{ env.SRC_PATH }}
+          paths: ./src
 
       - name: Create package
-        if: ${{ github.event_name == 'push' }}
-        run: dotnet pack --no-build --configuration Release ${{ env.CSPROJ_PATH }}
+        if: ${{ github.event_name == 'push' && steps.changed-src.outputs.changed == 'true' }}
+        run: dotnet pack --no-build --configuration Release --output ./packages ${{ env.CSPROJ_PATH }}
 
       - name: Upload build artifact
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && steps.changed-src.outputs.changed == 'true' }}
         uses: actions/upload-artifact@v3
         with:
           name: packages
-          path: |
-            '${{ env.SRC_PATH }}/**/*.nupkg'
-            '${{ env.SRC_PATH }}/**/*.snupkg'
+          path: packages/
           retention-days: 1
 
   publish:
@@ -191,9 +188,15 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: packages
-          path: ./packages
+          path: packages/
 
       - name: Publish to NuGet gallery
         run: >
-          dotnet nuget push ./packages/*.nupkg 
+          dotnet nuget push ./packages/*.nupkg
           --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+
+      - name: Delete build artifact
+        if: ${{ always() }}
+        uses: geekyeggo/delete-artifact@v2
+        with:
+            name: packages
