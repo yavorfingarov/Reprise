@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.4.2] - 2023-02-20
+### Changed
+- Bumped FluentValidation to the latest version
+
 ## [3.4.1] - 2023-02-16
 ### Fixed
 - Wording in readme
