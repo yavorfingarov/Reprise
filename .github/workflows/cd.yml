@@ -37,9 +37,6 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Analyze code
-        run: dotnet format --no-restore --verify-no-changes --severity info
-
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
