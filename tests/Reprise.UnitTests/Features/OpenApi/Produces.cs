@@ -22,6 +22,7 @@
             _Processor.Process(_Builder, handlerInfo, null!, null!);
 
             return Verify(_App.DataSources)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
 
@@ -33,6 +34,7 @@
             _Processor.Process(_Builder, handlerInfo, null!, null!);
 
             return Verify(_App.DataSources)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
     }

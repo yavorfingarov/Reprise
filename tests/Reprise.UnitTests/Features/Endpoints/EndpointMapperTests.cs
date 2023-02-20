@@ -51,6 +51,7 @@ namespace Reprise.UnitTests.Features.Endpoints
             };
 
             return Verify(snapshot)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
 

@@ -31,7 +31,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         },
@@ -64,7 +63,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         },
@@ -97,7 +95,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         },
@@ -130,7 +127,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         },
@@ -163,7 +159,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         },
@@ -196,7 +191,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         },
@@ -230,7 +224,6 @@
           ],
           RequestDelegate: {
             Type: RequestDelegate,
-            Target: RequestDelegateFactory.<>c__DisplayClass68_0,
             Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
           }
         }

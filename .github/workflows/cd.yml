@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  DOTNET_VERSION: 7.0.102
+  DOTNET_VERSION: 7.0.x
   CSPROJ_PATH: ./src/Reprise/Reprise.csproj
   UNIT_TESTS_PATH: ./tests/Reprise.UnitTests
   MIN_COVERAGE: 90
