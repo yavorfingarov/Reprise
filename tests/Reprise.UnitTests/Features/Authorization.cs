@@ -17,6 +17,7 @@
             _Processor.Process(builder, null!, options, null!);
 
             return Verify(_App.DataSources)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
 
@@ -30,6 +31,7 @@
             _Processor.Process(builder, null!, options, null!);
 
             return Verify(_App.DataSources)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
 
@@ -43,6 +45,7 @@
             _Processor.Process(builder, null!, options, null!);
 
             return Verify(_App.DataSources)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
 
@@ -55,6 +58,7 @@
             _Processor.Process(builder, null!, options, null!);
 
             return Verify(_App.DataSources)
+                .IgnoreMember("Target")
                 .UniqueForRuntimeAndVersion();
         }
     }
