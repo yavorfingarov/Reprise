@@ -5,6 +5,9 @@
     {
         [Get("/users")]
         [Produces(StatusCodes.Status200OK, typeof(IEnumerable<User>))]
-        public static IEnumerable<User> Handle(DataContext context) => context.Users;
+        public static IEnumerable<User> Handle(DataContext context)
+        {
+            return context.Users;
+        }
     }
 }

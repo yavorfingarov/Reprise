@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.5.0] - 2023-04-30
+### Added
+- Rate limiting
+
 ## [3.4.2] - 2023-02-20
 ### Changed
 - Bumped FluentValidation to the latest version

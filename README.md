@@ -262,6 +262,21 @@ Check
 [the documentation](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis?view=aspnetcore-7.0#cors)
 for more information about CORS.
 
+## Rate limiting (.NET 7 only)
+
+There are two ways to set rate limits for your API. You can rate limit only specific
+endpoints by decorating the `Handle` method with the `EnableRateLimitingAttribute` from
+`Microsoft.AspNetCore.RateLimiting`. Alternatively, you can set rate limits
+for all endpoints and opt-out for specific ones using the `DisableRateLimitingAttribute`.
+
+```csharp
+app.MapEndpoints(options => options.RequireRateLimiting("FixedWindowOneSecond"));
+```
+
+Check
+[the documentation](https://learn.microsoft.com/en-us/aspnet/core/performance/rate-limit?view=aspnetcore-7.0)
+for more information about rate limiting.
+
 ## OpenAPI
 
 You can enhance the OpenAPI description of your endpoints by decorating the `Handle` method with attributes.

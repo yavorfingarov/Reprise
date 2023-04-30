@@ -36,7 +36,9 @@ namespace Reprise.SampleApi
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+#if NET7_0
+            app.UseRateLimiter();
+#endif
             app.MapEndpoints(options =>
             {
                 options.RequireAuthorization();

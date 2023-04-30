@@ -1,0 +1,8 @@
+﻿{
+  Version: 1.1,
+  Status: 200 OK,
+  Headers: {
+    trace-id: {Scrubbed}
+  },
+  RequestMessage: http://localhost/limited
+}
