@@ -1,0 +1,5 @@
+﻿{
+  Version: 1.1,
+  Status: 503 Service Unavailable,
+  RequestMessage: http://localhost/limited
+}

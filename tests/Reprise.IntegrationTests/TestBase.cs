@@ -10,8 +10,14 @@ namespace Reprise.IntegrationTests
 
         public TestBase()
         {
+            Client = CreateClient();
+        }
+
+        public static HttpClient CreateClient()
+        {
             var factory = new WebApplicationFactory<Program>();
-            Client = factory.CreateClient();
+
+            return factory.CreateClient();
         }
     }
 }

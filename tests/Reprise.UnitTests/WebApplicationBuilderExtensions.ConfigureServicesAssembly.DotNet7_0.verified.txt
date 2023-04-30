@@ -15,6 +15,8 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Configurations),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Filters),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Filters),
+  MockTypeProcessorA.Process(Reprise.UnitTests.Features.RateLimiting),
+  MockTypeProcessorB.Process(Reprise.UnitTests.Features.RateLimiting),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.ServiceConfigurators),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.ServiceConfigurators),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Validation),

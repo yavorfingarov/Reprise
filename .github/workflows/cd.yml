@@ -1,199 +1,26 @@
 name: CD
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
-env:
-  DOTNET_VERSION: 7.0.x
-  CSPROJ_PATH: ./src/Reprise/Reprise.csproj
-  UNIT_TESTS_PATH: ./tests/Reprise.UnitTests
-  MIN_COVERAGE: 90
-  GIST_ID: 552110af4a546bfef6adfd60e60163c3
-
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
-    outputs:
-      should-publish: ${{ steps.changed-src.outputs.changed }}
-    steps:
-
-      - name: Get timestamp
-        run: echo "TIMESTAMP=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV
-
-      - name: Check out repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
-
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
-
-      - name: Run unit tests
-        run: >
-          dotnet test --no-build --configuration Release --filter UnitTests --logger html 
-          --collect:"XPlat Code Coverage" --results-directory ${{ env.UNIT_TESTS_PATH }}/coverage
-
-      - name: Run integration tests
-        run: dotnet test --no-build --configuration Release --filter IntegrationTests --logger html
-
-      - name: Upload test results
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: TestResults-${{ env.TIMESTAMP }}
-          path: |
-            '**/TestResults'
-            '**/*.received.*'
-
-      - name: Generate test coverage report
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.1.18
-        with:
-          reports: '${{ env.UNIT_TESTS_PATH }}/coverage/**/coverage.cobertura.xml'
-          targetdir: '${{ env.UNIT_TESTS_PATH }}/TestCoverageReport'
-          reporttypes: 'Html;CsvSummary'
-
-      - name: Set up Stryker
-        run: dotnet tool install dotnet-stryker --tool-path ./tools
-        working-directory: ${{ env.UNIT_TESTS_PATH }}
-
-      - name: Run mutation tests
-        run: ./tools/dotnet-stryker --config-file stryker-config.yaml
-        working-directory: ${{ env.UNIT_TESTS_PATH }}
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: CoverageReport-${{ env.TIMESTAMP }}
-          path: |
-            ${{ env.UNIT_TESTS_PATH }}/TestCoverageReport/
-            ${{ env.UNIT_TESTS_PATH }}/StrykerOutput/
-
-      - name: Analyze coverage report
-        id: analyze-coverage-report
-        run: |
-          set_output() {
-            if [[ -z $3 ]]; then
-              echo "::error::Got an empty value for $1."
-              exit 1
-            fi
-            echo "$1=$3$4" >> $GITHUB_OUTPUT
-            echo "* $2: **$3$4**" >> $GITHUB_STEP_SUMMARY
-          }
-          set_lines_of_code() {
-            if [[ ${#1} -lt 4 ]]; then
-              set_output "lines_of_code" "Lines of code" "$1"
-            elif [[ ${#1} -eq 4 ]]; then
-              set_output "lines_of_code" "Lines of code" "${1::1}.${1:1:1}" "k"
-            elif [[ ${#1} -eq 5 ]]; then
-              set_output "lines_of_code" "Lines of code" "${1:0:2}" "k"
-            elif [[ ${#1} -eq 6 ]]; then
-              set_output "lines_of_code" "Lines of code" "${1:0:3}" "k"
-            else
-              echo "::error::Got an unsupported value $1 for lines_of_code."
-              exit 1
-            fi
-          }
-          check_coverage() {
-            if [[ $1 -lt ${{ env.MIN_COVERAGE }} || $2 -lt ${{ env.MIN_COVERAGE }} ]]; then
-              echo "" >> $GITHUB_STEP_SUMMARY
-              echo "**ERROR: The code coverage is insufficient.**" >> $GITHUB_STEP_SUMMARY
-              exit 1
-            fi
-          }
-          lines_of_code=$(cat ./TestCoverageReport/Summary.csv | grep -Po '(?<=Total lines:;)[0-9]+')
-          set_lines_of_code "$lines_of_code"
-          test_coverage=$(cat ./TestCoverageReport/Summary.csv | grep -Po '(?<=Line coverage:;)[0-9]+')
-          set_output "test_coverage" "Test coverage" "$test_coverage" "%"
-          mutation_report_path=$(find ./StrykerOutput -name mutation-report.md)
-          mutation_score=$(cat $mutation_report_path | grep -Po '(?<=## The final mutation score is )[0-9]+')
-          set_output "mutation_score" "Mutation score" "$mutation_score" "%"
-          check_coverage "$test_coverage" "$mutation_score"
-        working-directory: ${{ env.UNIT_TESTS_PATH }}
-
-      - name: Update lines of code gist
-        if: ${{ github.event_name == 'push' }}
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: ${{ env.GIST_ID }}
-          filename: lines-of-code.json
-          label: loc
-          message: ${{ steps.analyze-coverage-report.outputs.lines_of_code }}
-          color: blue
-
-      - name: Update test coverage gist
-        if: ${{ github.event_name == 'push' }}
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: ${{ env.GIST_ID }}
-          filename: test-coverage.json
-          label: test coverage
-          message: ${{ steps.analyze-coverage-report.outputs.test_coverage }}
-          color: brightgreen
-
-      - name: Update mutation score gist
-        if: ${{ github.event_name == 'push' }}
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.GIST_TOKEN }}
-          gistID: ${{ env.GIST_ID }}
-          filename: mutation-score.json
-          label: mutation score
-          message: ${{ steps.analyze-coverage-report.outputs.mutation_score }}
-          color: brightgreen
-
-      - name: Check src/ for changes
-        if: ${{ github.event_name == 'push' }}
-        id: changed-src
-        uses: marceloprado/has-changed-path@v1.0.1
-        with:
-          paths: ./src
-
-      - name: Create package
-        if: ${{ github.event_name == 'push' && steps.changed-src.outputs.changed == 'true' }}
-        run: dotnet pack --no-build --configuration Release --output ./packages ${{ env.CSPROJ_PATH }}
-
-      - name: Upload build artifact
-        if: ${{ github.event_name == 'push' && steps.changed-src.outputs.changed == 'true' }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: packages
-          path: packages/
-          retention-days: 1
+    uses: yavorfingarov/Workflows/.github/workflows/build.yml@master
+    with:
+      unit-tests-path: ./tests/Reprise.UnitTests
+      status-gist-id: 552110af4a546bfef6adfd60e60163c3
+    secrets: inherit
 
   publish:
     name: Publish
     needs: build
-    if: ${{ needs.build.outputs.should-publish == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: packages
-          path: packages/
-
-      - name: Publish to NuGet gallery
-        run: >
-          dotnet nuget push ./packages/*.nupkg
-          --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
-
-      - name: Delete build artifact
-        if: ${{ always() }}
-        uses: geekyeggo/delete-artifact@v2
-        with:
-            name: packages
+    if: ${{ needs.build.outputs.run-next == 'true' }}
+    uses: yavorfingarov/Workflows/.github/workflows/publish-nuget.yml@master
+    with:
+      csproj-path: ./src/Reprise/Reprise.csproj
+    secrets: inherit

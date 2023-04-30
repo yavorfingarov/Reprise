@@ -8,6 +8,7 @@
     Reprise.ExcludeFromDescriptionProcessor,
     Reprise.NameProcessor,
     Reprise.ProducesProcessor,
-    Reprise.TagsProcessor
+    Reprise.TagsProcessor,
+    Reprise.RateLimitingProcessor
   ]
 }

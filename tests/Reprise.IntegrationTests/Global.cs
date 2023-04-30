@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 [assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test names can contain underscores.")]
 
 namespace Reprise.IntegrationTests

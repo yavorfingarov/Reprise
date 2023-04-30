@@ -61,3 +61,18 @@ public void RequireAuthorization(params string[] policyNames);
 <a name='Reprise.EndpointOptions.RequireAuthorization(string[]).policyNames'></a>
 
 `policyNames` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')
+
+<a name='Reprise.EndpointOptions.RequireRateLimiting(string)'></a>
+
+## EndpointOptions.RequireRateLimiting(string) Method
+
+Enables rate limiting for all API endpoints.
+
+```csharp
+public void RequireRateLimiting(string policyName);
+```
+#### Parameters
+
+<a name='Reprise.EndpointOptions.RequireRateLimiting(string).policyName'></a>
+
+`policyName` [System.String](https://docs.microsoft.com/en-us/dotnet/api/System.String 'System.String')
