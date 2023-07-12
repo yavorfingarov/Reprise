@@ -22,23 +22,17 @@
     ],
     MockTaskRunner: [
       {
-        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Method: TaskRunner.WhenAll(IEnumerable<Task> tasks),
         Arguments: [
           [
             {
-              Type: Func<Task>,
-              Target: EventBus.<>c__DisplayClass7_1,
-              Method: System.Threading.Tasks.Task PublishAndWait()
+              Status: WaitingForActivation
             },
             {
-              Type: Func<Task>,
-              Target: EventBus.<>c__DisplayClass7_1,
-              Method: System.Threading.Tasks.Task PublishAndWait()
+              Status: WaitingForActivation
             },
             {
-              Type: Func<Task>,
-              Target: EventBus.<>c__DisplayClass7_1,
-              Method: System.Threading.Tasks.Task PublishAndWait()
+              Status: WaitingForActivation
             }
           ]
         ],

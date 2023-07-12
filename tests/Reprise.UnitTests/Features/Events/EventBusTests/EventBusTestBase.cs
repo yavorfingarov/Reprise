@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.Extensions.Hosting;
 
 namespace Reprise.UnitTests.Features.Events.EventBusTests
 {
@@ -13,9 +14,11 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
 
         internal ServiceScopeIdentifier RequestScopeIdentifier { get; private set; } = null!;
 
-        internal Mock<TaskRunner> MockTaskRunner { get; } = new();
+        internal Mock<TaskRunner> MockTaskRunner { get; } = new() { CallBase = true };
 
         internal IEventBus EventBus { get; private set; } = null!;
+
+        internal IHostApplicationLifetime ApplicationLifetime { get; private set; } = null!;
 
         internal Stopwatch Stopwatch { get; } = new();
 
@@ -40,12 +43,6 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
                     return (IEventHandler<StubEvent>)handler!;
                 });
             }
-            MockTaskRunner.Setup(t => t.WhenAll(It.IsAny<IEnumerable<Func<Task>>>()))
-                .CallBase();
-            MockTaskRunner.Setup(t => t.CreateTimer(It.IsAny<TimerCallback>(), It.IsAny<object?>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>()))
-                .CallBase();
-            MockTaskRunner.Setup(t => t.StopTimers())
-                .CallBase();
             builder.Services.AddSingleton(MockTaskRunner.Object);
             builder.Services.AddScoped<IEventBus, EventBus>();
             var loggerProvider = LoggerRecording.Start();
@@ -53,6 +50,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             var app = builder.Build();
             Scope = app.Services.CreateScope();
             RequestScopeIdentifier = Scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
+            ApplicationLifetime = Scope.ServiceProvider.GetRequiredService<IHostApplicationLifetime>();
             EventBus = Scope.ServiceProvider.GetRequiredService<IEventBus>();
         }
     }
@@ -68,7 +66,7 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
 
         public async Task Handle(StubEvent payload, CancellationToken cancellationToken)
         {
-            await RunAsync(cancellationToken);
+            await Run(cancellationToken);
         }
 
 #pragma warning disable CA1822 // Mark members as static

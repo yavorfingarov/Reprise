@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Reprise.UnitTests
@@ -16,7 +17,9 @@ namespace Reprise.UnitTests
         [Fact]
         public Task NonPublicTypes()
         {
-            return Verify(GetDescription(typeof(EndpointAttribute).Assembly, t => !t.IsPublic && !t.IsDefined(typeof(CompilerGeneratedAttribute))))
+            var description = GetDescription(typeof(EndpointAttribute).Assembly,
+                t => !t.IsPublic && !t.IsDefined(typeof(CompilerGeneratedAttribute)) && t.FullName!.StartsWith("Reprise", StringComparison.InvariantCulture));
+            return Verify(description)
                 .UniqueForRuntimeAndVersion();
         }
 

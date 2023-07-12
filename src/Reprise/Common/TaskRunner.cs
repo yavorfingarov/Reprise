@@ -4,9 +4,9 @@
     {
         private readonly List<Timer> _Timers = new();
 
-        public virtual async Task WhenAll(IEnumerable<Func<Task>> tasks)
+        public virtual async Task WhenAll(IEnumerable<Task> tasks)
         {
-            var whenAllTask = Task.WhenAll(tasks.Select(Task.Run));
+            var whenAllTask = Task.WhenAll(tasks);
             try
             {
                 await whenAllTask;

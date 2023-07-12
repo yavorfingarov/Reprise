@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.Extensions.Hosting;
 
 namespace Reprise.UnitTests.Features.Jobs.JobRunnerTests
 {
@@ -7,13 +8,13 @@ namespace Reprise.UnitTests.Features.Jobs.JobRunnerTests
     {
         internal static IEnumerable<WorkerBase> Jobs => WorkerBase.Instances.OrderBy(w => w.WorkerStatus);
 
-        internal WebApplication App { get; private set; } = null!;
-
         internal JobRunner JobRunner { get; private set; } = null!;
 
         internal Mock<DateTimeProvider> MockDateTimeProvider { get; } = new();
 
-        internal Mock<TaskRunner> MockTaskRunner { get; } = new();
+        internal Mock<TaskRunner> MockTaskRunner { get; } = new() { CallBase = true };
+
+        internal IHostApplicationLifetime ApplicationLifetime { get; private set; } = null!;
 
         internal Stopwatch Stopwatch { get; } = new();
 
@@ -35,19 +36,14 @@ namespace Reprise.UnitTests.Features.Jobs.JobRunnerTests
                 builder.Services.AddScoped(jobState.JobType);
             }
             var loggerProvider = LoggerRecording.Start();
-            MockTaskRunner.Setup(t => t.WhenAll(It.IsAny<IEnumerable<Func<Task>>>()))
-                .CallBase();
-            MockTaskRunner.Setup(t => t.CreateTimer(It.IsAny<TimerCallback>(), It.IsAny<object?>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>()))
-                .CallBase();
-            MockTaskRunner.Setup(t => t.StopTimers())
-                .CallBase();
             builder.Services.AddSingleton(MockTaskRunner.Object);
             builder.Services.AddSingleton(loggerProvider.CreateLogger<JobRunner>());
             builder.Services.AddSingleton(jobStateRegistry);
             builder.Services.AddSingleton(MockDateTimeProvider.Object);
             builder.Services.AddSingleton<JobRunner>();
-            App = builder.Build();
-            JobRunner = App.Services.GetRequiredService<JobRunner>();
+            var app = builder.Build();
+            JobRunner = app.Services.GetRequiredService<JobRunner>();
+            ApplicationLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
         }
     }
 
@@ -56,11 +52,6 @@ namespace Reprise.UnitTests.Features.Jobs.JobRunnerTests
         public AbstractMockJob(ServiceScopeIdentifier serviceScopeIdentifier, WorkerDescriptor workerDescriptor) :
             base(serviceScopeIdentifier, workerDescriptor)
         {
-        }
-
-        public async Task Run(CancellationToken cancellationToken)
-        {
-            await RunAsync(cancellationToken);
         }
     }
 

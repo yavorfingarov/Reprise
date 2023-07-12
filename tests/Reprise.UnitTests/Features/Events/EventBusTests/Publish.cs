@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Reprise.UnitTests.Features.Events.EventBusTests
+﻿namespace Reprise.UnitTests.Features.Events.EventBusTests
 {
     public class Publish : EventBusTestBase
     {
@@ -36,8 +34,8 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
             await Task.Delay(800);
 
-            await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner })
-                .IgnoreStackTrace();
+            Assert.True(EventHandlers.All(h => h.CancellationToken == ApplicationLifetime.ApplicationStopping));
+            await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner });
         }
 
         [Fact]
@@ -56,30 +54,9 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
             Assert.True(Stopwatch.ElapsedMilliseconds < 100);
             await Task.Delay(1_200);
 
+            Assert.True(EventHandlers.All(h => h.CancellationToken == ApplicationLifetime.ApplicationStopping));
             await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner })
                 .IgnoreStackTrace();
-        }
-
-        [Fact]
-        public async Task ApplicationStop()
-        {
-            ConfigureServices(
-                new WorkerDescriptor(typeof(MockEventHandler), 200, false),
-                new WorkerDescriptor(typeof(MockEventHandler), 400, true),
-                new WorkerDescriptor(typeof(MockEventHandler), 600, false));
-            var hostApplicationLifetime = Scope.ServiceProvider.GetRequiredService<IHostApplicationLifetime>();
-
-            Stopwatch.Start();
-            EventBus.Publish(Event);
-            Stopwatch.Stop();
-
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(300);
-
-            hostApplicationLifetime.StopApplication();
-            await Task.Delay(200);
-
-            await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner });
         }
     }
 }

@@ -2,6 +2,8 @@
 {
     public class PublishAndWait : EventBusTestBase
     {
+        private readonly CancellationTokenSource _CancellationTokenSource = new();
+
         [Fact]
         public async Task PayloadNull()
         {
@@ -16,7 +18,9 @@
         {
             ConfigureServices();
 
-            EventBus.PublishAndWait(Event);
+            EventBus.PublishAndWait(Event, _CancellationTokenSource.Token);
+
+            Assert.True(EventHandlers.All(h => h.CancellationToken == _CancellationTokenSource.Token));
         }
 
         [Fact]
@@ -28,11 +32,11 @@
                 new WorkerDescriptor(typeof(MockEventHandler), 600, false));
 
             Stopwatch.Start();
-            await EventBus.PublishAndWait(Event);
+            await EventBus.PublishAndWait(Event, _CancellationTokenSource.Token);
             Stopwatch.Stop();
 
             Assert.InRange(Stopwatch.ElapsedMilliseconds, 600, 800);
-
+            Assert.True(EventHandlers.All(h => h.CancellationToken == _CancellationTokenSource.Token));
             await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner });
         }
 
@@ -46,31 +50,13 @@
                 new WorkerDescriptor(typeof(MockEventHandler), 800, true));
 
             Stopwatch.Start();
-            var exception = await Assert.ThrowsAnyAsync<Exception>(() => EventBus.PublishAndWait(Event));
+            var exception = await Assert.ThrowsAnyAsync<Exception>(() => EventBus.PublishAndWait(Event, _CancellationTokenSource.Token));
             Stopwatch.Stop();
 
             Assert.InRange(Stopwatch.ElapsedMilliseconds, 800, 1_200);
-
+            Assert.True(EventHandlers.All(h => h.CancellationToken == _CancellationTokenSource.Token));
             await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner, exception })
                 .IgnoreStackTrace();
-        }
-
-        [Fact]
-        public async Task CancelRequest()
-        {
-            ConfigureServices(
-                new WorkerDescriptor(typeof(MockEventHandler), 200, false),
-                new WorkerDescriptor(typeof(MockEventHandler), 400, true),
-                new WorkerDescriptor(typeof(MockEventHandler), 600, false));
-            var cancellationTokenSource = new CancellationTokenSource(300);
-
-            Stopwatch.Start();
-            await EventBus.PublishAndWait(Event, cancellationTokenSource.Token);
-            Stopwatch.Stop();
-
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 250, 500);
-
-            await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner });
         }
     }
 }

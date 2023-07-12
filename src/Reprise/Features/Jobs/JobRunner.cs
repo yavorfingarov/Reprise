@@ -34,7 +34,7 @@
         {
             var runBeforeStartJobs = _JobStateRegistry
                 .Where(j => j.RunBeforeStart)
-                .Select(j => (Func<Task>)(() => RunJob(j.JobType, cancellationToken)));
+                .Select(j => RunJob(j.JobType, cancellationToken));
             await _TaskRunner.WhenAll(runBeforeStartJobs);
 
             var scheduledJobStates = _JobStateRegistry

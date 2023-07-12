@@ -8,7 +8,6 @@ namespace Reprise.UnitTests.TestHelpers
     {
         Initial,
         Faulted,
-        Cancelled,
         Done
     }
 
@@ -18,7 +17,9 @@ namespace Reprise.UnitTests.TestHelpers
 
         public Guid ServiceScopeId { get; }
 
-        public WorkerStatus WorkerStatus { get; protected set; } = WorkerStatus.Initial;
+        public WorkerStatus WorkerStatus { get; private set; } = WorkerStatus.Initial;
+
+        internal CancellationToken CancellationToken { get; private set; }
 
         public bool IsDisposed { get; private set; }
 
@@ -34,18 +35,10 @@ namespace Reprise.UnitTests.TestHelpers
             Instances.Add(this);
         }
 
-        public async Task RunAsync(CancellationToken cancellationToken)
+        public async Task Run(CancellationToken cancellationToken)
         {
-            try
-            {
-                await Task.Delay(_Delay, cancellationToken);
-            }
-            catch (TaskCanceledException)
-            {
-                WorkerStatus = WorkerStatus.Cancelled;
-
-                return;
-            }
+            CancellationToken = cancellationToken;
+            await Task.Delay(_Delay, cancellationToken);
             if (_Throws)
             {
                 WorkerStatus = WorkerStatus.Faulted;

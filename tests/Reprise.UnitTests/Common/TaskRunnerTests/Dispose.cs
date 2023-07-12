@@ -3,6 +3,12 @@
     public class Dispose : TaskRunnerTestBase
     {
         [Fact]
+        public void NoTimers()
+        {
+            TaskRunner.Dispose();
+        }
+
+        [Fact]
         public void MultipleTimers()
         {
             var timers = Enumerable.Range(0, 5)

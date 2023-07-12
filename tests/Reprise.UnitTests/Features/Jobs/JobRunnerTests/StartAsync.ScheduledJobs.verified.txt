@@ -14,7 +14,7 @@
     ],
     MockTaskRunner: [
       {
-        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Method: TaskRunner.WhenAll(IEnumerable<Task> tasks),
         Arguments: [
           []
         ]

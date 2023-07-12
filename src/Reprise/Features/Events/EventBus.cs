@@ -1,4 +1,6 @@
-﻿namespace Reprise
+﻿using System.Runtime.ExceptionServices;
+
+namespace Reprise
 {
     internal sealed class EventBus : IEventBus
     {
@@ -32,7 +34,7 @@
             var handlerType = typeof(IEventHandler<>).MakeGenericType(payload.GetType());
             var scope = _ServiceScopeFactory.CreateScope();
             var tasks = scope.ServiceProvider.GetServices(handlerType)
-                .Select(handler => (Func<Task>)(() => InvokeSafe(handler!, payload)));
+                .Select(handler => InvokeSafe(handler!, payload));
             _TaskRunner.WhenAll(tasks)
                 .ContinueWith(_ => scope.Dispose());
         }
@@ -42,7 +44,7 @@
             ArgumentNullException.ThrowIfNull(payload);
             var handlerType = typeof(IEventHandler<>).MakeGenericType(payload.GetType());
             var tasks = _ServiceProvider.GetServices(handlerType)
-                .Select(handler => (Func<Task>)(() => Invoke(handler!, payload, cancellationToken)));
+                .Select(handler => Invoke(handler!, payload, cancellationToken));
             await _TaskRunner.WhenAll(tasks);
         }
 
@@ -74,7 +76,7 @@
             }
             catch (TargetInvocationException targetInvocationEx)
             {
-                throw targetInvocationEx.InnerException!;
+                ExceptionDispatchInfo.Capture(targetInvocationEx.InnerException!).Throw();
             }
         }
     }

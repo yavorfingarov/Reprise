@@ -3,6 +3,12 @@
     public class StopTimers : TaskRunnerTestBase
     {
         [Fact]
+        public void NoTimers()
+        {
+            TaskRunner.StopTimers();
+        }
+
+        [Fact]
         public async Task MultipleTimers()
         {
             var states = Enumerable.Range(0, 5)

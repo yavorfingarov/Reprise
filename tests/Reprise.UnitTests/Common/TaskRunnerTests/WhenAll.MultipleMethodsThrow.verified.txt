@@ -1,0 +1,19 @@
+﻿{
+  exception: {
+    Type: AggregateException,
+    InnerExceptions: [
+      {
+        Type: Exception,
+        Message: Test message
+      },
+      {
+        Type: Exception,
+        Message: Test message
+      },
+      {
+        Type: Exception,
+        Message: Test message
+      }
+    ]
+  }
+}
