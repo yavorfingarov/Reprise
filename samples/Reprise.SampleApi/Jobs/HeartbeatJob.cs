@@ -2,7 +2,6 @@
 {
     [RunBeforeStart]
     [RunOnStart]
-    [Cron("* * * * *")]
     public class HeartbeatJob : IJob
     {
         public static int Invocations => _Invocations;
