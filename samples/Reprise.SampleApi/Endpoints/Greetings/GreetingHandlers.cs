@@ -30,7 +30,7 @@
 
         private void LogInformation(string message)
         {
-            EventBus.LogInformation($"[{GetType().Name}] {message}");
+            GreetingsEventBus.LogInformation($"[{GetType().Name}] {message}");
             _Logger.LogInformation("[{HandlerType}] {Message}", GetType().Name, message);
         }
     }

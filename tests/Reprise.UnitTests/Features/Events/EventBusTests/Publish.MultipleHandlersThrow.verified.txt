@@ -1,42 +1,62 @@
 ﻿{
   target: {
-    requestScopeIdentifier: {
+    RequestScopeIdentifier: {
       ScopeId: Guid_1
     },
-    Handlers: [
+    EventHandlers: [
       {
         ServiceScopeId: Guid_2,
-        HandlerId: MockAsyncEventHandler-1,
-        HandlerStatus: Faulted,
+        WorkerStatus: Faulted,
         IsDisposed: true
       },
       {
         ServiceScopeId: Guid_2,
-        HandlerId: MockAsyncEventHandler-2,
-        HandlerStatus: Done,
+        WorkerStatus: Faulted,
         IsDisposed: true
       },
       {
         ServiceScopeId: Guid_2,
-        HandlerId: MockSyncEventHandler-3,
-        HandlerStatus: Done,
+        WorkerStatus: Done,
         IsDisposed: true
       },
       {
         ServiceScopeId: Guid_2,
-        HandlerId: MockSyncEventHandler-4,
-        HandlerStatus: Faulted,
+        WorkerStatus: Done,
         IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Task> tasks),
+        Arguments: [
+          [
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            }
+          ]
+        ],
+        ReturnValue: {
+          Status: RanToCompletion
+        }
       }
     ]
   },
   logs: [
     {
-      Error: An exception was thrown while executing Reprise.UnitTests.Features.Events.MockAsyncEventHandler.,
+      Error: An exception was thrown while executing Reprise.UnitTests.Features.Events.EventBusTests.MockEventHandler.,
       Category: EventBus,
       State: [
         {
-          EventHandlerType: Reprise.UnitTests.Features.Events.MockAsyncEventHandler
+          EventHandlerType: Reprise.UnitTests.Features.Events.EventBusTests.MockEventHandler
         },
         {
           {OriginalFormat}: An exception was thrown while executing {EventHandlerType}.
@@ -44,15 +64,15 @@
       ],
       Exception: {
         Type: Exception,
-        Message: [MockAsyncEventHandler-1] Test message
+        Message: Test message
       }
     },
     {
-      Error: An exception was thrown while executing Reprise.UnitTests.Features.Events.MockSyncEventHandler.,
+      Error: An exception was thrown while executing Reprise.UnitTests.Features.Events.EventBusTests.MockEventHandler.,
       Category: EventBus,
       State: [
         {
-          EventHandlerType: Reprise.UnitTests.Features.Events.MockSyncEventHandler
+          EventHandlerType: Reprise.UnitTests.Features.Events.EventBusTests.MockEventHandler
         },
         {
           {OriginalFormat}: An exception was thrown while executing {EventHandlerType}.
@@ -60,7 +80,7 @@
       ],
       Exception: {
         Type: Exception,
-        Message: [MockSyncEventHandler-4] Test message
+        Message: Test message
       }
     }
   ]

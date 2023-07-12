@@ -1,4 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: Reprise.UnitTests.Features.StubFilterNoImplementation does not implement IEndpointFilter.
-}

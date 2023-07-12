@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.6.0] - 2023-07-12
+### Added
+- Jobs
+### Changed
+- Bumped FluentValidation to the latest version
+
 ## [3.5.0] - 2023-04-30
 ### Added
 - Rate limiting
@@ -67,7 +73,7 @@ handling an exception and the response has already started.
 
 ## [3.0.0] - 2022-11-26
 ### Added
-- Extentended OpenAPI support with Produces, Name and ExcludeFromDescription attributes
+- Extended OpenAPI support with Produces, Name and ExcludeFromDescription attributes
 - NuGet package icon
 ### Changed
 - Removed the public properties from all attributes (BREAKING)

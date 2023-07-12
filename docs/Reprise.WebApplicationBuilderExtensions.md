@@ -26,6 +26,7 @@ Sets up the DI container by performing an assembly scan to:
 - Add a [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') implementation or a default one if none is found.
 - Add all [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').
 - Add the [IEventBus](Reprise.IEventBus.md 'Reprise.IEventBus').
+- Add all [IJob](Reprise.IJob.md 'Reprise.IJob') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').
 
 ```csharp
 public static Microsoft.AspNetCore.Builder.WebApplicationBuilder ConfigureServices(this Microsoft.AspNetCore.Builder.WebApplicationBuilder builder);
@@ -60,6 +61,7 @@ Sets up the DI container by performing an assembly scan to:
 - Add a [IErrorResponseFactory](Reprise.IErrorResponseFactory.md 'Reprise.IErrorResponseFactory') implementation or a default one if none is found.
 - Add all [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').
 - Add the [IEventBus](Reprise.IEventBus.md 'Reprise.IEventBus').
+- Add all [IJob](Reprise.IJob.md 'Reprise.IJob') implementations with a [Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped](https://docs.microsoft.com/en-us/dotnet/api/Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped 'Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped').
 
 ```csharp
 public static Microsoft.AspNetCore.Builder.WebApplicationBuilder ConfigureServices(this Microsoft.AspNetCore.Builder.WebApplicationBuilder builder, System.Reflection.Assembly assembly);

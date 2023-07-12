@@ -1,0 +1,148 @@
+﻿{
+  target: {
+    Jobs: [
+      {
+        ServiceScopeId: Guid_1,
+        WorkerStatus: Faulted,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_2,
+        WorkerStatus: Faulted,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_3,
+        WorkerStatus: Done,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_4,
+        WorkerStatus: Done,
+        IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Task> tasks),
+        Arguments: [
+          []
+        ],
+        ReturnValue: {
+          Status: RanToCompletion
+        }
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: ShortMockJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: MediumMockThrowingJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: LongMockThrowingJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: LongMockJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      }
+    ],
+    MockDateTimeProvider: []
+  },
+  logs: [
+    {
+      Error: An exception was thrown while executing Reprise.UnitTests.Features.Jobs.JobRunnerTests.MediumMockThrowingJob.,
+      Category: JobRunner,
+      State: [
+        {
+          ScheduledJobType: Reprise.UnitTests.Features.Jobs.JobRunnerTests.MediumMockThrowingJob
+        },
+        {
+          {OriginalFormat}: An exception was thrown while executing {ScheduledJobType}.
+        }
+      ],
+      Exception: {
+        Type: Exception,
+        Message: Test message
+      }
+    },
+    {
+      Error: An exception was thrown while executing Reprise.UnitTests.Features.Jobs.JobRunnerTests.LongMockThrowingJob.,
+      Category: JobRunner,
+      State: [
+        {
+          ScheduledJobType: Reprise.UnitTests.Features.Jobs.JobRunnerTests.LongMockThrowingJob
+        },
+        {
+          {OriginalFormat}: An exception was thrown while executing {ScheduledJobType}.
+        }
+      ],
+      Exception: {
+        Type: Exception,
+        Message: Test message
+      }
+    }
+  ]
+}

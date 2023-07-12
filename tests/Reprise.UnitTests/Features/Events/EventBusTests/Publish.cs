@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Reprise.UnitTests.Features.Events.EventBusTests
+﻿namespace Reprise.UnitTests.Features.Events.EventBusTests
 {
     public class Publish : EventBusTestBase
     {
@@ -8,11 +6,8 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
         public async Task PayloadNull()
         {
             ConfigureServices();
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            await Throws(() => messageBus.Publish(null!))
+            await Throws(() => EventBus.Publish(null!))
                 .IgnoreStackTrace();
         }
 
@@ -20,162 +15,48 @@ namespace Reprise.UnitTests.Features.Events.EventBusTests
         public void NoHandlers()
         {
             ConfigureServices();
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
 
-            messageBus.Publish(new StubEvent());
-        }
-
-        [Fact]
-        public async Task SyncHandler()
-        {
-            ConfigureServices(new EventHandlerDescriptor(typeof(MockSyncEventHandler), 500, false));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-
-            Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(600);
-
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
-        }
-
-        [Fact]
-        public async Task SyncHandlerThrows()
-        {
-            ConfigureServices(new EventHandlerDescriptor(typeof(MockSyncEventHandler), 500, true));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-
-            Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(600);
-
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
-                .IgnoreStackTrace();
-        }
-
-        [Fact]
-        public async Task AsyncHandler()
-        {
-            ConfigureServices(new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, false));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-
-            Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(600);
-
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
-        }
-
-        [Fact]
-        public async Task AsyncHandlerThrows()
-        {
-            ConfigureServices(new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, true));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-
-            Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(600);
-
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
-                .IgnoreStackTrace();
+            EventBus.Publish(Event);
         }
 
         [Fact]
         public async Task MultipleHandlers()
         {
             ConfigureServices(
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, false),
-                new EventHandlerDescriptor(typeof(MockSyncEventHandler), 1_000, false),
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_500, false));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+                new WorkerDescriptor(typeof(MockEventHandler), 200, false),
+                new WorkerDescriptor(typeof(MockEventHandler), 400, false),
+                new WorkerDescriptor(typeof(MockEventHandler), 600, false));
 
             Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
+            EventBus.Publish(Event);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(2_500);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
+            await Task.Delay(800);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
-                .IgnoreStackTrace();
+            Assert.True(EventHandlers.All(h => h.CancellationToken == ApplicationLifetime.ApplicationStopping));
+            await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner });
         }
 
         [Fact]
         public async Task MultipleHandlersThrow()
         {
             ConfigureServices(
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, true),
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_000, false),
-                new EventHandlerDescriptor(typeof(MockSyncEventHandler), 1_500, false),
-                new EventHandlerDescriptor(typeof(MockSyncEventHandler), 2_000, true));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+                new WorkerDescriptor(typeof(MockEventHandler), 200, true),
+                new WorkerDescriptor(typeof(MockEventHandler), 400, false),
+                new WorkerDescriptor(typeof(MockEventHandler), 600, false),
+                new WorkerDescriptor(typeof(MockEventHandler), 800, true));
 
             Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
+            EventBus.Publish(Event);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(4_000);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
+            await Task.Delay(1_200);
 
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers })
+            Assert.True(EventHandlers.All(h => h.CancellationToken == ApplicationLifetime.ApplicationStopping));
+            await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner })
                 .IgnoreStackTrace();
-        }
-
-        [Fact]
-        public async Task ApplicationStop()
-        {
-            ConfigureServices(
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 500, false),
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_000, true),
-                new EventHandlerDescriptor(typeof(MockAsyncEventHandler), 1_500, false));
-            var app = Builder.Build();
-            using var scope = app.Services.CreateScope();
-            var requestScopeIdentifier = scope.ServiceProvider.GetRequiredService<ServiceScopeIdentifier>();
-            var hostApplicationLifetime = scope.ServiceProvider.GetRequiredService<IHostApplicationLifetime>();
-            var messageBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
-
-            Stopwatch.Start();
-            messageBus.Publish(new StubEvent());
-            Stopwatch.Stop();
-
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
-            await Task.Delay(600);
-
-            hostApplicationLifetime.StopApplication();
-            await Task.Delay(300);
-
-            await Verify(new { requestScopeIdentifier, AbstractMockEventHandler.Handlers });
         }
     }
 }

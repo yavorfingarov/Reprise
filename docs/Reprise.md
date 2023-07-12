@@ -4,6 +4,7 @@
 | :--- | :--- |
 | [ApplicationBuilderExtensions](Reprise.ApplicationBuilderExtensions.md 'Reprise.ApplicationBuilderExtensions') | Extension methods for adding custom middleware. |
 | [ConfigurationAttribute](Reprise.ConfigurationAttribute.md 'Reprise.ConfigurationAttribute') | Identifies a strongly-typed hierarchical configuration model bound at application startup. |
+| [CronAttribute](Reprise.CronAttribute.md 'Reprise.CronAttribute') | Identifies a job that runs on a schedule. |
 | [DeleteAttribute](Reprise.DeleteAttribute.md 'Reprise.DeleteAttribute') | Identifies a public static `Handle` method that supports the HTTP DELETE method. |
 | [EndpointAttribute](Reprise.EndpointAttribute.md 'Reprise.EndpointAttribute') | Identifies a type that is an API endpoint. |
 | [EndpointOptions](Reprise.EndpointOptions.md 'Reprise.EndpointOptions') | Provides configuration for API endpoints. |
@@ -18,6 +19,8 @@
 | [PostAttribute](Reprise.PostAttribute.md 'Reprise.PostAttribute') | Identifies a public static `Handle` method that supports the HTTP POST method. |
 | [ProducesAttribute](Reprise.ProducesAttribute.md 'Reprise.ProducesAttribute') | Describes a response returned from an API endpoint. |
 | [PutAttribute](Reprise.PutAttribute.md 'Reprise.PutAttribute') | Identifies a public static `Handle` method that supports the HTTP PUT method. |
+| [RunBeforeStartAttribute](Reprise.RunBeforeStartAttribute.md 'Reprise.RunBeforeStartAttribute') | Identifies a job that runs before the server is started. |
+| [RunOnStartAttribute](Reprise.RunOnStartAttribute.md 'Reprise.RunOnStartAttribute') | Identifies a job that runs after the server is started. |
 | [TagsAttribute](Reprise.TagsAttribute.md 'Reprise.TagsAttribute') | Specifies custom OpenAPI tags for the API endpoint. |
 | [WebApplicationBuilderExtensions](Reprise.WebApplicationBuilderExtensions.md 'Reprise.WebApplicationBuilderExtensions') | Extension methods for configuring services at application startup. |
 
@@ -28,4 +31,5 @@
 | [IEventBus](Reprise.IEventBus.md 'Reprise.IEventBus') | Defines an event bus to encapsulate publishing of events. |
 | [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') | Specifies the contract to handle events. |
 | [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') | Specifies the contract for exception logging. |
+| [IJob](Reprise.IJob.md 'Reprise.IJob') | Specifies the contract for running jobs. |
 | [IServiceConfigurator](Reprise.IServiceConfigurator.md 'Reprise.IServiceConfigurator') | Specifies the contract to configure services at application startup. |

@@ -4,20 +4,22 @@ using Reprise.SampleApi;
 namespace Reprise.IntegrationTests
 {
     [UsesVerify]
-    public abstract class TestBase
+    public abstract class TestBase : IDisposable
     {
         public HttpClient Client { get; }
 
+        private readonly WebApplicationFactory<Program> _WebApplicationFactory;
+
         public TestBase()
         {
-            Client = CreateClient();
+            _WebApplicationFactory = new WebApplicationFactory<Program>();
+            Client = _WebApplicationFactory.CreateClient();
         }
 
-        public static HttpClient CreateClient()
+        public void Dispose()
         {
-            var factory = new WebApplicationFactory<Program>();
-
-            return factory.CreateClient();
+            _WebApplicationFactory.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

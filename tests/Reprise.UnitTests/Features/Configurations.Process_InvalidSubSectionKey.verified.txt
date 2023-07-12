@@ -1,4 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: Reprise.UnitTests.Features.StubConfigurationInvalidSubSection has a sub-section key that doesn't match any configuration data.
-}

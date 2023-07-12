@@ -1,0 +1,81 @@
+﻿{
+  target: {
+    Jobs: [
+      {
+        ServiceScopeId: Guid_1,
+        WorkerStatus: Faulted,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_2,
+        WorkerStatus: Faulted,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_3,
+        WorkerStatus: Done,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_4,
+        WorkerStatus: Done,
+        IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Task> tasks),
+        Arguments: [
+          [
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            }
+          ]
+        ],
+        ReturnValue: {
+          Status: Faulted,
+          Exception: {
+            Type: AggregateException,
+            InnerException: {
+              Type: AggregateException,
+              InnerExceptions: [
+                {
+                  Type: Exception,
+                  Message: Test message
+                },
+                {
+                  Type: Exception,
+                  Message: Test message
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    MockDateTimeProvider: [],
+    exception: {
+      Type: AggregateException,
+      InnerExceptions: [
+        {
+          Type: Exception,
+          Message: Test message
+        },
+        {
+          Type: Exception,
+          Message: Test message
+        }
+      ]
+    }
+  },
+  logs: []
+}

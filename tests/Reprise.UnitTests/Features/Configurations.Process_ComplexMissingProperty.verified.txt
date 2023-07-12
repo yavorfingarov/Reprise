@@ -1,4 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: 'ErrorOnUnknownConfiguration' was set on the provided BinderOptions, but the following properties were not found on the instance of Reprise.UnitTests.Features.StubConfigurationSection: 'Number'
-}

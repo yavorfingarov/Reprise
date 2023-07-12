@@ -1,0 +1,9 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Jobs.StubJobInvalidCron has an invalid cron expression.,
+  InnerException: {
+    $type: CrontabException,
+    Type: CrontabException,
+    Message: 'foobar' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
+  }
+}

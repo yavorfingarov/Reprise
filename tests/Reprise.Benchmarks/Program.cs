@@ -4,10 +4,10 @@ namespace Reprise.Benchmarks
 {
     public class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            BenchmarkRunner.Run<StartupBenchmarks>();
-            BenchmarkRunner.Run<RequestBenchmarks>();
+            BenchmarkRunner.Run<StartupBenchmarks>(args: args);
+            BenchmarkRunner.Run<RequestBenchmarks>(args: args);
         }
     }
 }

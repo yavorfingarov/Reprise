@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.OpenApi.Name.StubNameEndpoint has an empty name.
+}

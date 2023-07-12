@@ -1,26 +1,44 @@
 ﻿{
   target: {
-    requestScopeIdentifier: {
+    RequestScopeIdentifier: {
       ScopeId: Guid_1
     },
-    Handlers: [
+    EventHandlers: [
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-1,
-        HandlerStatus: Done,
+        WorkerStatus: Done,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockSyncEventHandler-2,
-        HandlerStatus: Done,
+        WorkerStatus: Done,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-3,
-        HandlerStatus: Done,
+        WorkerStatus: Done,
         IsDisposed: false
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Task> tasks),
+        Arguments: [
+          [
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            },
+            {
+              Status: WaitingForActivation
+            }
+          ]
+        ],
+        ReturnValue: {
+          Status: RanToCompletion
+        }
       }
     ]
   },

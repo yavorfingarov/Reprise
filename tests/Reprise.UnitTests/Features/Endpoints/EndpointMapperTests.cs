@@ -9,9 +9,9 @@ namespace Reprise.UnitTests.Features.Endpoints
 
         private readonly EndpointOptions _Options = new();
 
-        private readonly List<IRouteHandlerBuilderProcessor> _Processors = new();
-
         private readonly EndpointMapper _EndpointMapper = new();
+
+        private IRouteHandlerBuilderProcessor[] _Processors = Array.Empty<IRouteHandlerBuilderProcessor>();
 
         public EndpointMapperTests()
         {
@@ -24,7 +24,7 @@ namespace Reprise.UnitTests.Features.Endpoints
             _EndpointMapper.Add(typeof(StubGetEndpoint));
             _EndpointMapper.Add(typeof(StubPostEndpoint));
 
-            return Verify(_EndpointMapper._EndpointTypes.Select(t => t.FullName));
+            return Verify(_EndpointMapper.EndpointTypes?.Select(t => t.FullName));
         }
 
         [Fact]
@@ -37,8 +37,11 @@ namespace Reprise.UnitTests.Features.Endpoints
             _EndpointMapper.Add(typeof(StubDeleteEndpoint));
             _EndpointMapper.Add(typeof(StubHeadEndpoint));
             _EndpointMapper.Add(typeof(StubOptionsTraceEndpoint));
-            _Processors.Add(new MockRouteHandlerBuilderProcessor("A"));
-            _Processors.Add(new MockRouteHandlerBuilderProcessor("B"));
+            _Processors = new[]
+            {
+                new MockRouteHandlerBuilderProcessor("A"),
+                new MockRouteHandlerBuilderProcessor("B")
+            };
 
             _EndpointMapper.MapEndpoints(_App, _Options, _Processors);
 
@@ -46,8 +49,8 @@ namespace Reprise.UnitTests.Features.Endpoints
             {
                 _App.DataSources,
                 MockRouteHandlerBuilderProcessor.Invocations,
-                _EndpointMapper._EndpointTypes,
-                _EndpointMapper._MappedRoutes
+                _EndpointMapper.EndpointTypes,
+                _EndpointMapper.MappedRoutes
             };
 
             return Verify(snapshot)
@@ -130,7 +133,7 @@ namespace Reprise.UnitTests.Features.Endpoints
 
         internal MockRouteHandlerBuilderProcessor(string id)
         {
-            _Name = $"{nameof(MockTypeProcessor)}{id}";
+            _Name = $"{nameof(MockRouteHandlerBuilderProcessor)}{id}";
         }
 
         public void Process(RouteHandlerBuilder builder, MethodInfo handlerInfo, EndpointOptions options, string route)

@@ -1,0 +1,40 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          RawText: /
+        },
+        DisplayName: HTTP: GET /,
+        Metadata: [
+          NameProcessorTests.<>c.<.ctor>b__3_0(),
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            StatusCode: 200,
+            ContentTypes: [
+              text/plain
+            ]
+          },
+          {
+            TypeId: NullableContextAttribute
+          },
+          {
+            EndpointName: Test
+          },
+          {
+            RouteName: Test
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

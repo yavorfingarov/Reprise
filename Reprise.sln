@@ -15,13 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks.Api", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks.Api.MinimalApis", "tests\Reprise.Benchmarks.Api.MinimalApis\Reprise.Benchmarks.Api.MinimalApis.csproj", "{B512A3CB-6175-482A-AE6B-46CE58A94D0A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks.Api.FastEndpoints", "tests\Reprise.Benchmarks.Api.FastEndpoints\Reprise.Benchmarks.Api.FastEndpoints.csproj", "{373F0EDE-C082-4C15-BD31-F3DE1F6B349B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.Benchmarks.Api.Carter", "tests\Reprise.Benchmarks.Api.Carter\Reprise.Benchmarks.Api.Carter.csproj", "{161B8603-32C9-4353-827F-7979CFCC7519}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.SampleApi", "samples\Reprise.SampleApi\Reprise.SampleApi.csproj", "{5ABC3221-0291-426F-92FA-D165CE734CCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reprise.SampleApi.WeatherService", "samples\Reprise.SampleApi.WeatherService\Reprise.SampleApi.WeatherService.csproj", "{9D9F56B3-ECBB-4B4E-AB81-D06BBA69D94A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.Benchmarks.Api.FastEndpoints", "tests\Reprise.Benchmarks.Api.FastEndpoints\Reprise.Benchmarks.Api.FastEndpoints.csproj", "{373F0EDE-C082-4C15-BD31-F3DE1F6B349B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reprise.Benchmarks.Api.Carter", "tests\Reprise.Benchmarks.Api.Carter\Reprise.Benchmarks.Api.Carter.csproj", "{161B8603-32C9-4353-827F-7979CFCC7519}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

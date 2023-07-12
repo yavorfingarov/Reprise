@@ -4,14 +4,12 @@
     {
         public void Log(ILogger logger, ErrorContext<BadHttpRequestException> context)
         {
-            logger.LogError("BadHttpRequestException: {Message} ({HttpMethod} {Route})",
-                context.Exception.Message, context.Request.Method, context.Request.Path);
+            logger.LogError("BadHttpRequestException: {Message}", context.Exception.Message);
         }
 
         public void Log(ILogger logger, ErrorContext<ValidationException> context)
         {
-            logger.LogError("ValidationException ({HttpMethod} {Route})",
-                context.Request.Method, context.Request.Path);
+            logger.LogError("ValidationException: {Message}", context.Exception.Message);
         }
 
         public void Log(ILogger logger, ErrorContext<Exception> context)

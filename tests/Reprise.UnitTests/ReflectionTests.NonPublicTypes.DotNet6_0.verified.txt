@@ -1,0 +1,40 @@
+﻿{
+  Interface: [
+    Reprise.IRouteHandlerBuilderProcessor
+  ],
+  Abstract: [
+    Reprise.AbstractTypeProcessor
+  ],
+  Sealed: [
+    Reprise.AuthorizationProcessor,
+    Reprise.ConfigurationTypeProcessor,
+    Reprise.EndpointTypeProcessor,
+    Reprise.EventBus,
+    Reprise.EventHandlerTypeProcessor,
+    Reprise.DefaultErrorResponseFactory,
+    Reprise.DefaultExceptionLogger,
+    Reprise.ErrorResponseFactoryTypeProcessor,
+    Reprise.ExceptionHandler,
+    Reprise.ExceptionLoggerTypeProcessor,
+    Reprise.JobRunner,
+    Reprise.JobState,
+    Reprise.JobStateRegistry,
+    Reprise.JobTypeProcessor,
+    Reprise.ExcludeFromDescriptionProcessor,
+    Reprise.NameProcessor,
+    Reprise.ProducesProcessor,
+    Reprise.TagsProcessor,
+    Reprise.ServiceConfiguratorTypeProcessor,
+    Reprise.ValidatorTypeProcessor
+  ],
+  Open: [
+    Reprise.TaskRunner,
+    Reprise.TypeProcessorFactory,
+    Reprise.EndpointMapper,
+    Reprise.DateTimeProvider
+  ],
+  Static: [
+    Reprise.ExtensionMethods,
+    Reprise.LoggerExtensions
+  ]
+}

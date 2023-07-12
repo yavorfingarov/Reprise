@@ -1,4 +1,0 @@
-﻿{
-  Type: InvalidOperationException,
-  Message: Name 'Test' is used by both Reprise.UnitTests.Features.OpenApi.StubNameEndpointDuplicate and Reprise.UnitTests.Features.OpenApi.StubNameEndpoint.
-}

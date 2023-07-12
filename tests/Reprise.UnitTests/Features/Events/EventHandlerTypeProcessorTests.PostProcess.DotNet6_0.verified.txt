@@ -12,6 +12,10 @@
   },
   Services: [
     {
+      ServiceType: TaskRunner,
+      ImplementationType: TaskRunner
+    },
+    {
       Lifetime: Scoped,
       ServiceType: IEventBus,
       ImplementationType: EventBus
@@ -20,6 +24,10 @@
   Configuration: {},
   Logging: {
     Services: [
+      {
+        ServiceType: TaskRunner,
+        ImplementationType: TaskRunner
+      },
       {
         Lifetime: Scoped,
         ServiceType: IEventBus,

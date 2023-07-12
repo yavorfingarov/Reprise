@@ -1,0 +1,37 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          RawText: /
+        },
+        DisplayName: HTTP: GET /,
+        Metadata: [
+          AuthorizationProcessorTests.<>c.<Process>b__2_0(),
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            StatusCode: 200,
+            ContentTypes: [
+              text/plain
+            ]
+          },
+          {
+            TypeId: NullableContextAttribute
+          },
+          {
+            TypeId: AuthorizeAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

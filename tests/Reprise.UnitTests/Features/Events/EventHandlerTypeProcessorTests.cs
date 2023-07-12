@@ -15,7 +15,7 @@
         [Fact]
         public Task Process()
         {
-            _Processor.Process(_Builder, typeof(MockAsyncEventHandler));
+            _Processor.Process(_Builder, typeof(StubEventHandler));
 
             return Verify(_Builder)
                 .UniqueForRuntimeAndVersion();
@@ -37,6 +37,16 @@
 
             return Verify(_Builder)
                 .UniqueForRuntimeAndVersion();
+        }
+    }
+
+    internal record StubEvent() : IEvent;
+
+    internal class StubEventHandler : IEventHandler<StubEvent>
+    {
+        public Task Handle(StubEvent payload, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

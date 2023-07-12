@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Jobs.StubJobNoTriggers has no run triggers.
+}

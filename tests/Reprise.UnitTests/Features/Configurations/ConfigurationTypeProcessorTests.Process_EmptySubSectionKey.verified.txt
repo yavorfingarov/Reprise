@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Configurations.StubConfigurationEmptySubSectionKey has an empty sub-section key.
+}

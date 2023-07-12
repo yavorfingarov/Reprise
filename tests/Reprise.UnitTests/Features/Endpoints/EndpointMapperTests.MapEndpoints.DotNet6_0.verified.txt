@@ -189,19 +189,38 @@
     }
   ],
   Invocations: [
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPutEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPutEndpoint.Handle, /),
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPatchEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPatchEndpoint.Handle, /),
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubDeleteEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubDeleteEndpoint.Handle, /),
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubHeadEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubHeadEndpoint.Handle, /),
-    MockTypeProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubOptionsTraceEndpoint.Handle, /),
-    MockTypeProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubOptionsTraceEndpoint.Handle, /)
-  ]
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubGetEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPostEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPutEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPutEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubPatchEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubPatchEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubDeleteEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubDeleteEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubHeadEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubHeadEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorA.Process(Reprise.UnitTests.Features.Endpoints.StubOptionsTraceEndpoint.Handle, /),
+    MockRouteHandlerBuilderProcessorB.Process(Reprise.UnitTests.Features.Endpoints.StubOptionsTraceEndpoint.Handle, /)
+  ],
+  EndpointTypes: [
+    StubGetEndpoint,
+    StubPostEndpoint,
+    StubPutEndpoint,
+    StubPatchEndpoint,
+    StubDeleteEndpoint,
+    StubHeadEndpoint,
+    StubOptionsTraceEndpoint
+  ],
+  MappedRoutes: {
+    (DELETE, /): StubDeleteEndpoint,
+    (GET, /): StubGetEndpoint,
+    (HEAD, /): StubHeadEndpoint,
+    (OPTIONS, /): StubOptionsTraceEndpoint,
+    (PATCH, /): StubPatchEndpoint,
+    (POST, /): StubPostEndpoint,
+    (PUT, /): StubPutEndpoint,
+    (TRACE, /): StubOptionsTraceEndpoint
+  }
 }
