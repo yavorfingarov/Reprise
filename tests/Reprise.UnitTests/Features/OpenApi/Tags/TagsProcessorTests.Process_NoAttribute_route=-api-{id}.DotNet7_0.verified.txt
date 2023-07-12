@@ -1,0 +1,40 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          RawText: /
+        },
+        DisplayName: HTTP: GET /,
+        Metadata: [
+          TagsProcessorTests.<>c.<.ctor>b__3_0(),
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          },
+          {
+            StatusCode: 200,
+            ContentTypes: [
+              text/plain
+            ]
+          },
+          {
+            TypeId: NullableContextAttribute
+          },
+          {
+            Tags: [
+              /
+            ],
+            TypeId: TagsAttribute
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

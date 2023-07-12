@@ -2,7 +2,7 @@
 {
     internal sealed class EventHandlerTypeProcessor : AbstractTypeProcessor
     {
-        internal override void Process(WebApplicationBuilder builder, Type type)
+        public override void Process(WebApplicationBuilder builder, Type type)
         {
             var interfaceTypes = type.GetInterfaces();
             foreach (var interfaceType in interfaceTypes)
@@ -20,8 +20,9 @@
             }
         }
 
-        internal override void PostProcess(WebApplicationBuilder builder)
+        public override void PostProcess(WebApplicationBuilder builder)
         {
+            builder.Services.TryAddSingleton<TaskRunner>();
             builder.Services.AddScoped<IEventBus, EventBus>();
         }
     }

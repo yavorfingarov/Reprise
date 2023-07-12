@@ -1,0 +1,10 @@
+﻿[
+  Reprise.ConfigurationTypeProcessor,
+  Reprise.EndpointTypeProcessor,
+  Reprise.EventHandlerTypeProcessor,
+  Reprise.ErrorResponseFactoryTypeProcessor,
+  Reprise.ExceptionLoggerTypeProcessor,
+  Reprise.JobTypeProcessor,
+  Reprise.ServiceConfiguratorTypeProcessor,
+  Reprise.ValidatorTypeProcessor
+]

@@ -14,7 +14,7 @@
     {
       Lifetime: Scoped,
       ServiceType: IEventHandler<StubEvent>,
-      ImplementationType: MockAsyncEventHandler
+      ImplementationType: StubEventHandler
     }
   ],
   Configuration: {},
@@ -23,7 +23,7 @@
       {
         Lifetime: Scoped,
         ServiceType: IEventHandler<StubEvent>,
-        ImplementationType: MockAsyncEventHandler
+        ImplementationType: StubEventHandler
       }
     ]
   },

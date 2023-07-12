@@ -14,8 +14,7 @@ namespace Reprise.IntegrationTests
             await Task.Delay(1_100);
 
             await Verify(await _Client.GetAsync("/limited"))
-                .ScrubMember("trace-id")
-                .UniqueForRuntimeAndVersion();
+                .ScrubMember("trace-id");
         }
 
         [Fact]
@@ -25,8 +24,7 @@ namespace Reprise.IntegrationTests
             response.EnsureSuccessStatusCode();
 
             await Verify(await _Client.GetAsync("/limited"))
-                .ScrubMember("trace-id")
-                .UniqueForRuntimeAndVersion();
+                .ScrubMember("trace-id");
         }
     }
 }

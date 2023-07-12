@@ -5,19 +5,19 @@ namespace Reprise
 {
     internal class EndpointMapper
     {
-        internal List<Type> _EndpointTypes = new();
+        internal List<Type> EndpointTypes { get; set; } = new();
 
-        internal Dictionary<(string Method, string Route), Type> _MappedRoutes = new();
+        internal Dictionary<(string Method, string Route), Type> MappedRoutes { get; set; } = new();
 
         public void Add(Type type)
         {
-            _EndpointTypes.Add(type);
+            EndpointTypes.Add(type);
         }
 
         public virtual void MapEndpoints(IEndpointRouteBuilder app, EndpointOptions options,
-            List<IRouteHandlerBuilderProcessor> processors)
+            IRouteHandlerBuilderProcessor[] processors)
         {
-            foreach (var endpointType in _EndpointTypes)
+            foreach (var endpointType in EndpointTypes)
             {
                 var handlerInfo = GetHandlerInfo(endpointType);
                 var (methods, route) = GetMethodsAndRoute(handlerInfo);
@@ -28,10 +28,11 @@ namespace Reprise
                 var delegateType = Expression.GetDelegateType(typeArgs);
                 var handler = Delegate.CreateDelegate(delegateType, handlerInfo);
                 var builder = app.MapMethods(route, methods, handler);
-                processors.ForEach(p => p.Process(builder, handlerInfo, options, route));
+                foreach (var processor in processors)
+                {
+                    processor.Process(builder, handlerInfo, options, route);
+                }
             }
-            _EndpointTypes = null!;
-            _MappedRoutes = null!;
         }
 
         private static MethodInfo GetHandlerInfo(Type endpointType)
@@ -56,26 +57,26 @@ namespace Reprise
         private (string[] Methods, string Route) GetMethodsAndRoute(MethodInfo handlerInfo)
         {
             var mapAttribute = GetMapAttribute(handlerInfo);
-            if (mapAttribute._Route.IsEmpty())
+            if (mapAttribute.Route.IsEmpty())
             {
                 throw new InvalidOperationException($"{handlerInfo.GetFullName()} has an empty route.");
             }
-            if (mapAttribute._Methods.Any(m => m.IsEmpty()))
+            if (mapAttribute.Methods.Any(m => m.IsEmpty()))
             {
                 throw new InvalidOperationException($"{handlerInfo.GetFullName()} has an empty HTTP method.");
             }
-            foreach (var method in mapAttribute._Methods)
+            foreach (var method in mapAttribute.Methods)
             {
-                var key = (method, mapAttribute._Route);
-                if (_MappedRoutes.TryGetValue(key, out var existingEndpointType))
+                var key = (method, mapAttribute.Route);
+                if (MappedRoutes.TryGetValue(key, out var existingEndpointType))
                 {
                     throw new InvalidOperationException(
-                        $"{method} {mapAttribute._Route} is handled by both {handlerInfo.DeclaringType} and {existingEndpointType}.");
+                        $"{method} {mapAttribute.Route} is handled by both {handlerInfo.DeclaringType} and {existingEndpointType}.");
                 }
-                _MappedRoutes[key] = handlerInfo.DeclaringType!;
+                MappedRoutes[key] = handlerInfo.DeclaringType!;
             }
 
-            return (mapAttribute._Methods, mapAttribute._Route);
+            return (mapAttribute.Methods, mapAttribute.Route);
         }
 
         private static MapAttribute GetMapAttribute(MethodInfo handlerInfo)

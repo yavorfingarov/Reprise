@@ -12,7 +12,7 @@
         {
             _Processor.Process(_Builder, typeof(StubEndpointWithAttribute));
 
-            return Verify(_Processor._EndpointMapper._EndpointTypes);
+            return Verify(_Processor.EndpointMapper.EndpointTypes);
         }
 
         [Fact]
@@ -20,7 +20,7 @@
         {
             _Processor.Process(_Builder, typeof(StubEndpointWithoutAttribute));
 
-            Assert.Empty(_Processor._EndpointMapper._EndpointTypes);
+            Assert.Empty(_Processor.EndpointMapper!.EndpointTypes!);
         }
 
         [Fact]
@@ -30,7 +30,7 @@
 
             var app = _Builder.Build();
             var endpointMapper = app.Services.GetRequiredService<EndpointMapper>();
-            Assert.Same(endpointMapper, _Processor._EndpointMapper);
+            Assert.Same(endpointMapper, _Processor.EndpointMapper);
         }
     }
 

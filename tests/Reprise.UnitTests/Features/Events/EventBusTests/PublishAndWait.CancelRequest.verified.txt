@@ -1,26 +1,50 @@
 ﻿{
   target: {
-    requestScopeIdentifier: {
+    RequestScopeIdentifier: {
       ScopeId: Guid_1
     },
-    Handlers: [
+    EventHandlers: [
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-1,
-        HandlerStatus: Done,
+        WorkerStatus: Cancelled,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-2,
-        HandlerStatus: Cancelled,
+        WorkerStatus: Cancelled,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-3,
-        HandlerStatus: Cancelled,
+        WorkerStatus: Done,
         IsDisposed: false
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Arguments: [
+          [
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            },
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            },
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            }
+          ]
+        ],
+        ReturnValue: {
+          Status: RanToCompletion
+        }
       }
     ]
   },

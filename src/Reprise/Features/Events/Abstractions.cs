@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Reprise
+﻿namespace Reprise
 {
     /// <summary>
     /// Marker interface to represent an event.

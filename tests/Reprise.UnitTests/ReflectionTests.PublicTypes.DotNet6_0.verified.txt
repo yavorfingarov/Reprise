@@ -1,0 +1,37 @@
+﻿{
+  Interface: [
+    Reprise.IEvent,
+    Reprise.IEventHandler`1,
+    Reprise.IEventBus,
+    Reprise.IExceptionLogger,
+    Reprise.IErrorResponseFactory,
+    Reprise.IJob,
+    Reprise.IServiceConfigurator
+  ],
+  Sealed: [
+    Reprise.EndpointOptions,
+    Reprise.ConfigurationAttribute,
+    Reprise.EndpointAttribute,
+    Reprise.GetAttribute,
+    Reprise.PostAttribute,
+    Reprise.PutAttribute,
+    Reprise.PatchAttribute,
+    Reprise.DeleteAttribute,
+    Reprise.ErrorContext`1,
+    Reprise.RunBeforeStartAttribute,
+    Reprise.RunOnStartAttribute,
+    Reprise.ExcludeFromDescriptionAttribute,
+    Reprise.NameAttribute,
+    Reprise.TagsAttribute
+  ],
+  Open: [
+    Reprise.MapAttribute,
+    Reprise.CronAttribute,
+    Reprise.ProducesAttribute
+  ],
+  Static: [
+    Reprise.ApplicationBuilderExtensions,
+    Reprise.EndpointRouteBuilderExtensions,
+    Reprise.WebApplicationBuilderExtensions
+  ]
+}

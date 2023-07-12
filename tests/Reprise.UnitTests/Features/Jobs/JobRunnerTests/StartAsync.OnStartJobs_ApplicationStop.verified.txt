@@ -1,0 +1,91 @@
+﻿{
+  target: {
+    Jobs: [
+      {
+        ServiceScopeId: Guid_1,
+        WorkerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_2,
+        WorkerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_3,
+        WorkerStatus: Done,
+        IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Arguments: [
+          []
+        ],
+        ReturnValue: {
+          Status: RanToCompletion
+        }
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: ShortMockJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: MediumMockJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: LongMockJob,
+            RunBeforeStart: false,
+            RunOnStart: true,
+            Timer: {}
+          },
+          00:00:00,
+          -00:00:00.0010000
+        ],
+        ReturnValue: {}
+      }
+    ],
+    MockDateTimeProvider: []
+  },
+  logs: []
+}

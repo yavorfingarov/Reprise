@@ -1,0 +1,28 @@
+﻿[
+  {
+    Endpoints: [
+      {
+        RoutePattern: {
+          RawText: /
+        },
+        DisplayName: HTTP: GET /,
+        Metadata: [
+          ExcludeFromDescriptionProcessorTests.<>c.<.ctor>b__3_0(),
+          {
+            TypeId: NullableContextAttribute
+          },
+          {
+            AcceptCorsPreflight: false,
+            HttpMethods: [
+              GET
+            ]
+          }
+        ],
+        RequestDelegate: {
+          Type: RequestDelegate,
+          Method: System.Threading.Tasks.Task Create(Microsoft.AspNetCore.Http.HttpContext)
+        }
+      }
+    ]
+  }
+]

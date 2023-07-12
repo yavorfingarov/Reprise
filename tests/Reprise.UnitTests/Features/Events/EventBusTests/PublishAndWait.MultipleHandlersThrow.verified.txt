@@ -1,32 +1,76 @@
 ﻿{
   target: {
-    requestScopeIdentifier: {
+    RequestScopeIdentifier: {
       ScopeId: Guid_1
     },
-    Handlers: [
+    EventHandlers: [
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-1,
-        HandlerStatus: Faulted,
+        WorkerStatus: Faulted,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockAsyncEventHandler-2,
-        HandlerStatus: Done,
+        WorkerStatus: Faulted,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockSyncEventHandler-3,
-        HandlerStatus: Done,
+        WorkerStatus: Done,
         IsDisposed: false
       },
       {
         ServiceScopeId: Guid_1,
-        HandlerId: MockSyncEventHandler-4,
-        HandlerStatus: Faulted,
+        WorkerStatus: Done,
         IsDisposed: false
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Arguments: [
+          [
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            },
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            },
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            },
+            {
+              Type: Func<Task>,
+              Target: EventBus.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task PublishAndWait()
+            }
+          ]
+        ],
+        ReturnValue: {
+          Status: Faulted,
+          Exception: {
+            Type: AggregateException,
+            InnerException: {
+              Type: AggregateException,
+              InnerExceptions: [
+                {
+                  Type: Exception,
+                  Message: Test message
+                },
+                {
+                  Type: Exception,
+                  Message: Test message
+                }
+              ]
+            }
+          }
+        }
       }
     ],
     exception: {
@@ -34,11 +78,11 @@
       InnerExceptions: [
         {
           Type: Exception,
-          Message: [MockAsyncEventHandler-1] Test message
+          Message: Test message
         },
         {
           Type: Exception,
-          Message: [MockSyncEventHandler-4] Test message
+          Message: Test message
         }
       ]
     }

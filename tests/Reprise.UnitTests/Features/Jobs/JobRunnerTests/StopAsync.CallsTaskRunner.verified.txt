@@ -1,0 +1,13 @@
+﻿{
+  target: {
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.StopTimers(),
+        ReturnValue: {
+          Status: RanToCompletion
+        }
+      }
+    ]
+  },
+  logs: []
+}

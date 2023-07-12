@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace Reprise
+﻿namespace Reprise
 {
     internal sealed class EventBus : IEventBus
     {
@@ -12,13 +10,20 @@ namespace Reprise
 
         private readonly IHostApplicationLifetime _HostApplicationLifetime;
 
-        public EventBus(ILogger<EventBus> logger, IServiceScopeFactory serviceScopeFactory,
-            IServiceProvider serviceProvider, IHostApplicationLifetime hostApplicationLifetime)
+        private readonly TaskRunner _TaskRunner;
+
+        public EventBus(
+            ILogger<EventBus> logger,
+            IServiceScopeFactory serviceScopeFactory,
+            IServiceProvider serviceProvider,
+            IHostApplicationLifetime hostApplicationLifetime,
+            TaskRunner taskRunner)
         {
             _Logger = logger;
             _ServiceScopeFactory = serviceScopeFactory;
             _ServiceProvider = serviceProvider;
             _HostApplicationLifetime = hostApplicationLifetime;
+            _TaskRunner = taskRunner;
         }
 
         public void Publish(IEvent payload)
@@ -27,84 +32,50 @@ namespace Reprise
             var handlerType = typeof(IEventHandler<>).MakeGenericType(payload.GetType());
             var scope = _ServiceScopeFactory.CreateScope();
             var tasks = scope.ServiceProvider.GetServices(handlerType)
-                .Select(handler => InvokeSafe(handler!, payload));
-            Task.WhenAll(tasks)
+                .Select(handler => (Func<Task>)(() => InvokeSafe(handler!, payload)));
+            _TaskRunner.WhenAll(tasks)
                 .ContinueWith(_ => scope.Dispose());
         }
 
-        public Task PublishAndWait(IEvent payload, CancellationToken cancellationToken = default)
+        public async Task PublishAndWait(IEvent payload, CancellationToken cancellationToken = default)
         {
             ArgumentNullException.ThrowIfNull(payload);
             var handlerType = typeof(IEventHandler<>).MakeGenericType(payload.GetType());
             var tasks = _ServiceProvider.GetServices(handlerType)
-                .Select(handler => Invoke(handler!, payload, cancellationToken));
-            var waitAllTask = Task.Run(() =>
-            {
-                try
-                {
-                    Task.WaitAll(tasks.ToArray(), CancellationToken.None);
-                }
-                catch (AggregateException ex)
-                {
-                    throw Flatten(ex);
-                }
-            }, cancellationToken);
-
-            return waitAllTask;
+                .Select(handler => (Func<Task>)(() => Invoke(handler!, payload, cancellationToken)));
+            await _TaskRunner.WhenAll(tasks);
         }
 
-        private Task InvokeSafe(object handler, IEvent payload)
+        private async Task InvokeSafe(object handler, IEvent payload)
         {
-            return Task.Run(() =>
+            var handlerType = handler.GetType();
+            try
             {
-                var handlerType = handler.GetType();
-                try
-                {
-                    var method = handlerType.GetMethod("Handle", new[] { payload.GetType(), typeof(CancellationToken) })!;
-                    var task = (Task)method.Invoke(handler, new object[] { payload, _HostApplicationLifetime.ApplicationStopping })!;
-                    task.Wait();
-                }
-                catch (Exception ex)
-                {
-                    if (ex is TargetInvocationException or AggregateException)
-                    {
-                        _Logger.LogEventHandlerException(ex.InnerException!, handlerType.FullName);
-                    }
-                    else
-                    {
-                        _Logger.LogEventHandlerException(ex, handlerType.FullName);
-                    }
-                }
-            });
-        }
-
-        private static Task Invoke(object handler, IEvent payload, CancellationToken cancellationToken)
-        {
-            return Task.Run(() =>
-            {
-                var handlerType = handler.GetType();
                 var method = handlerType.GetMethod("Handle", new[] { payload.GetType(), typeof(CancellationToken) })!;
-                var task = (Task)method.Invoke(handler, new object[] { payload, cancellationToken })!;
-                task.Wait();
-            }, CancellationToken.None);
+                await (Task)method.Invoke(handler, new object[] { payload, _HostApplicationLifetime.ApplicationStopping })!;
+            }
+            catch (TargetInvocationException targetInvocationEx)
+            {
+                _Logger.LogEventHandlerException(targetInvocationEx.InnerException!, handlerType.FullName);
+            }
+            catch (Exception ex)
+            {
+                _Logger.LogEventHandlerException(ex, handlerType.FullName);
+            }
         }
 
-        private static AggregateException Flatten(AggregateException aggregateException)
+        private static async Task Invoke(object handler, IEvent payload, CancellationToken cancellationToken)
         {
-            var exceptions = new List<Exception>();
-            foreach (var innerException in aggregateException.InnerExceptions)
+            var handlerType = handler.GetType();
+            var method = handlerType.GetMethod("Handle", new[] { payload.GetType(), typeof(CancellationToken) })!;
+            try
             {
-                if (innerException is TargetInvocationException or AggregateException)
-                {
-                    exceptions.Add(innerException.InnerException!);
-                }
-                else
-                {
-                    exceptions.Add(innerException);
-                }
+                await (Task)method.Invoke(handler, new object[] { payload, cancellationToken })!;
             }
-
-            return new AggregateException(exceptions);
+            catch (TargetInvocationException targetInvocationEx)
+            {
+                throw targetInvocationEx.InnerException!;
+            }
         }
     }
 }

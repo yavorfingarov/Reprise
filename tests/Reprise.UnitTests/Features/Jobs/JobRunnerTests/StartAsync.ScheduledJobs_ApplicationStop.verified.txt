@@ -1,0 +1,107 @@
+﻿{
+  target: {
+    Jobs: [
+      {
+        ServiceScopeId: Guid_1,
+        WorkerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_2,
+        WorkerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_3,
+        WorkerStatus: Done,
+        IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Arguments: [
+          []
+        ]
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: ShortMockJob,
+            RunBeforeStart: false,
+            RunOnStart: false,
+            Schedule: {},
+            Timer: {}
+          },
+          00:00:00.2000000,
+          -00:00:00.0010000
+        ]
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: MediumMockJob,
+            RunBeforeStart: false,
+            RunOnStart: false,
+            Schedule: {},
+            Timer: {}
+          },
+          00:00:00.2000000,
+          -00:00:00.0010000
+        ]
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: LongMockJob,
+            RunBeforeStart: false,
+            RunOnStart: false,
+            Schedule: {},
+            Timer: {}
+          },
+          00:00:00.2000000,
+          -00:00:00.0010000
+        ]
+      }
+    ],
+    MockDateTimeProvider: [
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      }
+    ]
+  },
+  logs: []
+}

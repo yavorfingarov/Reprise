@@ -2,7 +2,7 @@
 {
     internal static class ExtensionMethods
     {
-        internal static object CreateInstance(this Type type)
+        public static object CreateInstance(this Type type)
         {
             object? instance;
             try
@@ -22,7 +22,7 @@
             return instance;
         }
 
-        internal static T GetRequiredServiceSafe<T>(this IServiceProvider services) where T : notnull
+        public static T GetRequiredServiceSafe<T>(this IServiceProvider services) where T : notnull
         {
             try
             {
@@ -35,12 +35,12 @@
             }
         }
 
-        internal static string GetFullName(this MethodInfo methodInfo)
+        public static string GetFullName(this MethodInfo methodInfo)
         {
             return $"{methodInfo.DeclaringType}.{methodInfo.Name}";
         }
 
-        internal static bool IsEmpty(this string input)
+        public static bool IsEmpty(this string input)
         {
             return string.IsNullOrWhiteSpace(input);
         }

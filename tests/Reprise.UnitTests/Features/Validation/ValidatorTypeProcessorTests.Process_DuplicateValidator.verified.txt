@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Validation.StubValidatedType is validated by both Reprise.UnitTests.Features.Validation.StubDuplicateValidator and Reprise.UnitTests.Features.Validation.StubValidator.
+}

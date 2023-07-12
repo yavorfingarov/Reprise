@@ -1,0 +1,99 @@
+﻿{
+  target: {
+    Jobs: [
+      {
+        ServiceScopeId: Guid_1,
+        WorkerStatus: Done,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_2,
+        WorkerStatus: Done,
+        IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Arguments: [
+          []
+        ]
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: ShortMockJob,
+            RunBeforeStart: false,
+            RunOnStart: false,
+            Schedule: {},
+            Timer: {}
+          },
+          00:00:00.2000000,
+          -00:00:00.0010000
+        ]
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: ShortMockJob,
+            RunBeforeStart: false,
+            RunOnStart: false,
+            Schedule: {},
+            Timer: {}
+          },
+          00:30:00.2000000,
+          -00:00:00.0010000
+        ]
+      },
+      {
+        Method: TaskRunner.CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period),
+        Arguments: [
+          {
+            Type: TimerCallback,
+            Target: JobRunner,
+            Method: Void RunScheduledJob(System.Object)
+          },
+          {
+            JobType: ShortMockJob,
+            RunBeforeStart: false,
+            RunOnStart: false,
+            Schedule: {},
+            Timer: {}
+          },
+          00:00:00.2000000,
+          -00:00:00.0010000
+        ]
+      }
+    ],
+    MockDateTimeProvider: [
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      },
+      {
+        Method: DateTimeProvider.get_UtcNow()
+      }
+    ]
+  },
+  logs: []
+}

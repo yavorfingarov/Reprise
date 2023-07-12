@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Jobs.StubJobEmptyCron has an empty cron expression.
+}

@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Sub-section key 'TestConfiguration' is bound to both Reprise.UnitTests.Features.Configurations.StubConfigurationDuplicate and Reprise.UnitTests.Features.Configurations.StubConfiguration.
+}

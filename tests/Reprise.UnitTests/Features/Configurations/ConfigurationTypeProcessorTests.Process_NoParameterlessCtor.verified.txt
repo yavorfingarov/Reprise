@@ -1,0 +1,9 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Configurations.StubConfigurationNoParameterlessCtor could not be instantiated. Check the inner exception for more details.,
+  InnerException: {
+    $type: MissingMethodException,
+    Type: MissingMethodException,
+    Message: Cannot dynamically create an instance of type 'Reprise.UnitTests.Features.Configurations.StubConfigurationNoParameterlessCtor'. Reason: No parameterless constructor defined.
+  }
+}

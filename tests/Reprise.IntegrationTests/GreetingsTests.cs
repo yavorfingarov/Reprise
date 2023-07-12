@@ -26,7 +26,7 @@ namespace Reprise.IntegrationTests
             Assert.True(_Stopwatch.ElapsedMilliseconds < 500);
             await Task.Delay(1_500);
 
-            await Verify(new { response, EventBus.Log })
+            await Verify(new { response, GreetingsEventBus.Log })
                 .ScrubMember("trace-id")
                 .UniqueForRuntimeAndVersion();
         }
@@ -40,7 +40,7 @@ namespace Reprise.IntegrationTests
 
             Assert.InRange(_Stopwatch.ElapsedMilliseconds, 950, 1_500);
 
-            await Verify(new { response, EventBus.Log })
+            await Verify(new { response, GreetingsEventBus.Log })
                 .ScrubMember("trace-id")
                 .UniqueForRuntimeAndVersion();
         }
@@ -62,14 +62,14 @@ namespace Reprise.IntegrationTests
 
             Assert.InRange(_Stopwatch.ElapsedMilliseconds, 700, 950);
 
-            await Verify(new { response, EventBus.Log })
+            await Verify(new { response, GreetingsEventBus.Log })
                 .ScrubMember("trace-id")
                 .UniqueForRuntimeAndVersion();
         }
 
         public void Dispose()
         {
-            EventBus.ClearLog();
+            GreetingsEventBus.ClearLog();
         }
     }
 }

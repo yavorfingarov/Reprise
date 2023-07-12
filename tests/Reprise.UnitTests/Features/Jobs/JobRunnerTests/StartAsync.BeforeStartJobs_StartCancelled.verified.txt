@@ -1,0 +1,50 @@
+﻿{
+  target: {
+    Jobs: [
+      {
+        ServiceScopeId: Guid_1,
+        WorkerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_2,
+        WorkerStatus: Cancelled,
+        IsDisposed: true
+      },
+      {
+        ServiceScopeId: Guid_3,
+        WorkerStatus: Done,
+        IsDisposed: true
+      }
+    ],
+    MockTaskRunner: [
+      {
+        Method: TaskRunner.WhenAll(IEnumerable<Func<Task>> tasks),
+        Arguments: [
+          [
+            {
+              Type: Func<Task>,
+              Target: JobRunner.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task StartAsync()
+            },
+            {
+              Type: Func<Task>,
+              Target: JobRunner.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task StartAsync()
+            },
+            {
+              Type: Func<Task>,
+              Target: JobRunner.<>c__DisplayClass7_1,
+              Method: System.Threading.Tasks.Task StartAsync()
+            }
+          ]
+        ],
+        ReturnValue: {
+          Status: RanToCompletion
+        }
+      }
+    ],
+    MockDateTimeProvider: []
+  },
+  logs: []
+}

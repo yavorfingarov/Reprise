@@ -1,0 +1,10 @@
+﻿{
+  EndpointOptions: {},
+  Processors: [
+    Reprise.AuthorizationProcessor,
+    Reprise.ExcludeFromDescriptionProcessor,
+    Reprise.NameProcessor,
+    Reprise.ProducesProcessor,
+    Reprise.TagsProcessor
+  ]
+}

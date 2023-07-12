@@ -12,7 +12,7 @@
 
 Reprise is a micro-framework that brings the REPR (Request-Endpoint-Response)
 pattern and vertical slice architecture into the ASP.NET Core 6/7 Minimal APIs.
-It aims to be unopioniated towards API behavior and to provide a thin layer
+It aims to be unopinionated towards API behavior and to provide a thin layer
 of abstractions that encourages the creation of convention-based and modular implementations.
 
 ## Getting started
@@ -57,7 +57,7 @@ with one of the HTTP method and route attributes. These are:
 * `PutAttribute`
 * `PatchAttribute`
 * `DeleteAttribute`
-* `MapAttribute` - for other/multiple HTTP methods
+* `MapAttribute` - for other/multiple HTTP methods. You can derive your own attributes from this one.
 
 The `Handle` method can be synchronous as well as asynchronous and can have
 any signature and any return type.
@@ -289,7 +289,7 @@ that is not "api" (case insensitive) or a parameter is capitalized and set as a 
 * `NameAttribute` assigns a name that is used for link generation and is also treated as the operation ID
 in the OpenAPI description.
 
-* `ProducesAttribute` describes a response returned from an API endpoint.
+* `ProducesAttribute` describes a response returned from an API endpoint. You can derive your own attributes from this one.
 **NB:** Make sure you are using the Reprise' attribute and not the one from `Microsoft.AspNetCore.Mvc`.
 
 * `ExcludeFromDescriptionAttribute` marks an endpoint that is excluded from the OpenAPI description.
@@ -334,6 +334,44 @@ as a cancellation token. If a handler throws, the exception is logged.
 the current `IServiceScope`. If one or more handlers throw, all exceptions are packed into
 an `AggregateException`.
 
+## Jobs
+
+Jobs are an easy way to do work in the background. They implement `IJob` and are added
+to the DI container with a scoped lifetime.
+
+```csharp
+[Cron("* * * * *")]
+public class HeartbeatJob : IJob
+{
+    private readonly ILogger<HeartbeatJob> _Logger;
+
+    public HeartbeatJob(ILogger<HeartbeatJob> logger)
+    {
+        _Logger = logger;
+    }
+
+    public Task Run(CancellationToken cancellationToken)
+    {
+        _Logger.LogInformation("HeartbeatJob invoked.");
+
+        return Task.CompletedTask;
+    }
+}
+```
+
+A job can have one or more triggers. They are set via attributes:
+
+* `RunBeforeStartAttribute` marks a job to be run before the app's request processing pipeline is
+configured and `IApplicationLifetime.ApplicationStarted` is triggered. All such jobs run in parallel.
+
+* `RunOnStartAttribute` marks a job that runs after the server is started.
+
+* `CronAttribute` marks a job that runs on a schedule defined via a cron expression. You can derive your own
+attributes from this one. Check [the documentation](https://github.com/atifaziz/NCrontab/wiki/Crontab-Expression)
+for more details on the cron expression syntax.
+
+Regardless of its triggers, every job runs in its own scope.
+
 ## Self-checks
 
 Reprise tries to make sure the API will behave exactly the way you would expect. For this reason,
@@ -351,21 +389,21 @@ and discovering endpoints, Reprise doesn't add any performance overhead when han
 
 ### Startup
 
-|        Method |     Mean |     Error |    StdDev |   Median |    Gen0 |    Gen1 | Allocated |
-|-------------- |---------:|----------:|----------:|---------:|--------:|--------:|----------:|
-|       Reprise | 5.249 ms | 0.4375 ms | 1.2901 ms | 4.896 ms | 31.2500 | 31.2500 | 302.22 KB |
-|        Carter | 4.193 ms | 0.2483 ms | 0.7321 ms | 4.032 ms | 31.2500 | 31.2500 | 268.96 KB |
-| FastEndpoints | 4.901 ms | 0.3249 ms | 0.9580 ms | 4.797 ms | 31.2500 | 31.2500 | 319.60 KB |
-|   MinimalApis | 4.111 ms | 0.2300 ms | 0.6781 ms | 3.998 ms | 31.2500 | 31.2500 | 272.38 KB |
+|        Method |      Mean |     Error |    StdDev |     Gen0 |     Gen1 |  Allocated |
+|-------------- |----------:|----------:|----------:|---------:|---------:|-----------:|
+|       Reprise |  4.512 ms | 0.3544 ms | 1.0448 ms |  31.2500 |  31.2500 |  273.24 KB |
+|        Carter |  4.316 ms | 0.2473 ms | 0.7290 ms |  31.2500 |  31.2500 |  262.39 KB |
+| FastEndpoints | 17.529 ms | 2.1252 ms | 6.2661 ms | 437.5000 | 437.5000 | 1752.11 KB |
+|   MinimalApis |  4.304 ms | 0.4624 ms | 1.3633 ms |  31.2500 |  31.2500 |  282.15 KB |
 
 ### Request
 
 |        Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |-------------- |---------:|--------:|--------:|-------:|----------:|
-|       Reprise | 112.1 μs | 0.60 μs | 0.53 μs | 5.6152 |  17.13 KB |
-|        Carter | 115.2 μs | 1.28 μs | 1.20 μs | 5.3711 |  16.63 KB |
-| FastEndpoints | 123.5 μs | 2.41 μs | 2.68 μs | 5.8594 |  17.91 KB |
-|   MinimalApis | 114.9 μs | 0.85 μs | 0.80 μs | 5.3711 |  16.67 KB |
+|       Reprise | 124.8 μs | 2.42 μs | 6.38 μs | 5.3711 |  17.01 KB |
+|        Carter | 122.3 μs | 0.73 μs | 0.65 μs | 5.3711 |  16.51 KB |
+| FastEndpoints | 133.2 μs | 2.56 μs | 2.63 μs | 5.8594 |  17.84 KB |
+|   MinimalApis | 121.0 μs | 0.55 μs | 0.46 μs | 5.3711 |  16.54 KB |
 
 ## Additional resources
 
