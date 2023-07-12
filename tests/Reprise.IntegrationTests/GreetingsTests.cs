@@ -67,8 +67,9 @@ namespace Reprise.IntegrationTests
                 .UniqueForRuntimeAndVersion();
         }
 
-        public void Dispose()
+        public new void Dispose()
         {
+            base.Dispose();
             GreetingsEventBus.ClearLog();
         }
     }
