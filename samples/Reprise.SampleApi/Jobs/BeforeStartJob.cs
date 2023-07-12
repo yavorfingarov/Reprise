@@ -1,16 +1,15 @@
 ﻿namespace Reprise.SampleApi.Jobs
 {
     [RunBeforeStart]
-    [RunOnStart]
-    public class HeartbeatJob : IJob
+    public class BeforeStartJob : IJob
     {
         public static int Invocations => _Invocations;
 
         private static int _Invocations;
 
-        private readonly ILogger<HeartbeatJob> _Logger;
+        private readonly ILogger<BeforeStartJob> _Logger;
 
-        public HeartbeatJob(ILogger<HeartbeatJob> logger)
+        public BeforeStartJob(ILogger<BeforeStartJob> logger)
         {
             _Logger = logger;
         }
@@ -18,7 +17,7 @@
         public Task Run(CancellationToken cancellationToken)
         {
             Interlocked.Increment(ref _Invocations);
-            _Logger.LogInformation("HeartbeatJob invoked.");
+            _Logger.LogInformation("BeforeStartJob invoked.");
 
             return Task.CompletedTask;
         }

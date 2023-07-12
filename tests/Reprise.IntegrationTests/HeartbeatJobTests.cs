@@ -7,7 +7,7 @@ namespace Reprise.IntegrationTests
         [Fact]
         public void Invocations()
         {
-            Assert.True(HeartbeatJob.Invocations > 0);
+            Assert.True(BeforeStartJob.Invocations > 0);
         }
     }
 }
