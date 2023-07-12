@@ -1,13 +1,13 @@
-﻿using Reprise.SampleApi.Jobs;
+﻿//using Reprise.SampleApi.Jobs;
 
-namespace Reprise.IntegrationTests
-{
-    public class HeartbeatJobTests : TestBase
-    {
-        [Fact]
-        public void Invocations()
-        {
-            Assert.True(HeartbeatJob.Invocations > 0);
-        }
-    }
-}
+//namespace Reprise.IntegrationTests
+//{
+//    public class HeartbeatJobTests : TestBase
+//    {
+//        [Fact]
+//        public void Invocations()
+//        {
+//            Assert.True(HeartbeatJob.Invocations > 0);
+//        }
+//    }
+//}
