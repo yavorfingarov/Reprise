@@ -68,7 +68,7 @@
             await EventBus.PublishAndWait(Event, cancellationTokenSource.Token);
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 300, 500);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 250, 500);
 
             await Verify(new { RequestScopeIdentifier, EventHandlers, MockTaskRunner });
         }

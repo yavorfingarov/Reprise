@@ -16,7 +16,7 @@ namespace Reprise.UnitTests
         [Fact]
         public Task NonPublicTypes()
         {
-            return Verify(GetDescription(typeof(EndpointAttribute).Assembly, t => !t.IsPublic && !t.IsDefined(typeof(CompilerGeneratedAttribute), false)))
+            return Verify(GetDescription(typeof(EndpointAttribute).Assembly, t => !t.IsPublic && !t.IsDefined(typeof(CompilerGeneratedAttribute))))
                 .UniqueForRuntimeAndVersion();
         }
 
