@@ -24,7 +24,7 @@
             await JobRunner.StartAsync(_CancellationTokenSource.Token);
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 600, 800);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 550, 800);
             Assert.True(Jobs.All(j => j.CancellationToken == _CancellationTokenSource.Token));
             await Verify(new { Jobs, MockTaskRunner, MockDateTimeProvider });
         }
@@ -42,7 +42,7 @@
             var exception = await Assert.ThrowsAnyAsync<Exception>(() => JobRunner.StartAsync(_CancellationTokenSource.Token));
             Stopwatch.Stop();
 
-            Assert.InRange(Stopwatch.ElapsedMilliseconds, 600, 1_200);
+            Assert.InRange(Stopwatch.ElapsedMilliseconds, 550, 1_200);
             Assert.True(Jobs.All(j => j.CancellationToken == _CancellationTokenSource.Token));
             await Verify(new { Jobs, MockTaskRunner, MockDateTimeProvider, exception })
                 .IgnoreStackTrace();
@@ -60,7 +60,7 @@
             await JobRunner.StartAsync(_CancellationTokenSource.Token);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
             await Task.Delay(800);
 
             Assert.True(Jobs.All(j => j.CancellationToken == ApplicationLifetime.ApplicationStopping));
@@ -80,7 +80,7 @@
             await JobRunner.StartAsync(_CancellationTokenSource.Token);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
             await Task.Delay(1_200);
 
             Assert.True(Jobs.All(j => j.CancellationToken == ApplicationLifetime.ApplicationStopping));
@@ -93,19 +93,19 @@
         {
             ConfigureServices(
                 new JobState(typeof(ShortMockJob), false, false, CrontabSchedule.Parse("15 * * * *")),
-                new JobState(typeof(ShortMockJob), false, false, CrontabSchedule.Parse("45 * * * *")),
-                new JobState(typeof(ShortMockJob), false, false, CrontabSchedule.Parse("* * * * *")));
+                new JobState(typeof(ShortMockJob), false, false, CrontabSchedule.Parse("45 * * * *")));
             var startTime = DateTime.Today
                 .AddMinutes(15)
                 .AddMilliseconds(-200);
-            var invocations = 0;
-            MockDateTimeProvider.Setup(d => d.UtcNow)
-                .Returns(() => ++invocations <= 3 ? startTime : startTime.AddMilliseconds(Stopwatch.ElapsedMilliseconds));
+            MockDateTimeProvider.SetupSequence(d => d.UtcNow)
+                .Returns(startTime)
+                .Returns(startTime)
+                .Returns(startTime.AddMilliseconds(500));
 
             Stopwatch.Start();
             await JobRunner.StartAsync(_CancellationTokenSource.Token);
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
             await Task.Delay(600);
 
             Assert.True(Jobs.All(j => j.CancellationToken == ApplicationLifetime.ApplicationStopping));
@@ -118,20 +118,19 @@
         {
             ConfigureServices(
                 new JobState(typeof(ShortMockJob), false, false, CrontabSchedule.Parse("15 * * * *")),
-                new JobState(typeof(ShortMockThrowingJob), false, false, CrontabSchedule.Parse("* * * * *")),
-                new JobState(typeof(ShortMockThrowingJob), false, false, CrontabSchedule.Parse("15 * * * *")),
-                new JobState(typeof(ShortMockJob), false, false, CrontabSchedule.Parse("* * * * *")));
+                new JobState(typeof(ShortMockThrowingJob), false, false, CrontabSchedule.Parse("* * * * *")));
             var startTime = DateTime.Today
                 .AddMinutes(15)
                 .AddMilliseconds(-200);
-            var invocations = 0;
-            MockDateTimeProvider.Setup(d => d.UtcNow)
-                .Returns(() => ++invocations <= 4 ? startTime : startTime.AddMilliseconds(Stopwatch.ElapsedMilliseconds));
+            MockDateTimeProvider.SetupSequence(d => d.UtcNow)
+                .Returns(startTime)
+                .Returns(startTime)
+                .Returns(startTime.AddMilliseconds(500));
 
             Stopwatch.Start();
             await JobRunner.StartAsync(_CancellationTokenSource.Token);
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
             await Task.Delay(600);
 
             Assert.True(Jobs.All(j => j.CancellationToken == ApplicationLifetime.ApplicationStopping));

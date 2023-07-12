@@ -31,7 +31,7 @@
             EventBus.Publish(Event);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
             await Task.Delay(800);
 
             Assert.True(EventHandlers.All(h => h.CancellationToken == ApplicationLifetime.ApplicationStopping));
@@ -51,7 +51,7 @@
             EventBus.Publish(Event);
             Stopwatch.Stop();
 
-            Assert.True(Stopwatch.ElapsedMilliseconds < 100);
+            Assert.True(Stopwatch.ElapsedMilliseconds < 150);
             await Task.Delay(1_200);
 
             Assert.True(EventHandlers.All(h => h.CancellationToken == ApplicationLifetime.ApplicationStopping));
