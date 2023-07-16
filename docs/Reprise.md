@@ -32,4 +32,5 @@
 | [IEventHandler&lt;T&gt;](Reprise.IEventHandler_T_.md 'Reprise.IEventHandler<T>') | Specifies the contract to handle events. |
 | [IExceptionLogger](Reprise.IExceptionLogger.md 'Reprise.IExceptionLogger') | Specifies the contract for exception logging. |
 | [IJob](Reprise.IJob.md 'Reprise.IJob') | Specifies the contract for running jobs. |
+| [IMapper&lt;T1,T2&gt;](Reprise.IMapper_T1,T2_.md 'Reprise.IMapper<T1,T2>') | Specifies the contract to map objects. |
 | [IServiceConfigurator](Reprise.IServiceConfigurator.md 'Reprise.IServiceConfigurator') | Specifies the contract to configure services at application startup. |

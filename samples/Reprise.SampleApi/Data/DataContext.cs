@@ -10,7 +10,7 @@
 
     public class DataContext
     {
-        public List<User> Users { get; } = new List<User>();
+        public List<User> Users { get; } = new();
     }
 
     public class User

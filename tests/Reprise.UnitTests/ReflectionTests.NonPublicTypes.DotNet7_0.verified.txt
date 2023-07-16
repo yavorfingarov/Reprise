@@ -21,6 +21,7 @@
     Reprise.JobState,
     Reprise.JobStateRegistry,
     Reprise.JobTypeProcessor,
+    Reprise.MapperTypeProcessor,
     Reprise.ExcludeFromDescriptionProcessor,
     Reprise.NameProcessor,
     Reprise.ProducesProcessor,

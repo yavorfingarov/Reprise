@@ -1,0 +1,4 @@
+﻿{
+  Type: InvalidOperationException,
+  Message: Reprise.UnitTests.Features.Mappers.StubType1 and Reprise.UnitTests.Features.Mappers.StubType2 are mapped by both Reprise.UnitTests.Features.Mappers.StubTypeDuplicateMapper and Reprise.UnitTests.Features.Mappers.StubTypeMapper.
+}

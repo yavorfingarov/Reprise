@@ -17,6 +17,8 @@
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.OpenApi.Name.NameProcessorTests),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.OpenApi.ExcludeFromDescription.ExcludeFromDescriptionProcessorTests),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.OpenApi.ExcludeFromDescription.ExcludeFromDescriptionProcessorTests),
+  MockTypeProcessorA.Process(Reprise.UnitTests.Features.Mappers.MapperTypeProcessorTests),
+  MockTypeProcessorB.Process(Reprise.UnitTests.Features.Mappers.MapperTypeProcessorTests),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Jobs.DateTimeProviderTests),
   MockTypeProcessorB.Process(Reprise.UnitTests.Features.Jobs.DateTimeProviderTests),
   MockTypeProcessorA.Process(Reprise.UnitTests.Features.Jobs.JobStateRegistryTests),

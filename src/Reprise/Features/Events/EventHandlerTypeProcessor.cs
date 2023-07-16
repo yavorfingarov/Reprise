@@ -4,19 +4,9 @@
     {
         public override void Process(WebApplicationBuilder builder, Type type)
         {
-            var interfaceTypes = type.GetInterfaces();
-            foreach (var interfaceType in interfaceTypes)
+            if (type.TryGetGenericInterfaceType(typeof(IEventHandler<>), out var interfaceType))
             {
-                if (interfaceType.IsGenericType)
-                {
-                    var genericTypeDefinition = interfaceType.GetGenericTypeDefinition();
-                    if (genericTypeDefinition == typeof(IEventHandler<>))
-                    {
-                        builder.Services.AddScoped(interfaceType, type);
-
-                        break;
-                    }
-                }
+                builder.Services.AddScoped(interfaceType, type);
             }
         }
 

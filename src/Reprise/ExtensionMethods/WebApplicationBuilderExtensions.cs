@@ -18,23 +18,26 @@
         ///     implementations.
         ///     </item>
         ///     <item>
-        ///     Bind all configurations decorated with <see cref="ConfigurationAttribute"/> 
+        ///     Bind all configurations (types decorated with <see cref="ConfigurationAttribute"/>)
         ///     and add them with a <see cref="ServiceLifetime.Singleton"/>.
         ///     </item>
         ///     <item>
         ///     Add all <see cref="IValidator{T}"/> implementations with a <see cref="ServiceLifetime.Singleton"/>.
         ///     </item>
         ///     <item>
-        ///     Add a <see cref="IExceptionLogger"/> implementation or a default one if none is found.
+        ///     Add all <see cref="IMapper{T1, T2}"/> implementations with a <see cref="ServiceLifetime.Singleton"/>.
         ///     </item>
         ///     <item>
-        ///     Add a <see cref="IErrorResponseFactory"/> implementation or a default one if none is found.
+        ///     Add an <see cref="IExceptionLogger"/> implementation or the default one if none is found.
         ///     </item>
         ///     <item>
-        ///     Add all <see cref="IEventHandler{TEvent}"/> implementations with a <see cref="ServiceLifetime.Scoped"/>.
+        ///     Add an <see cref="IErrorResponseFactory"/> implementation or the default one if none is found.
         ///     </item>
         ///     <item>
         ///     Add the <see cref="IEventBus"/>.
+        ///     </item>
+        ///     <item>
+        ///     Add all <see cref="IEventHandler{TEvent}"/> implementations with a <see cref="ServiceLifetime.Scoped"/>.
         ///     </item>
         ///     <item>
         ///     Add all <see cref="IJob"/> implementations with a <see cref="ServiceLifetime.Scoped"/>.

@@ -41,7 +41,7 @@
             _Builder.Services.AddSingleton<EndpointMapper>(mockEndpointMapper);
             var app = _Builder.Build();
 
-            app.MapEndpoints(options => options.RequireAuthorization());
+            app.MapEndpoints(_ => { });
 
             return Verify(mockEndpointMapper)
                 .UniqueForRuntimeAndVersion();
@@ -59,8 +59,9 @@
         {
             var mockEndpointMapper = new MockEndpointMapper();
             _Builder.Services.AddSingleton<EndpointMapper>(mockEndpointMapper);
+            var app = _Builder.Build();
 
-            _Builder.Build().MapEndpoints(null!);
+            app.MapEndpoints(null!);
 
             return Verify(mockEndpointMapper)
                 .UniqueForRuntimeAndVersion();

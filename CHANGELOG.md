@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.7.0] - 2023-07-16
+### Added
+- Mappers
+### Fixed
+- FastEndpoints benchmarks
+
 ## [3.6.0] - 2023-07-12
 ### Added
 - Jobs

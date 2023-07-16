@@ -10,7 +10,11 @@ namespace Reprise.Benchmarks.Api.FastEndpoints
 
             builder.Logging.ClearProviders();
 
-            builder.Services.AddFastEndpoints();
+            builder.Services.AddFastEndpoints(options =>
+            {
+                options.DisableAutoDiscovery = true;
+                options.Assemblies = new[] { typeof(Program).Assembly };
+            });
 
             builder.Services.Configure<GreetingConfiguration>(
                 builder.Configuration.GetSection("Greeting"),

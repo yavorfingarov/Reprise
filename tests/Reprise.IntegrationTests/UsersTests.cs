@@ -12,7 +12,7 @@ namespace Reprise.IntegrationTests
         {
             Randomizer.Seed = new Random(47151);
             _Users = new Faker<UserDto>()
-                .CustomInstantiator(f => new UserDto(f.Name.FirstName(), f.Name.LastName()));
+                .CustomInstantiator(f => new UserDto(null, f.Name.FirstName(), f.Name.LastName()));
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace Reprise.IntegrationTests
             await GetToken();
             await CreateUsers();
 
-            await Verify(await Client.PostAsJsonAsync("/users", new UserDto("", null!)))
+            await Verify(await Client.PostAsJsonAsync("/users", new UserDto(null, "", null!)))
                 .ScrubMember("Authorization")
                 .ScrubMember("trace-id")
                 .UniqueForRuntimeAndVersion();
@@ -104,7 +104,7 @@ namespace Reprise.IntegrationTests
             await GetToken();
             await CreateUsers();
 
-            await Verify(await Client.PutAsJsonAsync("/users/7", new UserDto("", null!)))
+            await Verify(await Client.PutAsJsonAsync("/users/7", new UserDto(null, "", null!)))
                 .ScrubMember("Authorization")
                 .ScrubMember("trace-id")
                 .UniqueForRuntimeAndVersion();

@@ -13,6 +13,7 @@
 #if NET6_0
             IValidator<UserDto> validator,
 #endif
+            IMapper<User, UserDto> mapper,
             DataContext context)
         {
 #if NET6_0
@@ -23,8 +24,7 @@
             {
                 return Results.NotFound();
             }
-            user.FirstName = userDto.FirstName;
-            user.LastName = userDto.LastName;
+            mapper.Map(userDto, user);
 
             return Results.NoContent();
         }

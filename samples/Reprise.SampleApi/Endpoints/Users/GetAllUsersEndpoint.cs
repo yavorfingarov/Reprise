@@ -5,9 +5,9 @@
     {
         [Get("/users")]
         [Produces(StatusCodes.Status200OK, typeof(IEnumerable<User>))]
-        public static IEnumerable<User> Handle(DataContext context)
+        public static IEnumerable<UserDto> Handle(DataContext context, IMapper<User, UserDto> mapper)
         {
-            return context.Users;
+            return context.Users.Select(mapper.Map);
         }
     }
 }
