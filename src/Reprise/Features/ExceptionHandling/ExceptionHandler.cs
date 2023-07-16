@@ -13,8 +13,8 @@
         public ExceptionHandler(ILogger<ExceptionHandler> logger, IServiceProvider serviceProvider, RequestDelegate next)
         {
             _Logger = logger;
-            _ExceptionLogger = serviceProvider.GetRequiredServiceSafe<IExceptionLogger>();
-            _ErrorResponseFactory = serviceProvider.GetRequiredServiceSafe<IErrorResponseFactory>();
+            _ExceptionLogger = serviceProvider.GetInternalDependency<IExceptionLogger>();
+            _ErrorResponseFactory = serviceProvider.GetInternalDependency<IErrorResponseFactory>();
             _Next = next;
         }
 

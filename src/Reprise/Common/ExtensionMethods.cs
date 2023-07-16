@@ -1,4 +1,6 @@
-﻿namespace Reprise
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Reprise
 {
     internal static class ExtensionMethods
     {
@@ -22,7 +24,7 @@
             return instance;
         }
 
-        public static T GetRequiredServiceSafe<T>(this IServiceProvider services) where T : notnull
+        public static T GetInternalDependency<T>(this IServiceProvider services) where T : notnull
         {
             try
             {
@@ -43,6 +45,27 @@
         public static bool IsEmpty(this string input)
         {
             return string.IsNullOrWhiteSpace(input);
+        }
+
+        public static bool TryGetGenericInterfaceType(this Type type, Type unboundGenericType, [NotNullWhen(true)] out Type? interfaceType)
+        {
+            var implementedInterfaceTypes = type.GetInterfaces();
+            foreach (var implementedInterfaceType in implementedInterfaceTypes)
+            {
+                if (implementedInterfaceType.IsGenericType)
+                {
+                    var genericTypeDefinition = implementedInterfaceType.GetGenericTypeDefinition();
+                    if (genericTypeDefinition == unboundGenericType)
+                    {
+                        interfaceType = implementedInterfaceType;
+
+                        return true;
+                    }
+                }
+            }
+            interfaceType = null;
+
+            return false;
         }
     }
 }

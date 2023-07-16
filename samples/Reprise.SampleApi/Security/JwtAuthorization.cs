@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Reprise.SampleApi.Security
 {
-    public class JwtAuthorizationConfigurator : IServiceConfigurator
+    public class ServiceConfigurator : IServiceConfigurator
     {
         public void ConfigureServices(WebApplicationBuilder builder)
         {

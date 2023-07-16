@@ -6,31 +6,16 @@
 
         public override void Process(WebApplicationBuilder builder, Type type)
         {
-            var interfaceTypes = type.GetInterfaces();
-            foreach (var interfaceType in interfaceTypes)
+            if (type.TryGetGenericInterfaceType(typeof(IValidator<>), out var interfaceType))
             {
-                if (interfaceType.IsGenericType)
+                if (_Validators.TryGetValue(interfaceType.GenericTypeArguments[0], out var existingType))
                 {
-                    var genericTypeDefinition = interfaceType.GetGenericTypeDefinition();
-                    if (genericTypeDefinition == typeof(IValidator<>))
-                    {
-                        AddValidator(builder.Services, interfaceType, type);
-
-                        break;
-                    }
+                    throw new InvalidOperationException(
+                        $"{interfaceType.GenericTypeArguments[0]} is validated by both {type} and {existingType}.");
                 }
+                builder.Services.AddSingleton(interfaceType, type);
+                _Validators[interfaceType.GenericTypeArguments[0]] = type;
             }
-        }
-
-        private void AddValidator(IServiceCollection services, Type interfaceType, Type implementationType)
-        {
-            if (_Validators.TryGetValue(interfaceType, out var existingType))
-            {
-                throw new InvalidOperationException(
-                    $"{interfaceType.GetGenericArguments()[0]} is validated by both {implementationType} and {existingType}.");
-            }
-            services.AddSingleton(interfaceType, implementationType);
-            _Validators[interfaceType] = implementationType;
         }
     }
 }

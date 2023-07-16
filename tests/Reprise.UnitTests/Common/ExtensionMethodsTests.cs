@@ -24,21 +24,21 @@
         }
 
         [Fact]
-        public void GetRequiredServiceSafe()
+        public void GetInternalDependency()
         {
             var builder = WebApplication.CreateBuilder();
             builder.Services.AddSingleton<StubType>();
             var app = builder.Build();
 
-            Assert.IsType<StubType>(app.Services.GetRequiredServiceSafe<StubType>());
+            Assert.IsType<StubType>(app.Services.GetInternalDependency<StubType>());
         }
 
         [Fact]
-        public Task GetRequiredServiceSafe_MissingService()
+        public Task GetInternalDependency_MissingService()
         {
             var app = WebApplication.Create();
 
-            return Throws(() => app.Services.GetRequiredServiceSafe<StubType>())
+            return Throws(() => app.Services.GetInternalDependency<StubType>())
                 .IgnoreStackTrace();
         }
 
@@ -60,6 +60,20 @@
         {
             Assert.Equal(expected, input.IsEmpty());
         }
+
+        [Fact]
+        public void TryGetGenericInterfaceType()
+        {
+            Assert.True(typeof(StubImplementingType).TryGetGenericInterfaceType(typeof(IStubInterface<>), out var interfaceType));
+            Assert.Equal(typeof(IStubInterface<object>), interfaceType);
+        }
+
+        [Fact]
+        public void TryGetGenericInterfaceType_NoImplementation()
+        {
+            Assert.False(typeof(StubType).TryGetGenericInterfaceType(typeof(IStubInterface<>), out var interfaceType));
+            Assert.Null(interfaceType);
+        }
     }
 
     internal class StubType
@@ -71,5 +85,13 @@
         private StubTypeNoCtor()
         {
         }
+    }
+
+    internal interface IStubInterface<T>
+    {
+    }
+
+    internal class StubImplementingType : IStubInterface<object>
+    {
     }
 }

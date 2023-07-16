@@ -228,6 +228,35 @@ app.MapEndpoints(options => options.AddValidationFilter());
 The filter is registered using an endpoint filter factory, so it will be invoked only on endpoints
 having one or more parameters that are validatable.
 
+## Mappers
+
+Reprise offers an easy way to do object-to-object mapping. On application startup, all `IMapper<T1, T2>` implementations are
+added with a singleton lifetime. You can then inject the mapper in your `Handle` method.
+
+```csharp
+[Endpoint]
+public class CreateUserEndpoint
+{
+    [Post("/users")]
+    public static IResult Handle(UserDto userDto, IMapper<User, UserDto> mapper, DataContext context)
+    {
+        var user = mapper.Map(userDto);
+        // ...
+    }
+}
+
+public class UserMapper : IMapper<User, UserDto>
+{
+    public User Map(UserDto source) => new User(source.FirstName, source.LastName);
+
+    public UserDto Map(User source) => throw new NotImplementedException();
+
+    public void Map(UserDto source, User destination) => throw new NotImplementedException();
+
+    public void Map(User source, UserDto destination) => throw new NotImplementedException();
+}
+```
+
 ## Exception handling
 
 By default, the exception handler returns no body and:
@@ -389,21 +418,21 @@ and discovering endpoints, Reprise doesn't add any performance overhead when han
 
 ### Startup
 
-|        Method |      Mean |     Error |    StdDev |     Gen0 |     Gen1 |  Allocated |
-|-------------- |----------:|----------:|----------:|---------:|---------:|-----------:|
-|       Reprise |  4.512 ms | 0.3544 ms | 1.0448 ms |  31.2500 |  31.2500 |  273.24 KB |
-|        Carter |  4.316 ms | 0.2473 ms | 0.7290 ms |  31.2500 |  31.2500 |  262.39 KB |
-| FastEndpoints | 17.529 ms | 2.1252 ms | 6.2661 ms | 437.5000 | 437.5000 | 1752.11 KB |
-|   MinimalApis |  4.304 ms | 0.4624 ms | 1.3633 ms |  31.2500 |  31.2500 |  282.15 KB |
+|        Method |     Mean |     Error |    StdDev |    Gen0 |    Gen1 | Allocated |
+|-------------- |---------:|----------:|----------:|--------:|--------:|----------:|
+|       Reprise | 4.520 ms | 0.3130 ms | 0.9228 ms | 31.2500 | 31.2500 | 306.06 KB |
+|        Carter | 4.254 ms | 0.2409 ms | 0.7102 ms | 31.2500 | 31.2500 | 263.99 KB |
+| FastEndpoints | 5.517 ms | 0.4689 ms | 1.3825 ms | 31.2500 | 31.2500 | 359.46 KB |
+|   MinimalApis | 4.193 ms | 0.2336 ms | 0.6888 ms | 31.2500 | 31.2500 | 283.74 KB |
 
 ### Request
 
 |        Method |     Mean |   Error |  StdDev |   Gen0 | Allocated |
 |-------------- |---------:|--------:|--------:|-------:|----------:|
-|       Reprise | 124.8 μs | 2.42 μs | 6.38 μs | 5.3711 |  17.01 KB |
-|        Carter | 122.3 μs | 0.73 μs | 0.65 μs | 5.3711 |  16.51 KB |
-| FastEndpoints | 133.2 μs | 2.56 μs | 2.63 μs | 5.8594 |  17.84 KB |
-|   MinimalApis | 121.0 μs | 0.55 μs | 0.46 μs | 5.3711 |  16.54 KB |
+|       Reprise | 118.4 μs | 1.24 μs | 1.16 μs | 5.6152 |  17.01 KB |
+|        Carter | 119.4 μs | 0.66 μs | 0.55 μs | 5.3711 |  16.51 KB |
+| FastEndpoints | 126.3 μs | 2.19 μs | 2.05 μs | 5.8594 |  17.84 KB |
+|   MinimalApis | 121.1 μs | 0.93 μs | 0.77 μs | 5.3711 |  16.54 KB |
 
 ## Additional resources
 

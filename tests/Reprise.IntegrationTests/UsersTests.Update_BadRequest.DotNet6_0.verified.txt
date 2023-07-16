@@ -21,7 +21,7 @@
     },
     Content: {
       Headers: {
-        Content-Length: 32,
+        Content-Length: 42,
         Content-Type: application/json; charset=utf-8
       },
       Value: 

@@ -35,7 +35,7 @@ namespace Reprise
                 .Where(t => t.IsClass && t.IsAssignableTo(typeof(IRouteHandlerBuilderProcessor)))
                 .Select(t => (IRouteHandlerBuilderProcessor)Activator.CreateInstance(t)!)
                 .ToArray();
-            var endpointMapper = app.ServiceProvider.GetRequiredServiceSafe<EndpointMapper>();
+            var endpointMapper = app.ServiceProvider.GetInternalDependency<EndpointMapper>();
             endpointMapper.MapEndpoints(app, options, processors);
 
             return app;

@@ -49,8 +49,6 @@
         [Fact]
         public Task PostProcess()
         {
-            _Builder.Services.Clear();
-
             _Processor.PostProcess(_Builder);
 
             return Verify(_Builder)

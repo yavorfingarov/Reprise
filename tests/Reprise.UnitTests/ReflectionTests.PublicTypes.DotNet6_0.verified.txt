@@ -6,6 +6,7 @@
     Reprise.IExceptionLogger,
     Reprise.IErrorResponseFactory,
     Reprise.IJob,
+    Reprise.IMapper`2,
     Reprise.IServiceConfigurator
   ],
   Sealed: [

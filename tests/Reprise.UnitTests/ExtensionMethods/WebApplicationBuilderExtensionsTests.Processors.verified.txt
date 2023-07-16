@@ -5,6 +5,7 @@
   Reprise.ErrorResponseFactoryTypeProcessor,
   Reprise.ExceptionLoggerTypeProcessor,
   Reprise.JobTypeProcessor,
+  Reprise.MapperTypeProcessor,
   Reprise.ServiceConfiguratorTypeProcessor,
   Reprise.ValidatorTypeProcessor
 ]
