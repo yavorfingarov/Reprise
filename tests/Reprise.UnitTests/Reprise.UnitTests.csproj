@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
@@ -14,7 +14,7 @@
     <PackageReference Include="Verify.Http" Version="4.2.1" />
     <PackageReference Include="Verify.MicrosoftLogging" Version="3.3.0" />
     <PackageReference Include="Verify.Moq" Version="2.1.0" />
-    <PackageReference Include="Verify.Xunit" Version="20.5.1" />
+    <PackageReference Include="Verify.Xunit" Version="22.0.0" />
     <PackageReference Include="xunit" Version="2.5.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
